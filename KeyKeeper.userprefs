@@ -1,0 +1,15 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="KeyKeeper/Worker.cs">
+    <Files>
+      <File FileName="KeyKeeper/Worker.cs" Line="10" Column="28" />
+      <File FileName="KeyKeeper/MainWindow.cs" Line="21" Column="1" />
+      <File FileName="KeyKeeper/dbConnector.cs" Line="52" Column="4" />
+      <File FileName="KeyKeeper/dbHelper.cs" Line="20" Column="5" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
