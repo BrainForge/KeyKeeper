@@ -17,8 +17,7 @@ namespace KeyKeeper
 		public string user{get {return muser;} set{muser = value;}}
 		public string password{get {return mpassword;} set{mpassword = value;}}
 		
-		public Configuration ()
-		{}
+		public Configuration (){}
 		
 		public static void Serialize(string file, Configuration c)
       	{
