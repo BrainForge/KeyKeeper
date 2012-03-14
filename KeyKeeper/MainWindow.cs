@@ -111,4 +111,9 @@ public partial class MainWindow: Gtk.Window
 		else
 			return false;
 	}
+
+	protected void OnButton1Clicked (object sender, System.EventArgs e)
+	{
+
+	}
 }

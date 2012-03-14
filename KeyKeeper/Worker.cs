@@ -67,8 +67,7 @@ namespace KeyKeeper
 		
 		public List<Item> getItems()
 		{return null;}
-		
-		
+			
 		public uint id()
 		{
 			return mid;

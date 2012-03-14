@@ -32,7 +32,7 @@ public partial class MainWindow
 		this.notebook1 = new global::Gtk.Notebook ();
 		this.notebook1.CanFocus = true;
 		this.notebook1.Name = "notebook1";
-		this.notebook1.CurrentPage = 3;
+		this.notebook1.CurrentPage = 0;
 		// Container child notebook1.Gtk.Notebook+NotebookChild
 		this.vbox1 = new global::Gtk.VBox ();
 		this.vbox1.Name = "vbox1";
@@ -167,6 +167,7 @@ public partial class MainWindow
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
 		this.notebook1.SwitchPage += new global::Gtk.SwitchPageHandler (this.OnNotebook1SwitchPage);
 		this.filterEntry.Changed += new global::System.EventHandler (this.OnFilterEntryChanged);
+		this.button1.Clicked += new global::System.EventHandler (this.OnButton1Clicked);
 		this.entrySearch.Changed += new global::System.EventHandler (this.OnEntrySearchChanged);
 	}
 }

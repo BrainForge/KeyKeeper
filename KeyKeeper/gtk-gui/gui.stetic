@@ -17,7 +17,7 @@
       <widget class="Gtk.Notebook" id="notebook1">
         <property name="MemberName" />
         <property name="CanFocus">True</property>
-        <property name="CurrentPage">3</property>
+        <property name="CurrentPage">0</property>
         <signal name="SwitchPage" handler="OnNotebook1SwitchPage" after="yes" />
         <child>
           <widget class="Gtk.VBox" id="vbox1">
@@ -47,6 +47,7 @@
                     <property name="Type">TextOnly</property>
                     <property name="Label" translatable="yes">GtkButton</property>
                     <property name="UseUnderline">True</property>
+                    <signal name="Clicked" handler="OnButton1Clicked" />
                   </widget>
                   <packing>
                     <property name="Position">1</property>

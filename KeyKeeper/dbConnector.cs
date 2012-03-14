@@ -8,15 +8,25 @@ namespace KeyKeeper
 	{
 		private static dbConnector mdb;
 		private MySqlConnection dbcon;
-		
-		private string connectionString = "Server=guki.org;" + "Database=keykeeper;" 
-			+ "User ID=keykeeper;" + 
-			"Password=xf3z54dlc;"+ "charset=utf8;" + "Pooling=false";
+		private Configuration conf;
 		
 		private dbConnector ()
 		{
-      		dbcon = new MySqlConnection(connectionString);
-       		dbcon.Open();				
+			conf = Configuration.Deserialize("config.xml");
+			
+			string connectionString = string.Format("Server={0};" + "Database={1};" 
+			+ "User ID={2};" + 
+			"Password={3};"+ "charset=utf8;" + "Pooling=false",conf.server,conf.db,conf.user,conf.password);
+			
+			try
+			{
+      			dbcon = new MySqlConnection(connectionString);
+       			dbcon.Open();
+			}
+			catch
+			{
+				Utils.showMessageError("что-то пошло не так=(");
+			}
 		}
 		
 		public static dbConnector getdbAcces()
@@ -46,7 +56,7 @@ namespace KeyKeeper
 				MySqlCommand myCommand = new MySqlCommand(com);
 				myCommand.Connection = dbcon;
 				if(myCommand.ExecuteNonQuery()==0)
-					Utils.showMessageError("что-то пошло не так");
+					Utils.showMessageError("что-то пошло не так=(");
 				myCommand = null;
 			}
 		}

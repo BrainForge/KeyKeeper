@@ -84,6 +84,7 @@ namespace KeyKeeper
 			
 		}
 		
+		#region мусор
 		public static string getFIO(uint workerid)
 		{
 			string fio = null;
@@ -168,7 +169,7 @@ namespace KeyKeeper
 			
 			return code;
 		}
-			
+			#endregion
 	}
 }
 
