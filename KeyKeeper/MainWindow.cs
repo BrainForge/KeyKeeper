@@ -90,11 +90,10 @@ public partial class MainWindow: Gtk.Window
 	{
 		string workerFIO = model.GetValue (iter, 0).ToString ().ToLower();
  
-		if (filterEntry.Text == "" || entrySearch.Text == "")
+		if (filterEntry.Text == "")
 			return true;
  
-		if (workerFIO.IndexOf (filterEntry.Text.ToLower()) > -1 || 
-		    workerFIO.IndexOf (entrySearch.Text.ToLower()) > -1)
+		if (workerFIO.IndexOf (filterEntry.Text.ToLower()) > -1)
 			return true;
 		else
 			return false;
@@ -104,11 +103,10 @@ public partial class MainWindow: Gtk.Window
 	{
 		string workerFIO = model.GetValue (iter, 0).ToString ().ToLower();
  
-		if (filterEntry.Text == "" || entrySearch.Text == "")
+		if (entrySearch.Text == "")
 			return true;
  
-		if (workerFIO.IndexOf (filterEntry.Text.ToLower()) > -1 || 
-		    workerFIO.IndexOf (entrySearch.Text.ToLower()) > -1)
+		if (workerFIO.IndexOf (entrySearch.Text.ToLower()) > -1)
 			return true;
 		else
 			return false;
