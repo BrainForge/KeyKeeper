@@ -9,7 +9,7 @@ namespace KeyKeeper
 		private DateTime stamp = DateTime.Now;
 		private int type;
 		
-		public Action(Worker worker, int workerRegType)
+		public Action(Worker worker, uint workerRegType)
 		{}
 		
 		public Action()

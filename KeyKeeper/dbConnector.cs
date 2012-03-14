@@ -9,9 +9,9 @@ namespace KeyKeeper
 		private static dbConnector mdb;
 		private MySqlConnection dbcon;
 		
-		private string connectionString = "Server=localhost;" + "Database=keykeeper;" 
-			+ "User ID=root;" + 
-			"Password=Xf3z;"+ "charset=utf8;" + "Pooling=false";
+		private string connectionString = "Server=guki.org;" + "Database=keykeeper;" 
+			+ "User ID=keykeeper;" + 
+			"Password=xf3z54dlc;"+ "charset=utf8;" + "Pooling=false";
 		
 		private dbConnector ()
 		{

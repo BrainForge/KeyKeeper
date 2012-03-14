@@ -7,41 +7,61 @@ namespace KeyKeeper
 	public class Worker
 	{
 		private uint mid;
-		public string FIO = null;
-		public string shortFIO = null;
-		public string phone = null;
-		public uint code = 0;
+		private string FIO = null;
+		private string shortFIO = null;
+		private string phone = null;
+		private uint code = 0;
 		
-		public Worker (uint workerID)
+		public Worker(uint workerID)
 		{
-			mid = workerID;
+			mid = workerID;	
+		}
+		
+		public Worker(uint _id, string FIO, string shortFIO, string phone, uint code)
+		{
+			this.mid = _id;
+			this.FIO = FIO;
+			this.shortFIO = shortFIO;
+			this.phone = phone;
+			this.code = code;
+		}
+		
+		private void getWorker()
+		{
+			var tmpWorker = dbHelper.getWorkerData(mid);
+			
+			this.mid = tmpWorker.id();
+			this.FIO = tmpWorker.getFIO();
+			this.shortFIO = tmpWorker.getShortFIO();
+			this.phone = tmpWorker.getPhone();
+			this.code = tmpWorker.getCode();
 		}
 		
 		public string getFIO()
 		{
 			if(FIO == null)
-				FIO = dbHelper.getFIO(mid);
+				getWorker();
 			return FIO;
 		}
 		
 		public string getShortFIO()
 		{
 			if(shortFIO == null)
-				shortFIO = dbHelper.getShortFIO(mid);
+				getWorker();
 			return shortFIO;
 		}
 		
 		public string getPhone()
 		{
 			if(phone == null)
-				phone = dbHelper.getPhone(mid);
+				getWorker();
 			return phone;
 		}
 		
 		public uint getCode()
 		{
 			if(code == 0)
-				code = dbHelper.getCode(mid);
+				getWorker();
 			return code;
 		}
 		
