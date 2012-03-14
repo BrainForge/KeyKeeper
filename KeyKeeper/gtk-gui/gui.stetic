@@ -17,7 +17,7 @@
       <widget class="Gtk.Notebook" id="notebook1">
         <property name="MemberName" />
         <property name="CanFocus">True</property>
-        <property name="CurrentPage">0</property>
+        <property name="CurrentPage">3</property>
         <signal name="SwitchPage" handler="OnNotebook1SwitchPage" after="yes" />
         <child>
           <widget class="Gtk.VBox" id="vbox1">
@@ -124,11 +124,12 @@
                 <property name="MemberName" />
                 <property name="Spacing">6</property>
                 <child>
-                  <widget class="Gtk.Entry" id="entry2">
+                  <widget class="Gtk.Entry" id="entrySearch">
                     <property name="MemberName" />
                     <property name="CanFocus">True</property>
                     <property name="IsEditable">True</property>
                     <property name="InvisibleChar">•</property>
+                    <signal name="Changed" handler="OnEntrySearchChanged" />
                   </widget>
                   <packing>
                     <property name="Position">0</property>
@@ -163,7 +164,7 @@
                 <property name="MemberName" />
                 <property name="ShadowType">In</property>
                 <child>
-                  <widget class="Gtk.TreeView" id="treeview5">
+                  <widget class="Gtk.TreeView" id="helperTreeview">
                     <property name="MemberName" />
                     <property name="CanFocus">True</property>
                     <property name="ShowScrollbars">True</property>

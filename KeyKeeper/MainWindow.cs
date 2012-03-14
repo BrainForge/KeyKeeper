@@ -5,7 +5,8 @@ using KeyKeeper;
 public partial class MainWindow: Gtk.Window
 {	
 	private Journal journal = new Journal();
-	private Gtk.TreeModelFilter filter;
+	private Gtk.TreeModelFilter filterWorkersOnWork;
+	private Gtk.TreeModelFilter filterAllWorkers;
 	
 	public MainWindow (): base (Gtk.WindowType.Toplevel)
 	{	
@@ -27,22 +28,38 @@ public partial class MainWindow: Gtk.Window
 	{
 		workerOnWork.AppendColumn("Сейчас на работе", new CellRendererText(), "text", 0);
 		workerOnWork.Model = new ListStore(typeof(string));
+		
+		helperTreeview.AppendColumn("Сотрудники", new CellRendererText(), "text", 0);
+		helperTreeview.Model = new ListStore(typeof(string));
+		
 		notebook1.CurrentPage = 0;
 		
 	}
 	
-	private Gtk.ListStore getWorkerOnWork()
+	private Gtk.TreeModelFilter getWorkerOnWork()
 	{
 		Gtk.ListStore worker = new Gtk.ListStore (typeof (string));
 		foreach(Worker work in journal.getWorkerOnWork())
 		{
 			worker.AppendValues(work.getShortFIO());
 		}
-		filter = new Gtk.TreeModelFilter (worker, null);
-		filter.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree);
+		filterWorkersOnWork = new Gtk.TreeModelFilter (worker, null);
+		filterWorkersOnWork.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree);
+		return filterWorkersOnWork;
 		
+	}
+	
+	private Gtk.TreeModelFilter getAllWorkers()
+	{
+		Gtk.ListStore worker = new Gtk.ListStore (typeof (string));
+		foreach(Worker work in journal.getAllWorkers())
+		{
+			worker.AppendValues(work.getShortFIO());
+		}
+		filterAllWorkers = new Gtk.TreeModelFilter (worker, null);
+		filterAllWorkers.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree2);
+		return filterAllWorkers;
 		
-		return worker;
 	}
 	
 	protected void OnNotebook1SwitchPage (object o, Gtk.SwitchPageArgs args)
@@ -53,22 +70,45 @@ public partial class MainWindow: Gtk.Window
 		case 0:
 			workerOnWork.Model = getWorkerOnWork();	
 			break;
+		case 3:
+			helperTreeview.Model = getAllWorkers();	
+			break;
 		}
 	}
 
 	protected void OnFilterEntryChanged (object sender, System.EventArgs e)
 	{
-		filter.Refilter();
+		filterWorkersOnWork.Refilter();
+	}
+	
+	protected void OnEntrySearchChanged (object sender, System.EventArgs e)
+	{
+		filterAllWorkers.Refilter();
 	}
 	
 	private bool FilterTree (Gtk.TreeModel model, Gtk.TreeIter iter)
 	{
-		string artistName = model.GetValue (iter, 0).ToString ();
+		string workerFIO = model.GetValue (iter, 0).ToString ().ToLower();
  
-		if (filterEntry.Text == "")
+		if (filterEntry.Text == "" || entrySearch.Text == "")
 			return true;
  
-		if (artistName.IndexOf (filterEntry.Text) > -1)
+		if (workerFIO.IndexOf (filterEntry.Text.ToLower()) > -1 || 
+		    workerFIO.IndexOf (entrySearch.Text.ToLower()) > -1)
+			return true;
+		else
+			return false;
+	}
+	
+	private bool FilterTree2 (Gtk.TreeModel model, Gtk.TreeIter iter)
+	{
+		string workerFIO = model.GetValue (iter, 0).ToString ().ToLower();
+ 
+		if (filterEntry.Text == "" || entrySearch.Text == "")
+			return true;
+ 
+		if (workerFIO.IndexOf (filterEntry.Text.ToLower()) > -1 || 
+		    workerFIO.IndexOf (entrySearch.Text.ToLower()) > -1)
 			return true;
 		else
 			return false;

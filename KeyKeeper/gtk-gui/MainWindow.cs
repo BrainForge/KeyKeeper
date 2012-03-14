@@ -15,10 +15,10 @@ public partial class MainWindow
 	private global::Gtk.Label label4;
 	private global::Gtk.VBox vbox3;
 	private global::Gtk.HBox hbox2;
-	private global::Gtk.Entry entry2;
+	private global::Gtk.Entry entrySearch;
 	private global::Gtk.Button button2;
 	private global::Gtk.ScrolledWindow GtkScrolledWindow1;
-	private global::Gtk.TreeView treeview5;
+	private global::Gtk.TreeView helperTreeview;
 	private global::Gtk.Label label5;
 	
 	protected virtual void Build ()
@@ -32,7 +32,7 @@ public partial class MainWindow
 		this.notebook1 = new global::Gtk.Notebook ();
 		this.notebook1.CanFocus = true;
 		this.notebook1.Name = "notebook1";
-		this.notebook1.CurrentPage = 0;
+		this.notebook1.CurrentPage = 3;
 		// Container child notebook1.Gtk.Notebook+NotebookChild
 		this.vbox1 = new global::Gtk.VBox ();
 		this.vbox1.Name = "vbox1";
@@ -112,13 +112,13 @@ public partial class MainWindow
 		this.hbox2.Name = "hbox2";
 		this.hbox2.Spacing = 6;
 		// Container child hbox2.Gtk.Box+BoxChild
-		this.entry2 = new global::Gtk.Entry ();
-		this.entry2.CanFocus = true;
-		this.entry2.Name = "entry2";
-		this.entry2.IsEditable = true;
-		this.entry2.InvisibleChar = '•';
-		this.hbox2.Add (this.entry2);
-		global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.entry2]));
+		this.entrySearch = new global::Gtk.Entry ();
+		this.entrySearch.CanFocus = true;
+		this.entrySearch.Name = "entrySearch";
+		this.entrySearch.IsEditable = true;
+		this.entrySearch.InvisibleChar = '•';
+		this.hbox2.Add (this.entrySearch);
+		global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.entrySearch]));
 		w9.Position = 0;
 		// Container child hbox2.Gtk.Box+BoxChild
 		this.button2 = new global::Gtk.Button ();
@@ -141,10 +141,10 @@ public partial class MainWindow
 		this.GtkScrolledWindow1.Name = "GtkScrolledWindow1";
 		this.GtkScrolledWindow1.ShadowType = ((global::Gtk.ShadowType)(1));
 		// Container child GtkScrolledWindow1.Gtk.Container+ContainerChild
-		this.treeview5 = new global::Gtk.TreeView ();
-		this.treeview5.CanFocus = true;
-		this.treeview5.Name = "treeview5";
-		this.GtkScrolledWindow1.Add (this.treeview5);
+		this.helperTreeview = new global::Gtk.TreeView ();
+		this.helperTreeview.CanFocus = true;
+		this.helperTreeview.Name = "helperTreeview";
+		this.GtkScrolledWindow1.Add (this.helperTreeview);
 		this.vbox3.Add (this.GtkScrolledWindow1);
 		global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.GtkScrolledWindow1]));
 		w13.Position = 1;
@@ -167,5 +167,6 @@ public partial class MainWindow
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
 		this.notebook1.SwitchPage += new global::Gtk.SwitchPageHandler (this.OnNotebook1SwitchPage);
 		this.filterEntry.Changed += new global::System.EventHandler (this.OnFilterEntryChanged);
+		this.entrySearch.Changed += new global::System.EventHandler (this.OnEntrySearchChanged);
 	}
 }
