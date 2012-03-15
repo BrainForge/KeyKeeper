@@ -26,8 +26,6 @@ namespace KeyKeeper
 		public List<Item> getItem()
 		{ return null; }
 		
-		public int registerAction(Action action)
-		{ return 0; }
 		
 		public List<Worker> getActionsByDate(DateTime date)
 		{ return null; }

@@ -13,10 +13,10 @@ namespace KeyKeeper
 			
 		}
 		
-		public override void _do ()
+		/*public override void _do ()
 		{
 			
-		}
+		}*/
 	}
 }
 

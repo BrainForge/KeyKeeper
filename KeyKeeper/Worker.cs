@@ -73,6 +73,11 @@ namespace KeyKeeper
 			return mid;
 		}
 		
+		public override string ToString ()
+		{
+			return getShortFIO();
+		}
+		
 	}
 }
 

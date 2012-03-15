@@ -4,10 +4,10 @@ namespace KeyKeeper
 {
 	public class StartWork : Action
 	{
-		public override void _do ()
+		/*public override void _do ()
 		{
 			
-		}
+		}*/
 	}
 }
 

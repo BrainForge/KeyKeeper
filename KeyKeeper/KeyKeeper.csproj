@@ -86,6 +86,10 @@
     <Compile Include="dbHelper.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="Configuration.cs" />
+    <Compile Include="ActionDlg.cs" />
+    <Compile Include="gtk-gui\KeyKeeper.ActionDlg.cs" />
+    <Compile Include="IActionRegistrator.cs" />
+    <Compile Include="ActionCreater.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

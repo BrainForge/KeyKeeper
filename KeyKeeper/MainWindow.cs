@@ -1,12 +1,15 @@
 using System;
 using Gtk;
 using KeyKeeper;
+using System.Collections.Generic;
 
 public partial class MainWindow: Gtk.Window
 {	
 	private Journal journal = new Journal();
 	private Gtk.TreeModelFilter filterWorkersOnWork;
 	private Gtk.TreeModelFilter filterAllWorkers;
+	
+	
 	
 	public MainWindow (): base (Gtk.WindowType.Toplevel)
 	{	
@@ -26,10 +29,10 @@ public partial class MainWindow: Gtk.Window
 	
 	private void initGui()
 	{
-		workerOnWork.AppendColumn("Сейчас на работе", new CellRendererText(), "text", 0);
+		workerOnWork.AppendColumn("Сейчас на работе", new CellRendererText(), "text", 1);
 		workerOnWork.Model = new ListStore(typeof(string));
 		
-		helperTreeview.AppendColumn("Сотрудники", new CellRendererText(), "text", 0);
+		helperTreeview.AppendColumn("Сотрудники", new CellRendererText(), "text", 1);
 		helperTreeview.Model = new ListStore(typeof(string));
 		
 		notebook1.CurrentPage = 0;
@@ -38,23 +41,23 @@ public partial class MainWindow: Gtk.Window
 	
 	private Gtk.TreeModelFilter getWorkerOnWork()
 	{
-		Gtk.ListStore worker = new Gtk.ListStore (typeof (string));
+		Gtk.ListStore worker = new Gtk.ListStore (typeof (Worker),typeof (string));
+		
 		foreach(Worker work in journal.getWorkerOnWork())
 		{
-			worker.AppendValues(work.getShortFIO());
+			worker.AppendValues(work,work.ToString());
 		}
 		filterWorkersOnWork = new Gtk.TreeModelFilter (worker, null);
 		filterWorkersOnWork.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree);
 		return filterWorkersOnWork;
-		
 	}
 	
 	private Gtk.TreeModelFilter getAllWorkers()
 	{
-		Gtk.ListStore worker = new Gtk.ListStore (typeof (string));
+		Gtk.ListStore worker = new Gtk.ListStore (typeof (Worker), typeof (string));
 		foreach(Worker work in journal.getAllWorkers())
 		{
-			worker.AppendValues(work.getShortFIO());
+			worker.AppendValues(work, work.getShortFIO());
 		}
 		filterAllWorkers = new Gtk.TreeModelFilter (worker, null);
 		filterAllWorkers.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree2);
@@ -88,7 +91,7 @@ public partial class MainWindow: Gtk.Window
 	
 	private bool FilterTree (Gtk.TreeModel model, Gtk.TreeIter iter)
 	{
-		string workerFIO = model.GetValue (iter, 0).ToString ().ToLower();
+		string workerFIO = model.GetValue (iter, 1).ToString ().ToLower();
  
 		if (filterEntry.Text == "")
 			return true;
@@ -112,8 +115,24 @@ public partial class MainWindow: Gtk.Window
 			return false;
 	}
 
-	protected void OnButton1Clicked (object sender, System.EventArgs e)
+	protected void OnHelperTreeviewRowActivated (object o, Gtk.RowActivatedArgs args)
 	{
+		TreeSelection select = helperTreeview.Selection;
+		TreeIter iter;
+		TreeModel model;
+		select.GetSelected(out model, out iter);
+		
+		ActionCreater act = new ActionCreater(new dbHelper());
+		act.byWorker((Worker)model.GetValue (iter, 0),1);
+	}
 
+	protected void OnCleerEntryHelperClicked (object sender, System.EventArgs e)
+	{
+		entrySearch.Text="";
+	}
+
+	protected void OnEntryOnWorkClearClicked (object sender, System.EventArgs e)
+	{
+		filterEntry.Text="";
 	}
 }

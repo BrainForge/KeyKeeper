@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace KeyKeeper
 {
-	public class dbHelper
+	public class dbHelper : IActionRegistrator
 	{
 		public dbHelper ()
 		{}
@@ -15,7 +15,9 @@ namespace KeyKeeper
 		{
 			Worker tmpWorker = null;
 			IDataReader reader = dbConnector.getdbAcces().readbd(
-				"select *, concat_ws(' ',f,i,o) as fio, concat(f,' ',left(i,1),'. ',left(o,1),'.') as shortfio from workers where id='"+workerid+"';");
+				string.Format(@"select *, concat_ws(' ',f,i,o) as fio, concat(f,' ',left(i,1),'. ',left(o,1),'.') as shortfio 
+								from workers 
+								where id='{0}'",workerid));
 			try
 			{
 				reader.Read();
@@ -82,6 +84,12 @@ namespace KeyKeeper
 			
 			return list;
 			
+		}
+		
+		public int registerAction(Action action)
+		{ 
+			Utils.showMessageInfo("ee");
+			return 0; 
 		}
 		
 		#region мусор

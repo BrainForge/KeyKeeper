@@ -14,9 +14,8 @@ namespace KeyKeeper
 		{
 			conf = Configuration.Deserialize("config.xml");
 			
-			string connectionString = string.Format("Server={0};" + "Database={1};" 
-			+ "User ID={2};" + 
-			"Password={3};"+ "charset=utf8;" + "Pooling=false",conf.server,conf.db,conf.user,conf.password);
+			string connectionString = string.Format(@"Server={0}; Database={1}; User ID={2}; Password={3}; 
+									charset=utf8; Pooling=false",conf.server,conf.db,conf.user,conf.password);
 			
 			try
 			{

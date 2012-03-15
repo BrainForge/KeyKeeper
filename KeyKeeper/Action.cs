@@ -2,7 +2,7 @@ using System;
 
 namespace KeyKeeper
 {
-	public abstract class Action
+	public class Action : EventArgs
 	{
 		private Worker worker;
 		private int worker_reg_type;
@@ -15,7 +15,7 @@ namespace KeyKeeper
 		public Action()
 		{}
 		
-		public abstract void _do();
+		//public abstract void _do();
 	}
 }
 

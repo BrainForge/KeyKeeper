@@ -7,7 +7,7 @@ public partial class MainWindow
 	private global::Gtk.VBox vbox1;
 	private global::Gtk.HBox hbox1;
 	private global::Gtk.Entry filterEntry;
-	private global::Gtk.Button button1;
+	private global::Gtk.Button entryOnWorkClear;
 	private global::Gtk.ScrolledWindow GtkScrolledWindow;
 	private global::Gtk.TreeView workerOnWork;
 	private global::Gtk.Label label1;
@@ -16,7 +16,7 @@ public partial class MainWindow
 	private global::Gtk.VBox vbox3;
 	private global::Gtk.HBox hbox2;
 	private global::Gtk.Entry entrySearch;
-	private global::Gtk.Button button2;
+	private global::Gtk.Button cleerEntryHelper;
 	private global::Gtk.ScrolledWindow GtkScrolledWindow1;
 	private global::Gtk.TreeView helperTreeview;
 	private global::Gtk.Label label5;
@@ -51,13 +51,13 @@ public partial class MainWindow
 		global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.filterEntry]));
 		w1.Position = 0;
 		// Container child hbox1.Gtk.Box+BoxChild
-		this.button1 = new global::Gtk.Button ();
-		this.button1.CanFocus = true;
-		this.button1.Name = "button1";
-		this.button1.UseUnderline = true;
-		this.button1.Label = global::Mono.Unix.Catalog.GetString ("GtkButton");
-		this.hbox1.Add (this.button1);
-		global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.button1]));
+		this.entryOnWorkClear = new global::Gtk.Button ();
+		this.entryOnWorkClear.CanFocus = true;
+		this.entryOnWorkClear.Name = "entryOnWorkClear";
+		this.entryOnWorkClear.UseUnderline = true;
+		this.entryOnWorkClear.Label = global::Mono.Unix.Catalog.GetString ("Отчистить");
+		this.hbox1.Add (this.entryOnWorkClear);
+		global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.entryOnWorkClear]));
 		w2.Position = 1;
 		w2.Expand = false;
 		w2.Fill = false;
@@ -121,13 +121,13 @@ public partial class MainWindow
 		global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.entrySearch]));
 		w9.Position = 0;
 		// Container child hbox2.Gtk.Box+BoxChild
-		this.button2 = new global::Gtk.Button ();
-		this.button2.CanFocus = true;
-		this.button2.Name = "button2";
-		this.button2.UseUnderline = true;
-		this.button2.Label = global::Mono.Unix.Catalog.GetString ("GtkButton");
-		this.hbox2.Add (this.button2);
-		global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.button2]));
+		this.cleerEntryHelper = new global::Gtk.Button ();
+		this.cleerEntryHelper.CanFocus = true;
+		this.cleerEntryHelper.Name = "cleerEntryHelper";
+		this.cleerEntryHelper.UseUnderline = true;
+		this.cleerEntryHelper.Label = global::Mono.Unix.Catalog.GetString ("Отчистить");
+		this.hbox2.Add (this.cleerEntryHelper);
+		global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.cleerEntryHelper]));
 		w10.Position = 1;
 		w10.Expand = false;
 		w10.Fill = false;
@@ -167,7 +167,9 @@ public partial class MainWindow
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
 		this.notebook1.SwitchPage += new global::Gtk.SwitchPageHandler (this.OnNotebook1SwitchPage);
 		this.filterEntry.Changed += new global::System.EventHandler (this.OnFilterEntryChanged);
-		this.button1.Clicked += new global::System.EventHandler (this.OnButton1Clicked);
+		this.entryOnWorkClear.Clicked += new global::System.EventHandler (this.OnEntryOnWorkClearClicked);
 		this.entrySearch.Changed += new global::System.EventHandler (this.OnEntrySearchChanged);
+		this.cleerEntryHelper.Clicked += new global::System.EventHandler (this.OnCleerEntryHelperClicked);
+		this.helperTreeview.RowActivated += new global::Gtk.RowActivatedHandler (this.OnHelperTreeviewRowActivated);
 	}
 }
