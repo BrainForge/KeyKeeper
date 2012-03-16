@@ -90,6 +90,7 @@
     <Compile Include="gtk-gui\KeyKeeper.ActionDlg.cs" />
     <Compile Include="IActionRegistrator.cs" />
     <Compile Include="ActionCreater.cs" />
+    <Compile Include="Const.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
