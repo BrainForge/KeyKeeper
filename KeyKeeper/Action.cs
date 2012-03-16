@@ -4,10 +4,10 @@ namespace KeyKeeper
 {
 	public class Action : EventArgs
 	{
-		private Worker worker;
-		private int worker_reg_type;
+		public Worker worker;
+		public uint worker_reg_type;
 		private DateTime stamp = DateTime.Now;
-		private int type;
+		private uint type;
 		
 		public Action(Worker worker, uint workerRegType)
 		{}
@@ -15,7 +15,8 @@ namespace KeyKeeper
 		public Action()
 		{}
 		
-		//public abstract void _do();
+		public void Do(IActionRegistrator registrator) 
+		{}
 	}
 }
 

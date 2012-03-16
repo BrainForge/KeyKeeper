@@ -91,6 +91,7 @@
     <Compile Include="IActionRegistrator.cs" />
     <Compile Include="ActionCreater.cs" />
     <Compile Include="Const.cs" />
+    <Compile Include="IAction.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

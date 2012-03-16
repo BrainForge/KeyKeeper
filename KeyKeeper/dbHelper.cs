@@ -67,7 +67,7 @@ namespace KeyKeeper
 			IDataReader reader = dbConnector.getdbAcces().readbd(
 				string.Format(@"select w.*,concat_ws(' ',f,i,o) as fio, concat(f,' ',left(i,1),'. ',left(o,1),'.') as shortfio
 				from journal j join workers w on j.worker_id=w.id
-				where isnull(j.stamp_end) and j.operation_id={0}",Const::OPERATION_WORK_IN));
+				where isnull(j.stamp_end) and j.operation_id={0}",Const.OPERATION_WORK_IN));
 			try
 			{
 				while(reader.Read())
@@ -87,8 +87,25 @@ namespace KeyKeeper
 			
 		}
 		
-		public int registerAction(Action action)
+		public int registerAction( 
+		                   string stamp_end, 
+		                   string operation_id, 
+		                   string worker_id, 
+		                   string worker_reg_type,
+		                   string item_id,
+		                   string item_reg_type)
 		{ 
+
+			dbConnector.getdbAcces().querydb(string.Format(@"insert into journal 
+															(`stamp_end`,`operation_id`,`worker_id`,`worker_reg_type`,`item_id`,`item_reg_type`) 
+															values
+															({0},{1},{2},{3},{4},{5})",
+			                                               stamp_end,
+			                                               operation_id,
+			                                               worker_id,
+			                                               worker_reg_type,
+			                                               item_id,
+			                                               item_reg_type));
 			Utils.showMessageInfo("ee");
 			return 0; 
 		}

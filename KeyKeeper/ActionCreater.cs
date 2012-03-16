@@ -15,7 +15,7 @@ namespace KeyKeeper
 		
 		public void dlgActionSelectedIvent(object o, Action a) 
 		{
-			registrator.registerAction(a);
+			a.Do(registrator);
 		}
 		
 		public void byWorker(Worker worker, uint regType)

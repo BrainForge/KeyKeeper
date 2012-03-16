@@ -16,7 +16,6 @@ public partial class MainWindow: Gtk.Window
 		Build ();
 		initGui();
 		KeyKeeper.dbConnector.getdbAcces();
-		
 	}
 	
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)

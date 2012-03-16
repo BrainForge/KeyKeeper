@@ -21,7 +21,7 @@ namespace KeyKeeper
 		
 		protected void OnButton11Clicked (object sender, System.EventArgs e)
 		{
-			onAction(this, new Action());
+			//onAction(this, new Action());
 		}
 		
 		protected void onAction(object sender, Action ca)

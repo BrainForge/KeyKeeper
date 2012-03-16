@@ -4,10 +4,26 @@ namespace KeyKeeper
 {
 	public class StartWork : Action
 	{
-		/*public override void _do ()
+		public StartWork(Worker worker, uint worker_reg_type) {
+			base.worker = worker;
+			base.worker_reg_type = worker_reg_type;
+		}
+		
+		public void Do (IActionRegistrator registrator)
 		{
-			
-		}*/
+						registrator.registerAction("now()", 
+			                           Const.OPERATION_WORK_IN.ToString(),
+			                           base.worker.id().ToString(),
+			                           base.worker_reg_type.ToString(),
+			                           "null",
+			                           "null");
+
+		}
+		
+		
+		
+		
+		
 	}
 }
 

@@ -5,13 +5,19 @@ namespace KeyKeeper
 	public class Item
 	{
 		private string name;
-		private int type;
-		private int code;
+		private uint type;
+		private uint code;
+		private uint item_id;
 		
-		public Item (int id)
+		public Item (uint id)
 		{	
+			this.item_id = id;
 		}
 		
+		public uint id() {
+			return this.item_id;
+		}
+
 		public string getName()
 		{return null;}
 		
