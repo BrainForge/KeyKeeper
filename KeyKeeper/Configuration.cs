@@ -7,15 +7,16 @@ namespace KeyKeeper
 {
 	public class Configuration
 	{
+		/*
 		private string mserver;
 		private string mdb;
 		private string muser;
 		private string mpassword;
-		
-		public string server{get {return mserver;} set{mserver = value;}}
-		public string db{get {return mdb;} set{mdb = value;}}
-		public string user{get {return muser;} set{muser = value;}}
-		public string password{get {return mpassword;} set{mpassword = value;}}
+		*/
+		public string server {get; set;}
+		public string db {get; set;}
+		public string user {get; set;}
+		public string password {get; set;}
 		
 		public Configuration (){}
 		

@@ -28,16 +28,21 @@ namespace KeyKeeper
 		
 		private void getWorkerOnWorkNow()
 		{
+			btnStartWork.Sensitive = worker.isOnWork() == 0;
+			btnEndWork.Sensitive = !btnStartWork.Sensitive;
+			
+			/*
 			if(worker.isOnWork() != 0)
 			{
-				button11.Sensitive = false;
-				button12.Sensitive = true;
+				btnStartWork.Sensitive = false;
+				btnEndWork.Sensitive = true;
 			}
 			else
 			{
-				button11.Sensitive = true;
-				button12.Sensitive = false;
+				btnStartWork.Sensitive = true;
+				btnEndWork.Sensitive = false;
 			}
+			*/
 		}
 		
 		protected void onAction(object sender, Action ca)
