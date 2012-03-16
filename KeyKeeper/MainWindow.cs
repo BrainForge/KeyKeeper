@@ -35,14 +35,14 @@ public partial class MainWindow: Gtk.Window
 		helperTreeview.Model = new ListStore(typeof(string));
 		
 		notebook1.CurrentPage = 0;
-		
 	}
 	
+	#region создание модели для триивью
 	private Gtk.TreeModelFilter getWorkerOnWork()
 	{
 		Gtk.ListStore worker = new Gtk.ListStore (typeof (Worker),typeof (string));
 		
-		foreach(Worker work in journal.getWorkerOnWork())
+		foreach(Worker work in Journal.getWorkerOnWork())
 		{
 			worker.AppendValues(work,work.ToString());
 		}
@@ -63,6 +63,7 @@ public partial class MainWindow: Gtk.Window
 		return filterAllWorkers;
 		
 	}
+	#endregion
 	
 	protected void OnNotebook1SwitchPage (object o, Gtk.SwitchPageArgs args)
 	{
@@ -77,7 +78,8 @@ public partial class MainWindow: Gtk.Window
 			break;
 		}
 	}
-
+	
+	#region реализация поиска
 	protected void OnFilterEntryChanged (object sender, System.EventArgs e)
 	{
 		filterWorkersOnWork.Refilter();
@@ -113,7 +115,9 @@ public partial class MainWindow: Gtk.Window
 		else
 			return false;
 	}
-
+	#endregion
+	
+	#region обработка нажатий по триивью
 	protected void OnHelperTreeviewRowActivated (object o, Gtk.RowActivatedArgs args)
 	{
 		TreeSelection select = helperTreeview.Selection;
@@ -124,7 +128,20 @@ public partial class MainWindow: Gtk.Window
 		ActionCreater act = new ActionCreater(new dbHelper());
 		act.byWorker((Worker)model.GetValue (iter, 0),1);
 	}
-
+	
+	protected void OnWorkerOnWorkRowActivated (object o, Gtk.RowActivatedArgs args)
+	{
+		TreeSelection select = workerOnWork.Selection;
+		TreeIter iter;
+		TreeModel model;
+		select.GetSelected(out model, out iter);
+		
+		ActionCreater act = new ActionCreater(new dbHelper());
+		act.byWorker((Worker)model.GetValue (iter, 0),1);
+	}
+	#endregion
+	
+	#region кнопочки отчистки
 	protected void OnCleerEntryHelperClicked (object sender, System.EventArgs e)
 	{
 		entrySearch.Text="";
@@ -134,4 +151,5 @@ public partial class MainWindow: Gtk.Window
 	{
 		filterEntry.Text="";
 	}
+	#endregion
 }

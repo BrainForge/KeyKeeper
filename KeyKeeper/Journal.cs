@@ -13,7 +13,7 @@ namespace KeyKeeper
 			return listWorker;
 		}
 		
-		public List<Worker> getWorkerOnWork()
+		public static List<Worker> getWorkerOnWork()
 		{
 			var listWorker = new List<Worker>();
 			listWorker = dbHelper.getWorkersOnWork();	

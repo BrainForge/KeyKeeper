@@ -20,7 +20,7 @@ public partial class MainWindow
 	private global::Gtk.ScrolledWindow GtkScrolledWindow1;
 	private global::Gtk.TreeView helperTreeview;
 	private global::Gtk.Label label5;
-	
+    
 	protected virtual void Build ()
 	{
 		global::Stetic.Gui.Initialize (this);
@@ -168,6 +168,7 @@ public partial class MainWindow
 		this.notebook1.SwitchPage += new global::Gtk.SwitchPageHandler (this.OnNotebook1SwitchPage);
 		this.filterEntry.Changed += new global::System.EventHandler (this.OnFilterEntryChanged);
 		this.entryOnWorkClear.Clicked += new global::System.EventHandler (this.OnEntryOnWorkClearClicked);
+		this.workerOnWork.RowActivated += new global::Gtk.RowActivatedHandler (this.OnWorkerOnWorkRowActivated);
 		this.entrySearch.Changed += new global::System.EventHandler (this.OnEntrySearchChanged);
 		this.cleerEntryHelper.Clicked += new global::System.EventHandler (this.OnCleerEntryHelperClicked);
 		this.helperTreeview.RowActivated += new global::Gtk.RowActivatedHandler (this.OnHelperTreeviewRowActivated);

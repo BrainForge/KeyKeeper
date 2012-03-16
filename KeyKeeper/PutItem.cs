@@ -14,7 +14,7 @@ namespace KeyKeeper
 			this.itemRegType = itemRegType;
 		}
 		
-		public void Do (IActionRegistrator registrator)
+		public override void Do (IActionRegistrator registrator)
 		{
 			registrator.registerAction("now()", 
 			                           Const.OPERATION_ITEM_PUT.ToString(),

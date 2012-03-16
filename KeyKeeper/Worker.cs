@@ -11,6 +11,7 @@ namespace KeyKeeper
 		private string shortFIO = null;
 		private string phone = null;
 		private uint code = 0;
+		private int idWorkerOnWork = 0;
 		
 		public Worker(uint workerID)
 		{
@@ -63,6 +64,11 @@ namespace KeyKeeper
 			if(code == 0)
 				getWorker();
 			return code;
+		}
+		
+		public uint isOnWork()
+		{
+			return dbHelper.getWorkerOnWorkJournalID(mid);
 		}
 		
 		public List<Item> getItems()

@@ -15,6 +15,7 @@ namespace KeyKeeper
 		{
 			Worker tmpWorker = null;
 			IDataReader reader = dbConnector.getdbAcces().readbd(
+				
 				string.Format(@"select *, concat_ws(' ',f,i,o) as fio, concat(f,' ',left(i,1),'. ',left(o,1),'.') as shortfio 
 								from workers 
 								where id='{0}'",workerid));
@@ -34,6 +35,38 @@ namespace KeyKeeper
 			return tmpWorker;
 		}
 		
+		public static uint getWorkerOnWorkJournalID(uint workerID)
+		{
+			uint id = 0;
+			IDataReader reader = dbConnector.getdbAcces().readbd(
+			string.Format(@"select id from journal 
+							where worker_id = {0} and isnull(stamp_end) and operation_id={1};",
+							workerID,
+							Const.OPERATION_WORK_IN));
+			try
+			{
+				if(reader.Read())
+				{
+					if(reader.FieldCount==1)
+						id = (uint)reader["id"];
+				
+					else
+					{
+						Utils.showMessageError("Что-то пошло не так...");
+					}
+				}
+			}
+			catch(MySqlException ex)
+			{
+				Utils.showMessageError(ex.ToString());
+			}
+		
+			reader.Close();
+       		reader = null;
+			Console.WriteLine(id);
+			return id;
+		}
+		
 		public static List<Worker> getAllWorkers()
 		{
 			var list = new List<Worker>();
@@ -44,8 +77,12 @@ namespace KeyKeeper
 			try
 			{
 				while(reader.Read())
-					list.Add(new Worker((uint)reader["id"], (string)reader["fio"],
-				                          (string)reader["shortfio"],(string)reader["phone"],(uint)reader["code"]));
+					list.Add(new Worker((uint)reader["id"], 
+										(string)reader["fio"],
+				                        (string)reader["shortfio"],
+										(string)reader["phone"],
+										(uint)reader["code"])
+										);
 			}
 			catch(MySqlException ex)
 			{
@@ -94,7 +131,7 @@ namespace KeyKeeper
 		                   string worker_reg_type,
 		                   string item_id,
 		                   string item_reg_type)
-		{ 
+		{
 
 			dbConnector.getdbAcces().querydb(string.Format(@"insert into journal 
 															(`stamp_end`,`operation_id`,`worker_id`,`worker_reg_type`,`item_id`,`item_reg_type`) 

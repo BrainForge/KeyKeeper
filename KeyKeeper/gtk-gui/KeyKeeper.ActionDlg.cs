@@ -16,7 +16,7 @@ namespace KeyKeeper
 		private global::Gtk.Label label4;
 		private global::Gtk.Label label5;
 		private global::Gtk.Button button3;
-		
+        
 		protected virtual void Build ()
 		{
 			global::Stetic.Gui.Initialize (this);
@@ -100,7 +100,7 @@ namespace KeyKeeper
 			// Container child vbox4.Gtk.Box+BoxChild
 			this.label5 = new global::Gtk.Label ();
 			this.label5.Name = "label5";
-			this.label5.LabelProp = global::Mono.Unix.Catalog.GetString ("Приход\nна работу");
+			this.label5.LabelProp = global::Mono.Unix.Catalog.GetString ("Уход\n с работы");
 			this.label5.Justify = ((global::Gtk.Justification)(2));
 			this.label5.Selectable = true;
 			this.vbox4.Add (this.label5);
@@ -137,10 +137,11 @@ namespace KeyKeeper
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 174;
+			this.DefaultWidth = 172;
 			this.DefaultHeight = 309;
 			this.Show ();
 			this.button11.Clicked += new global::System.EventHandler (this.OnButton11Clicked);
+			this.button3.Clicked += new global::System.EventHandler (this.OnButton3Clicked);
 		}
 	}
 }

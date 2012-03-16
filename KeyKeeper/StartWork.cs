@@ -8,16 +8,15 @@ namespace KeyKeeper
 			base.worker = worker;
 			base.worker_reg_type = worker_reg_type;
 		}
-		
-		public void Do (IActionRegistrator registrator)
+
+		public override void Do (IActionRegistrator registrator)
 		{
-						registrator.registerAction("now()", 
+						registrator.registerAction("null", 
 			                           Const.OPERATION_WORK_IN.ToString(),
 			                           base.worker.id().ToString(),
 			                           base.worker_reg_type.ToString(),
 			                           "null",
 			                           "null");
-
 		}
 		
 		

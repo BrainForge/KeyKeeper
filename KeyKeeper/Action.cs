@@ -15,7 +15,7 @@ namespace KeyKeeper
 		public Action()
 		{}
 		
-		public void Do(IActionRegistrator registrator) 
+		public virtual void Do(IActionRegistrator registrator) 
 		{}
 	}
 }
