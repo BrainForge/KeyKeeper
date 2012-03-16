@@ -9,7 +9,7 @@ namespace KeyKeeper
 			base.worker_reg_type = worker_reg_type;
 		}
 		
-		public override void Do (IActionRegistrator registrator)
+		public override void Do(IActionRegistrator registrator)
 		{
 						registrator.registerAction("now()", 
 			                           Const.OPERATION_WORK_OUT.ToString(),

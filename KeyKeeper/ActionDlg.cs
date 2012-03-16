@@ -50,6 +50,12 @@ namespace KeyKeeper
 		{
 			this.Destroy();
 		}
+
+		protected void OnButton12Clicked (object sender, System.EventArgs e)
+		{
+			onAction(this, new EndWork(worker,Const.HAND_OPERATION));
+			getWorkerOnWorkNow();
+		}
 	}
 }
 

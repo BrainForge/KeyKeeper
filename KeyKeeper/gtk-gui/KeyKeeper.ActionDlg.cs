@@ -140,6 +140,7 @@ namespace KeyKeeper
 			this.DefaultWidth = 172;
 			this.DefaultHeight = 309;
 			this.Show ();
+			this.button12.Clicked += new global::System.EventHandler (this.OnButton12Clicked);
 			this.button11.Clicked += new global::System.EventHandler (this.OnButton11Clicked);
 			this.button3.Clicked += new global::System.EventHandler (this.OnButton3Clicked);
 		}

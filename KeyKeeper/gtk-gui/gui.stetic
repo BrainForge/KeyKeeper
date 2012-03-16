@@ -298,6 +298,7 @@
                     <property name="MemberName" />
                     <property name="CanFocus">True</property>
                     <property name="Type">Custom</property>
+                    <signal name="Clicked" handler="OnButton12Clicked" />
                     <child>
                       <widget class="Gtk.VBox" id="vbox4">
                         <property name="MemberName" />
