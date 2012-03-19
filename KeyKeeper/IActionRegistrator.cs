@@ -10,6 +10,8 @@ namespace KeyKeeper
 		                   string worker_reg_type,
 		                   string item_id,
 		                   string item_reg_type);
+		
+		int updateAction(uint journalID);
 	}
 }
 

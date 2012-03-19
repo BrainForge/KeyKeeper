@@ -8,6 +8,8 @@ namespace KeyKeeper
 {
 	public class dbHelper : IActionRegistrator
 	{
+		//update journal set stamp_end=now(), operation_id = 2 where id = 1;
+		
 		public dbHelper ()
 		{}
 		
@@ -49,7 +51,6 @@ namespace KeyKeeper
 				{
 					if(reader.FieldCount==1)
 						id = (uint)reader["id"];
-				
 					else
 					{
 						Utils.showMessageError("Что-то пошло не так...");
@@ -63,7 +64,7 @@ namespace KeyKeeper
 		
 			reader.Close();
        		reader = null;
-			Console.WriteLine(id);
+			Console.WriteLine("id in journal - "+id);
 			return id;
 		}
 		
@@ -143,9 +144,18 @@ namespace KeyKeeper
 			                                               worker_reg_type,
 			                                               item_id,
 			                                               item_reg_type));
-			Utils.showMessageInfo("ee");
 			return 0; 
 		}
+		
+		public int updateAction(uint journalID)
+		{
+			dbConnector.getdbAcces().querydb(string.Format(@"update journal
+															set stamp_end=now() 
+															where id = {0}", journalID));
+			return 0;
+		}
+		
+		
 	}
 }
 

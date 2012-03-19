@@ -11,7 +11,6 @@ namespace KeyKeeper
 		private string shortFIO = null;
 		private string phone = null;
 		private uint code = 0;
-		private int idWorkerOnWork = 0;
 		
 		public Worker(uint workerID)
 		{

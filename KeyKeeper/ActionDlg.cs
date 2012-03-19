@@ -8,6 +8,9 @@ namespace KeyKeeper
 		public delegate void dlgActionSelectedIventHedler (object sender, Action ca);
 		public event dlgActionSelectedIventHedler actionSelectedIvent;
 		
+		public delegate void clickHeader(object sender, object o);
+		public event clickHeader clickEndStartWork;
+		
 		private Worker worker;
 		
 		public ActionDlg (Worker mworker)
@@ -19,30 +22,10 @@ namespace KeyKeeper
 			getWorkerOnWorkNow();
 		}
 		
-		
-		protected void OnButton11Clicked (object sender, System.EventArgs e)
-		{
-			onAction(this, new StartWork(worker,Const.HAND_OPERATION));
-			getWorkerOnWorkNow();
-		}
-		
 		private void getWorkerOnWorkNow()
 		{
 			btnStartWork.Sensitive = worker.isOnWork() == 0;
 			btnEndWork.Sensitive = !btnStartWork.Sensitive;
-			
-			/*
-			if(worker.isOnWork() != 0)
-			{
-				btnStartWork.Sensitive = false;
-				btnEndWork.Sensitive = true;
-			}
-			else
-			{
-				btnStartWork.Sensitive = true;
-				btnEndWork.Sensitive = false;
-			}
-			*/
 		}
 		
 		protected void onAction(object sender, Action ca)
@@ -56,10 +39,18 @@ namespace KeyKeeper
 			this.Destroy();
 		}
 
-		protected void OnButton12Clicked (object sender, System.EventArgs e)
+		protected void OnBtnEndWorkClicked (object sender, System.EventArgs e)
 		{
 			onAction(this, new EndWork(worker,Const.HAND_OPERATION));
 			getWorkerOnWorkNow();
+			clickEndStartWork(this,this);
+		}
+
+		protected void OnBtnStartWorkClicked (object sender, System.EventArgs e)
+		{
+			onAction(this, new StartWork(worker,Const.HAND_OPERATION));
+			getWorkerOnWorkNow();
+			clickEndStartWork(this,this);
 		}
 	}
 }

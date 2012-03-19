@@ -6,8 +6,6 @@ namespace KeyKeeper
 	{
 		public Worker worker;
 		public uint worker_reg_type;
-		private DateTime stamp = DateTime.Now;
-		private uint type;
 		
 		public Action(Worker worker, uint workerRegType)
 		{}

@@ -11,13 +11,13 @@ namespace KeyKeeper
 		
 		public override void Do(IActionRegistrator registrator)
 		{
+						registrator.updateAction(worker.isOnWork());
 						registrator.registerAction("now()", 
 			                           Const.OPERATION_WORK_OUT.ToString(),
 			                           base.worker.id().ToString(),
 			                           base.worker_reg_type.ToString(),
 			                           "null",
 			                           "null");
-
 		}
 	}
 }

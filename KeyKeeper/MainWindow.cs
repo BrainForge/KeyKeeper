@@ -9,7 +9,7 @@ public partial class MainWindow: Gtk.Window
 	private Gtk.TreeModelFilter filterWorkersOnWork;
 	private Gtk.TreeModelFilter filterAllWorkers;
 	
-	
+	uint CurrentPage;
 	
 	public MainWindow (): base (Gtk.WindowType.Toplevel)
 	{	
@@ -67,7 +67,7 @@ public partial class MainWindow: Gtk.Window
 	
 	protected void OnNotebook1SwitchPage (object o, Gtk.SwitchPageArgs args)
 	{
-		var CurrentPage = args.PageNum;
+		CurrentPage = args.PageNum;
 		
 		switch (CurrentPage) {
 		case 0:
@@ -117,6 +117,17 @@ public partial class MainWindow: Gtk.Window
 	}
 	#endregion
 	
+	private void showActionDialog(Worker work)
+	{
+		ActionCreater act = new ActionCreater(new dbHelper());
+		act.updateTree += delegate(object sender, object sender2) 
+		{
+			if(CurrentPage == 0)
+				workerOnWork.Model = getWorkerOnWork();	
+		};
+		act.byWorker(work,Const.HAND_OPERATION);
+	}
+	
 	#region обработка нажатий по триивью
 	protected void OnHelperTreeviewRowActivated (object o, Gtk.RowActivatedArgs args)
 	{
@@ -124,9 +135,7 @@ public partial class MainWindow: Gtk.Window
 		TreeIter iter;
 		TreeModel model;
 		select.GetSelected(out model, out iter);
-		
-		ActionCreater act = new ActionCreater(new dbHelper());
-		act.byWorker((Worker)model.GetValue (iter, 0),1);
+		showActionDialog((Worker)model.GetValue (iter, 0));
 	}
 	
 	protected void OnWorkerOnWorkRowActivated (object o, Gtk.RowActivatedArgs args)
@@ -135,9 +144,7 @@ public partial class MainWindow: Gtk.Window
 		TreeIter iter;
 		TreeModel model;
 		select.GetSelected(out model, out iter);
-		
-		ActionCreater act = new ActionCreater(new dbHelper());
-		act.byWorker((Worker)model.GetValue (iter, 0),1);
+		showActionDialog((Worker)model.GetValue (iter, 0));
 	}
 	#endregion
 	
@@ -152,4 +159,7 @@ public partial class MainWindow: Gtk.Window
 		filterEntry.Text="";
 	}
 	#endregion
+	
+
+	
 }
