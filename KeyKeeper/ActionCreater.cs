@@ -27,7 +27,8 @@ namespace KeyKeeper
 			dlg.actionSelectedIvent += dlgActionSelectedIvent;
 			dlg.clickEndStartWork += delegate(object sender, object o) 
 			{
-				updateTree(this,this);
+				if(updateTree!=null)
+					updateTree(this,this);
 			};
 			dlg.Show();
 		}

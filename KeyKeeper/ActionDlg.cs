@@ -24,8 +24,24 @@ namespace KeyKeeper
 			for(int i = 0; i<4;i++)
 				keykeeperwidgetBackItem.addButton("41"+i);
 			
-			for(int i = 0; i<4;i++)
-				keykeeperwidgetPutItem.addButton("50"+i);
+			searchentry2.changed += delegate(object sender, EventArgs e) 
+			{
+				keykeeperwidgetPutItem.removeButton();
+				
+				Console.WriteLine("update()");
+				
+				if(string.IsNullOrEmpty(searchentry2.Text))
+					keykeeperwidgetPutItem.removeButton();	
+				
+				foreach(Item item in Journal.getItems())
+				{
+					if(item.getName().IndexOf (searchentry2.Text) > -1 && 
+					   !string.IsNullOrEmpty(searchentry2.Text) && searchentry2.Text.Length >= 2)
+					{				
+						keykeeperwidgetPutItem.addButton(item.getName());
+					}
+				}
+			};
 		}
 		
 		private void getWorkerOnWorkNow()

@@ -25,7 +25,8 @@ namespace KeyKeeper
 		
 		protected void OnEntry1Changed (object sender, System.EventArgs e)
 		{
-			changed(this,e);
+			if(changed!=null)
+				changed(this,e);
 		}
 
 		protected void OnClearEntry (object sender, System.EventArgs e)
@@ -34,4 +35,5 @@ namespace KeyKeeper
 		}
 	}
 }
+	
 

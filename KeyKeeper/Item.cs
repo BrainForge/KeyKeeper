@@ -5,30 +5,60 @@ namespace KeyKeeper
 	public class Item
 	{
 		private string name;
-		private uint type;
-		private uint code;
-		private uint item_id;
+		private uint type = 0;
+		private uint code = 0;
+		private uint item_id = 0;
 		
 		public Item (uint id)
 		{	
 			this.item_id = id;
 		}
 		
-		public uint id() {
+		public Item(uint id, string name, uint type, uint code)
+		{
+			this.item_id = id;
+			this.name = name;
+			this.type = type;
+			this.code = code;
+		}
+		
+		private void getItem()
+		{
+			this.name = getName();
+			this.type = getType();
+			this.code = getCode();
+		}
+		
+		public uint id()
+		{
 			return this.item_id;
 		}
 
 		public string getName()
-		{return null;}
+		{
+			if(string.IsNullOrEmpty(name))
+				getItem();
+			return name;
+		}
 		
-		public int getType()
-		{return 0;}
+		public uint getType()
+		{
+			if(type == 0)
+				getItem();
+			return type;
+		}
 		
-		public int getCode()
-		{return 0;}
+		public uint getCode()
+		{
+			if(code == 0)
+				getItem();
+			return code;
+		}
 		
-		public int owner()
-		{return 0;}
+		public uint owner()
+		{
+			return 0;
+		}
 		
 	}
 }

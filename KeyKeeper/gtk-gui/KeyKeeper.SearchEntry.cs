@@ -8,7 +8,7 @@ namespace KeyKeeper
 		private global::Gtk.Image image6;
 		private global::Gtk.Entry entry1;
 		private global::Gtk.Button button27;
-        
+		
 		protected virtual void Build ()
 		{
 			global::Stetic.Gui.Initialize (this);

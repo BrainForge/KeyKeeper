@@ -13,6 +13,7 @@ namespace KeyKeeper
 		public dbHelper ()
 		{}
 		
+		#region всякие операции с сотрудниками
 		public static Worker getWorkerData(uint workerid)
 		{
 			Worker tmpWorker = null;
@@ -92,10 +93,8 @@ namespace KeyKeeper
 		
 			reader.Close();
        		reader = null;
-			
-			
-			return list;
-			
+	
+			return list;	
 		}
 		
 		public static List<Worker> getWorkersOnWork()
@@ -124,7 +123,9 @@ namespace KeyKeeper
 			return list;
 			
 		}
+		#endregion
 		
+		#region экшены
 		public int registerAction( 
 		                   string stamp_end, 
 		                   string operation_id, 
@@ -154,6 +155,35 @@ namespace KeyKeeper
 															where id = {0}", journalID));
 			return 0;
 		}
+		#endregion
+		
+		#region всякие манипуляции с итемами
+		public static List<Item> getAllItem()
+		{
+			var list = new List<Item>();
+			
+			IDataReader reader = dbConnector.getdbAcces().readbd(
+				@"select *
+				  from items;");
+			try
+			{
+				while(reader.Read())
+					list.Add(new Item((uint)reader["id"], 
+										(string)reader["name"],
+				                        (uint)reader["type"],
+										(uint)reader["code"]));
+			}
+			catch(MySqlException ex)
+			{
+				Utils.showMessageError(ex.ToString());
+			}
+		
+			reader.Close();
+       		reader = null;
+	
+			return list;	
+		}
+		#endregion
 		
 		
 	}

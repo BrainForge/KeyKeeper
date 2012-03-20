@@ -5,7 +5,7 @@ namespace KeyKeeper
 	public partial class KeyKeeperWidget
 	{
 		private global::Gtk.Fixed fixed2;
-        
+		
 		protected virtual void Build ()
 		{
 			global::Stetic.Gui.Initialize (this);

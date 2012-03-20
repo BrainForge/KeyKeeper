@@ -25,9 +25,11 @@ namespace KeyKeeper
 			return null; 
 		}
 		
-		public List<Item> getItem()
+		public static List<Item> getItems()
 		{
-			return null; 
+			var listItems = new List<Item>();
+			listItems = dbHelper.getAllItem();
+			return listItems; 
 		}
 		
 		

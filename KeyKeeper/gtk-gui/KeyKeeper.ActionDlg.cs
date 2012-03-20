@@ -20,17 +20,19 @@ namespace KeyKeeper
 		private global::Gtk.HSeparator hseparator1;
 		private global::Gtk.Label label7;
 		private global::KeyKeeper.KeyKeeperWidget keykeeperwidgetBackItem;
-		private global::Gtk.Label label8;
 		private global::Gtk.HSeparator hseparator3;
+		private global::Gtk.Label label8;
 		private global::KeyKeeper.SearchEntry searchentry2;
 		private global::KeyKeeper.KeyKeeperWidget keykeeperwidgetPutItem;
 		private global::Gtk.Button button3;
-        
+		
 		protected virtual void Build ()
 		{
 			global::Stetic.Gui.Initialize (this);
 			// Widget KeyKeeper.ActionDlg
 			this.Name = "KeyKeeper.ActionDlg";
+			this.Title = global::Mono.Unix.Catalog.GetString ("Действия");
+			this.Icon = global::Stetic.IconLoader.LoadIcon (this, "gtk-about", global::Gtk.IconSize.Menu);
 			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 			// Internal child KeyKeeper.ActionDlg.VBox
 			global::Gtk.VBox w1 = this.VBox;
@@ -165,20 +167,20 @@ namespace KeyKeeper
 			w15.Expand = false;
 			w15.Fill = false;
 			// Container child vbox3.Gtk.Box+BoxChild
+			this.hseparator3 = new global::Gtk.HSeparator ();
+			this.hseparator3.Name = "hseparator3";
+			this.vbox3.Add (this.hseparator3);
+			global::Gtk.Box.BoxChild w16 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.hseparator3]));
+			w16.Position = 4;
+			w16.Expand = false;
+			w16.Fill = false;
+			// Container child vbox3.Gtk.Box+BoxChild
 			this.label8 = new global::Gtk.Label ();
 			this.label8.Name = "label8";
 			this.label8.Xalign = 0F;
 			this.label8.LabelProp = global::Mono.Unix.Catalog.GetString ("Взять ключ");
 			this.vbox3.Add (this.label8);
-			global::Gtk.Box.BoxChild w16 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.label8]));
-			w16.Position = 4;
-			w16.Expand = false;
-			w16.Fill = false;
-			// Container child vbox3.Gtk.Box+BoxChild
-			this.hseparator3 = new global::Gtk.HSeparator ();
-			this.hseparator3.Name = "hseparator3";
-			this.vbox3.Add (this.hseparator3);
-			global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.hseparator3]));
+			global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.label8]));
 			w17.Position = 5;
 			w17.Expand = false;
 			w17.Fill = false;
@@ -226,8 +228,8 @@ namespace KeyKeeper
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 290;
-			this.DefaultHeight = 284;
+			this.DefaultWidth = 291;
+			this.DefaultHeight = 267;
 			this.Show ();
 			this.btnStartWork.Clicked += new global::System.EventHandler (this.OnBtnStartWorkClicked);
 			this.btnEndWork.Clicked += new global::System.EventHandler (this.OnBtnEndWorkClicked);
