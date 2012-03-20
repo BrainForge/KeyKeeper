@@ -6,15 +6,14 @@ public partial class MainWindow
 	private global::Gtk.Notebook notebook1;
 	private global::Gtk.VBox vbox1;
 	private global::Gtk.HBox hbox1;
-	private global::Gtk.Entry filterEntry;
-	private global::Gtk.Button entryOnWorkClear;
+	private global::KeyKeeper.SearchEntry searchentry1;
 	private global::Gtk.ScrolledWindow GtkScrolledWindow;
 	private global::Gtk.TreeView workerOnWork;
 	private global::Gtk.Label label1;
 	private global::Gtk.Label label3;
 	private global::Gtk.Label label4;
 	private global::Gtk.VBox vbox3;
-	private global::Gtk.HBox hbox2;
+	private global::Gtk.HBox hbox3;
 	private global::Gtk.Entry entrySearch;
 	private global::Gtk.Button cleerEntryHelper;
 	private global::Gtk.ScrolledWindow GtkScrolledWindow1;
@@ -42,30 +41,17 @@ public partial class MainWindow
 		this.hbox1.Name = "hbox1";
 		this.hbox1.Spacing = 6;
 		// Container child hbox1.Gtk.Box+BoxChild
-		this.filterEntry = new global::Gtk.Entry ();
-		this.filterEntry.CanFocus = true;
-		this.filterEntry.Name = "filterEntry";
-		this.filterEntry.IsEditable = true;
-		this.filterEntry.InvisibleChar = '•';
-		this.hbox1.Add (this.filterEntry);
-		global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.filterEntry]));
+		this.searchentry1 = new global::KeyKeeper.SearchEntry ();
+		this.searchentry1.Events = ((global::Gdk.EventMask)(256));
+		this.searchentry1.Name = "searchentry1";
+		this.hbox1.Add (this.searchentry1);
+		global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.searchentry1]));
 		w1.Position = 0;
-		// Container child hbox1.Gtk.Box+BoxChild
-		this.entryOnWorkClear = new global::Gtk.Button ();
-		this.entryOnWorkClear.CanFocus = true;
-		this.entryOnWorkClear.Name = "entryOnWorkClear";
-		this.entryOnWorkClear.UseUnderline = true;
-		this.entryOnWorkClear.Label = global::Mono.Unix.Catalog.GetString ("Отчистить");
-		this.hbox1.Add (this.entryOnWorkClear);
-		global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.entryOnWorkClear]));
-		w2.Position = 1;
+		this.vbox1.Add (this.hbox1);
+		global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.hbox1]));
+		w2.Position = 0;
 		w2.Expand = false;
 		w2.Fill = false;
-		this.vbox1.Add (this.hbox1);
-		global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.hbox1]));
-		w3.Position = 0;
-		w3.Expand = false;
-		w3.Fill = false;
 		// Container child vbox1.Gtk.Box+BoxChild
 		this.GtkScrolledWindow = new global::Gtk.ScrolledWindow ();
 		this.GtkScrolledWindow.Name = "GtkScrolledWindow";
@@ -76,8 +62,8 @@ public partial class MainWindow
 		this.workerOnWork.Name = "workerOnWork";
 		this.GtkScrolledWindow.Add (this.workerOnWork);
 		this.vbox1.Add (this.GtkScrolledWindow);
-		global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.GtkScrolledWindow]));
-		w5.Position = 1;
+		global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.GtkScrolledWindow]));
+		w4.Position = 1;
 		this.notebook1.Add (this.vbox1);
 		// Notebook tab
 		this.label1 = new global::Gtk.Label ();
@@ -86,56 +72,71 @@ public partial class MainWindow
 		this.notebook1.SetTabLabel (this.vbox1, this.label1);
 		this.label1.ShowAll ();
 		// Notebook tab
-		global::Gtk.Label w7 = new global::Gtk.Label ();
-		w7.Visible = true;
-		this.notebook1.Add (w7);
+		global::Gtk.Label w6 = new global::Gtk.Label ();
+		w6.Visible = true;
+		this.notebook1.Add (w6);
 		this.label3 = new global::Gtk.Label ();
 		this.label3.Name = "label3";
 		this.label3.LabelProp = global::Mono.Unix.Catalog.GetString ("Ключи");
-		this.notebook1.SetTabLabel (w7, this.label3);
+		this.notebook1.SetTabLabel (w6, this.label3);
 		this.label3.ShowAll ();
 		// Notebook tab
-		global::Gtk.Label w8 = new global::Gtk.Label ();
-		w8.Visible = true;
-		this.notebook1.Add (w8);
+		global::Gtk.Label w7 = new global::Gtk.Label ();
+		w7.Visible = true;
+		this.notebook1.Add (w7);
 		this.label4 = new global::Gtk.Label ();
 		this.label4.Name = "label4";
 		this.label4.LabelProp = global::Mono.Unix.Catalog.GetString ("Журнал");
-		this.notebook1.SetTabLabel (w8, this.label4);
+		this.notebook1.SetTabLabel (w7, this.label4);
 		this.label4.ShowAll ();
 		// Container child notebook1.Gtk.Notebook+NotebookChild
 		this.vbox3 = new global::Gtk.VBox ();
 		this.vbox3.Name = "vbox3";
 		this.vbox3.Spacing = 6;
 		// Container child vbox3.Gtk.Box+BoxChild
-		this.hbox2 = new global::Gtk.HBox ();
-		this.hbox2.Name = "hbox2";
-		this.hbox2.Spacing = 6;
-		// Container child hbox2.Gtk.Box+BoxChild
+		this.hbox3 = new global::Gtk.HBox ();
+		this.hbox3.Name = "hbox3";
+		this.hbox3.Spacing = 6;
+		// Container child hbox3.Gtk.Box+BoxChild
 		this.entrySearch = new global::Gtk.Entry ();
 		this.entrySearch.CanFocus = true;
 		this.entrySearch.Name = "entrySearch";
 		this.entrySearch.IsEditable = true;
 		this.entrySearch.InvisibleChar = '•';
-		this.hbox2.Add (this.entrySearch);
-		global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.entrySearch]));
-		w9.Position = 0;
-		// Container child hbox2.Gtk.Box+BoxChild
+		this.hbox3.Add (this.entrySearch);
+		global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.entrySearch]));
+		w8.Position = 0;
+		// Container child hbox3.Gtk.Box+BoxChild
 		this.cleerEntryHelper = new global::Gtk.Button ();
 		this.cleerEntryHelper.CanFocus = true;
 		this.cleerEntryHelper.Name = "cleerEntryHelper";
 		this.cleerEntryHelper.UseUnderline = true;
-		this.cleerEntryHelper.Label = global::Mono.Unix.Catalog.GetString ("Отчистить");
-		this.hbox2.Add (this.cleerEntryHelper);
-		global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.cleerEntryHelper]));
-		w10.Position = 1;
-		w10.Expand = false;
-		w10.Fill = false;
-		this.vbox3.Add (this.hbox2);
-		global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.hbox2]));
-		w11.Position = 0;
-		w11.Expand = false;
-		w11.Fill = false;
+		// Container child cleerEntryHelper.Gtk.Container+ContainerChild
+		global::Gtk.Alignment w9 = new global::Gtk.Alignment (0.5F, 0.5F, 0F, 0F);
+		// Container child GtkAlignment.Gtk.Container+ContainerChild
+		global::Gtk.HBox w10 = new global::Gtk.HBox ();
+		w10.Spacing = 2;
+		// Container child GtkHBox.Gtk.Container+ContainerChild
+		global::Gtk.Image w11 = new global::Gtk.Image ();
+		w11.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-remove", global::Gtk.IconSize.Button);
+		w10.Add (w11);
+		// Container child GtkHBox.Gtk.Container+ContainerChild
+		global::Gtk.Label w13 = new global::Gtk.Label ();
+		w13.LabelProp = global::Mono.Unix.Catalog.GetString ("Отчистить");
+		w13.UseUnderline = true;
+		w10.Add (w13);
+		w9.Add (w10);
+		this.cleerEntryHelper.Add (w9);
+		this.hbox3.Add (this.cleerEntryHelper);
+		global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.cleerEntryHelper]));
+		w17.Position = 1;
+		w17.Expand = false;
+		w17.Fill = false;
+		this.vbox3.Add (this.hbox3);
+		global::Gtk.Box.BoxChild w18 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.hbox3]));
+		w18.Position = 0;
+		w18.Expand = false;
+		w18.Fill = false;
 		// Container child vbox3.Gtk.Box+BoxChild
 		this.GtkScrolledWindow1 = new global::Gtk.ScrolledWindow ();
 		this.GtkScrolledWindow1.Name = "GtkScrolledWindow1";
@@ -146,11 +147,11 @@ public partial class MainWindow
 		this.helperTreeview.Name = "helperTreeview";
 		this.GtkScrolledWindow1.Add (this.helperTreeview);
 		this.vbox3.Add (this.GtkScrolledWindow1);
-		global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.GtkScrolledWindow1]));
-		w13.Position = 1;
+		global::Gtk.Box.BoxChild w20 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.GtkScrolledWindow1]));
+		w20.Position = 1;
 		this.notebook1.Add (this.vbox3);
-		global::Gtk.Notebook.NotebookChild w14 = ((global::Gtk.Notebook.NotebookChild)(this.notebook1 [this.vbox3]));
-		w14.Position = 3;
+		global::Gtk.Notebook.NotebookChild w21 = ((global::Gtk.Notebook.NotebookChild)(this.notebook1 [this.vbox3]));
+		w21.Position = 3;
 		// Notebook tab
 		this.label5 = new global::Gtk.Label ();
 		this.label5.Name = "label5";
@@ -161,13 +162,11 @@ public partial class MainWindow
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
 		}
-		this.DefaultWidth = 400;
+		this.DefaultWidth = 401;
 		this.DefaultHeight = 300;
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
 		this.notebook1.SwitchPage += new global::Gtk.SwitchPageHandler (this.OnNotebook1SwitchPage);
-		this.filterEntry.Changed += new global::System.EventHandler (this.OnFilterEntryChanged);
-		this.entryOnWorkClear.Clicked += new global::System.EventHandler (this.OnEntryOnWorkClearClicked);
 		this.workerOnWork.RowActivated += new global::Gtk.RowActivatedHandler (this.OnWorkerOnWorkRowActivated);
 		this.entrySearch.Changed += new global::System.EventHandler (this.OnEntrySearchChanged);
 		this.cleerEntryHelper.Clicked += new global::System.EventHandler (this.OnCleerEntryHelperClicked);

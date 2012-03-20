@@ -7,9 +7,8 @@
   <import>
     <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <widget-library name="../bin/Debug/KeyKeeper.exe" internal="true" />
-    <widget-library name="../../../../../../../../../usr/lib/monodevelop/AddIns/MonoDevelop.GtkCore/libstetic.dll" />
   </import>
-  <widget class="Gtk.Window" id="MainWindow" design-size="400 300">
+  <widget class="Gtk.Window" id="MainWindow" design-size="401 300">
     <property name="MemberName" />
     <property name="Title" translatable="yes">MainWindow</property>
     <property name="WindowPosition">CenterOnParent</property>
@@ -29,32 +28,13 @@
                 <property name="MemberName" />
                 <property name="Spacing">6</property>
                 <child>
-                  <widget class="Gtk.Entry" id="filterEntry">
+                  <widget class="KeyKeeper.SearchEntry" id="searchentry1">
                     <property name="MemberName" />
-                    <property name="CanFocus">True</property>
-                    <property name="IsEditable">True</property>
-                    <property name="InvisibleChar">•</property>
-                    <signal name="Changed" handler="OnFilterEntryChanged" />
+                    <property name="Events">ButtonPressMask</property>
                   </widget>
                   <packing>
                     <property name="Position">0</property>
                     <property name="AutoSize">True</property>
-                  </packing>
-                </child>
-                <child>
-                  <widget class="Gtk.Button" id="entryOnWorkClear">
-                    <property name="MemberName" />
-                    <property name="CanFocus">True</property>
-                    <property name="Type">TextOnly</property>
-                    <property name="Label" translatable="yes">Отчистить</property>
-                    <property name="UseUnderline">True</property>
-                    <signal name="Clicked" handler="OnEntryOnWorkClearClicked" />
-                  </widget>
-                  <packing>
-                    <property name="Position">1</property>
-                    <property name="AutoSize">True</property>
-                    <property name="Expand">False</property>
-                    <property name="Fill">False</property>
                   </packing>
                 </child>
               </widget>
@@ -123,7 +103,7 @@
             <property name="MemberName" />
             <property name="Spacing">6</property>
             <child>
-              <widget class="Gtk.HBox" id="hbox2">
+              <widget class="Gtk.HBox" id="hbox3">
                 <property name="MemberName" />
                 <property name="Spacing">6</property>
                 <child>
@@ -143,7 +123,8 @@
                   <widget class="Gtk.Button" id="cleerEntryHelper">
                     <property name="MemberName" />
                     <property name="CanFocus">True</property>
-                    <property name="Type">TextOnly</property>
+                    <property name="Type">TextAndIcon</property>
+                    <property name="Icon">stock:gtk-remove Button</property>
                     <property name="Label" translatable="yes">Отчистить</property>
                     <property name="UseUnderline">True</property>
                     <signal name="Clicked" handler="OnCleerEntryHelperClicked" />
@@ -198,7 +179,7 @@
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Dialog" id="KeyKeeper.ActionDlg" design-size="238 348">
+  <widget class="Gtk.Dialog" id="KeyKeeper.ActionDlg" design-size="290 284">
     <property name="MemberName" />
     <property name="WindowPosition">CenterOnParent</property>
     <property name="Buttons">1</property>
@@ -353,10 +334,10 @@
                   </packing>
                 </child>
                 <child>
-                  <widget class="Stetic.Custom" id="custom1">
+                  <widget class="Gtk.Label" id="label7">
                     <property name="MemberName" />
-                    <property name="Int1">0</property>
-                    <property name="Int2">0</property>
+                    <property name="Xalign">0</property>
+                    <property name="LabelProp" translatable="yes">Вернуть ключ</property>
                   </widget>
                   <packing>
                     <property name="Position">2</property>
@@ -366,18 +347,79 @@
                   </packing>
                 </child>
                 <child>
-                  <placeholder />
+                  <widget class="KeyKeeper.KeyKeeperWidget" id="keykeeperwidgetBackItem">
+                    <property name="MemberName" />
+                    <property name="Events">ButtonPressMask</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">3</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gtk.Label" id="label8">
+                    <property name="MemberName" />
+                    <property name="Xalign">0</property>
+                    <property name="LabelProp" translatable="yes">Взять ключ</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">4</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gtk.HSeparator" id="hseparator3">
+                    <property name="MemberName" />
+                  </widget>
+                  <packing>
+                    <property name="Position">5</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="KeyKeeper.SearchEntry" id="searchentry2">
+                    <property name="MemberName" />
+                    <property name="Events">ButtonPressMask</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">6</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="KeyKeeper.KeyKeeperWidget" id="keykeeperwidgetPutItem">
+                    <property name="MemberName" />
+                    <property name="Events">ButtonPressMask</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">7</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
                 </child>
               </widget>
               <packing>
                 <property name="Position">1</property>
                 <property name="AutoSize">True</property>
+                <property name="Expand">False</property>
+                <property name="Fill">False</property>
               </packing>
             </child>
           </widget>
           <packing>
             <property name="Position">1</property>
             <property name="AutoSize">True</property>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
           </packing>
         </child>
       </widget>
@@ -401,6 +443,68 @@
             <property name="Fill">False</property>
           </packing>
         </child>
+      </widget>
+    </child>
+  </widget>
+  <widget class="Gtk.Bin" id="KeyKeeper.SearchEntry" design-size="300 29">
+    <property name="MemberName" />
+    <property name="Visible">False</property>
+    <child>
+      <widget class="Gtk.HBox" id="hbox1">
+        <property name="MemberName" />
+        <property name="Spacing">6</property>
+        <child>
+          <widget class="Gtk.Image" id="image6">
+            <property name="MemberName" />
+            <property name="Pixbuf">stock:gtk-find Menu</property>
+          </widget>
+          <packing>
+            <property name="Position">0</property>
+            <property name="AutoSize">True</property>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Entry" id="entry1">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="IsEditable">True</property>
+            <property name="InvisibleChar">•</property>
+            <signal name="Changed" handler="OnEntry1Changed" />
+          </widget>
+          <packing>
+            <property name="Position">1</property>
+            <property name="AutoSize">True</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Button" id="button27">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="Type">TextAndIcon</property>
+            <property name="Icon">stock:gtk-remove Menu</property>
+            <property name="Label" translatable="yes">_Очистить</property>
+            <property name="UseUnderline">True</property>
+            <signal name="Clicked" handler="OnClearEntry" />
+          </widget>
+          <packing>
+            <property name="Position">2</property>
+            <property name="AutoSize">True</property>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
+          </packing>
+        </child>
+      </widget>
+    </child>
+  </widget>
+  <widget class="Gtk.Bin" id="KeyKeeper.KeyKeeperWidget" design-size="300 27">
+    <property name="MemberName" />
+    <property name="Visible">False</property>
+    <child>
+      <widget class="Gtk.Fixed" id="fixed2">
+        <property name="MemberName" />
+        <property name="HasWindow">False</property>
       </widget>
     </child>
   </widget>

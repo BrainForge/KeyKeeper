@@ -18,7 +18,12 @@ namespace KeyKeeper
 		private global::Gtk.Label label5;
 		private global::Gtk.Label label6;
 		private global::Gtk.HSeparator hseparator1;
-		private global::Stetic.Custom custom1;
+		private global::Gtk.Label label7;
+		private global::KeyKeeper.KeyKeeperWidget keykeeperwidgetBackItem;
+		private global::Gtk.Label label8;
+		private global::Gtk.HSeparator hseparator3;
+		private global::KeyKeeper.SearchEntry searchentry2;
+		private global::KeyKeeper.KeyKeeperWidget keykeeperwidgetPutItem;
 		private global::Gtk.Button button3;
         
 		protected virtual void Build ()
@@ -141,24 +146,73 @@ namespace KeyKeeper
 			w13.Expand = false;
 			w13.Fill = false;
 			// Container child vbox3.Gtk.Box+BoxChild
-			this.custom1 = new global::Stetic.Custom ();
-			this.custom1.Name = "custom1";
-			this.custom1.Int1 = 0;
-			this.custom1.Int2 = 0;
-			this.vbox3.Add (this.custom1);
-			global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.custom1]));
+			this.label7 = new global::Gtk.Label ();
+			this.label7.Name = "label7";
+			this.label7.Xalign = 0F;
+			this.label7.LabelProp = global::Mono.Unix.Catalog.GetString ("Вернуть ключ");
+			this.vbox3.Add (this.label7);
+			global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.label7]));
 			w14.Position = 2;
 			w14.Expand = false;
 			w14.Fill = false;
+			// Container child vbox3.Gtk.Box+BoxChild
+			this.keykeeperwidgetBackItem = new global::KeyKeeper.KeyKeeperWidget ();
+			this.keykeeperwidgetBackItem.Events = ((global::Gdk.EventMask)(256));
+			this.keykeeperwidgetBackItem.Name = "keykeeperwidgetBackItem";
+			this.vbox3.Add (this.keykeeperwidgetBackItem);
+			global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.keykeeperwidgetBackItem]));
+			w15.Position = 3;
+			w15.Expand = false;
+			w15.Fill = false;
+			// Container child vbox3.Gtk.Box+BoxChild
+			this.label8 = new global::Gtk.Label ();
+			this.label8.Name = "label8";
+			this.label8.Xalign = 0F;
+			this.label8.LabelProp = global::Mono.Unix.Catalog.GetString ("Взять ключ");
+			this.vbox3.Add (this.label8);
+			global::Gtk.Box.BoxChild w16 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.label8]));
+			w16.Position = 4;
+			w16.Expand = false;
+			w16.Fill = false;
+			// Container child vbox3.Gtk.Box+BoxChild
+			this.hseparator3 = new global::Gtk.HSeparator ();
+			this.hseparator3.Name = "hseparator3";
+			this.vbox3.Add (this.hseparator3);
+			global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.hseparator3]));
+			w17.Position = 5;
+			w17.Expand = false;
+			w17.Fill = false;
+			// Container child vbox3.Gtk.Box+BoxChild
+			this.searchentry2 = new global::KeyKeeper.SearchEntry ();
+			this.searchentry2.Events = ((global::Gdk.EventMask)(256));
+			this.searchentry2.Name = "searchentry2";
+			this.vbox3.Add (this.searchentry2);
+			global::Gtk.Box.BoxChild w18 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.searchentry2]));
+			w18.Position = 6;
+			w18.Expand = false;
+			w18.Fill = false;
+			// Container child vbox3.Gtk.Box+BoxChild
+			this.keykeeperwidgetPutItem = new global::KeyKeeper.KeyKeeperWidget ();
+			this.keykeeperwidgetPutItem.Events = ((global::Gdk.EventMask)(256));
+			this.keykeeperwidgetPutItem.Name = "keykeeperwidgetPutItem";
+			this.vbox3.Add (this.keykeeperwidgetPutItem);
+			global::Gtk.Box.BoxChild w19 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.keykeeperwidgetPutItem]));
+			w19.Position = 7;
+			w19.Expand = false;
+			w19.Fill = false;
 			this.vbox2.Add (this.vbox3);
-			global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.vbox3]));
-			w15.Position = 1;
+			global::Gtk.Box.BoxChild w20 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.vbox3]));
+			w20.Position = 1;
+			w20.Expand = false;
+			w20.Fill = false;
 			w1.Add (this.vbox2);
-			global::Gtk.Box.BoxChild w16 = ((global::Gtk.Box.BoxChild)(w1 [this.vbox2]));
-			w16.Position = 1;
+			global::Gtk.Box.BoxChild w21 = ((global::Gtk.Box.BoxChild)(w1 [this.vbox2]));
+			w21.Position = 1;
+			w21.Expand = false;
+			w21.Fill = false;
 			// Internal child KeyKeeper.ActionDlg.ActionArea
-			global::Gtk.HButtonBox w17 = this.ActionArea;
-			w17.Name = "__gtksharp_70_Stetic_TopLevelDialog_ActionArea";
+			global::Gtk.HButtonBox w22 = this.ActionArea;
+			w22.Name = "__gtksharp_70_Stetic_TopLevelDialog_ActionArea";
 			// Container child __gtksharp_70_Stetic_TopLevelDialog_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.button3 = new global::Gtk.Button ();
 			this.button3.CanFocus = true;
@@ -166,14 +220,14 @@ namespace KeyKeeper
 			this.button3.UseUnderline = true;
 			this.button3.Label = global::Mono.Unix.Catalog.GetString ("0 - Отмена");
 			this.AddActionWidget (this.button3, 0);
-			global::Gtk.ButtonBox.ButtonBoxChild w18 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w17 [this.button3]));
-			w18.Expand = false;
-			w18.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w23 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w22 [this.button3]));
+			w23.Expand = false;
+			w23.Fill = false;
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 238;
-			this.DefaultHeight = 348;
+			this.DefaultWidth = 290;
+			this.DefaultHeight = 284;
 			this.Show ();
 			this.btnStartWork.Clicked += new global::System.EventHandler (this.OnBtnStartWorkClicked);
 			this.btnEndWork.Clicked += new global::System.EventHandler (this.OnBtnEndWorkClicked);

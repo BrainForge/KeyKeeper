@@ -92,6 +92,10 @@
     <Compile Include="IActionRegistrator.cs" />
     <Compile Include="ActionCreater.cs" />
     <Compile Include="Const.cs" />
+    <Compile Include="SearchEntry.cs" />
+    <Compile Include="gtk-gui\KeyKeeper.SearchEntry.cs" />
+    <Compile Include="KeyKeeperWidget.cs" />
+    <Compile Include="gtk-gui\KeyKeeper.KeyKeeperWidget.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

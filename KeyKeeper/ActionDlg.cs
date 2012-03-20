@@ -20,6 +20,12 @@ namespace KeyKeeper
 			worker = mworker;
 			labelName.Text = worker.getFIO();
 			getWorkerOnWorkNow();
+			
+			for(int i = 0; i<4;i++)
+				keykeeperwidgetBackItem.addButton("41"+i);
+			
+			for(int i = 0; i<4;i++)
+				keykeeperwidgetPutItem.addButton("50"+i);
 		}
 		
 		private void getWorkerOnWorkNow()

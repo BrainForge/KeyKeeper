@@ -35,6 +35,8 @@ public partial class MainWindow: Gtk.Window
 		helperTreeview.Model = new ListStore(typeof(string));
 		
 		notebook1.CurrentPage = 0;
+		
+		searchentry1.changed += OnFilterEntryChanged;
 	}
 	
 	#region создание модели для триивью
@@ -94,10 +96,10 @@ public partial class MainWindow: Gtk.Window
 	{
 		string workerFIO = model.GetValue (iter, 1).ToString ().ToLower();
  
-		if (filterEntry.Text == "")
+		if (string.IsNullOrEmpty(searchentry1.Text))
 			return true;
  
-		if (workerFIO.IndexOf (filterEntry.Text.ToLower()) > -1)
+		if (workerFIO.IndexOf (searchentry1.Text.ToLower()) > -1)
 			return true;
 		else
 			return false;
@@ -107,7 +109,7 @@ public partial class MainWindow: Gtk.Window
 	{
 		string workerFIO = model.GetValue (iter, 0).ToString ().ToLower();
  
-		if (entrySearch.Text == "")
+		if (string.IsNullOrEmpty(entrySearch.Text))
 			return true;
  
 		if (workerFIO.IndexOf (entrySearch.Text.ToLower()) > -1)
@@ -152,11 +154,6 @@ public partial class MainWindow: Gtk.Window
 	protected void OnCleerEntryHelperClicked (object sender, System.EventArgs e)
 	{
 		entrySearch.Text="";
-	}
-
-	protected void OnEntryOnWorkClearClicked (object sender, System.EventArgs e)
-	{
-		filterEntry.Text="";
 	}
 	#endregion
 	
