@@ -4,24 +4,26 @@ namespace KeyKeeper
 {
 	public class PutItem : Action
 	{
-		Item item;
-		int itemRegType;
-		
+	
 		public PutItem (Worker worker, 
-		     int workerRegType, Item item, int itemRegType)
+		     uint workerRegType, Item item, uint itemRegType)
 		{
-			this.item = item;
-			this.itemRegType = itemRegType;
+			base.worker = worker;
+			base.worker_reg_type = workerRegType;
+			
+			base.item = item;
+			base.item_reg_type = itemRegType;
 		}
 		
 		public override void Do (IActionRegistrator registrator)
 		{
-			registrator.registerAction("now()", 
+			registrator.updateAction(item.isFree(worker.id()));
+			registrator.registerAction("now()",
 			                           Const.OPERATION_ITEM_PUT.ToString(),
 			                           worker.id().ToString(),
 			                           worker_reg_type.ToString(),
 			                           item.id().ToString(),
-			                           itemRegType.ToString());
+			                           item_reg_type.ToString());
 		}
 	}
 }

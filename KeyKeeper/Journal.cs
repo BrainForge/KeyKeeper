@@ -20,9 +20,11 @@ namespace KeyKeeper
 			return listWorker;
 		}
 		
-		public List<Item> getWorkerItems()
+		public static List<Item> getWorkerItems(uint id)
 		{ 
-			return null; 
+			var listItems = new List<Item>();
+			listItems = dbHelper.getAllItemByWorker(id);
+			return listItems; 
 		}
 		
 		public static List<Item> getItems()

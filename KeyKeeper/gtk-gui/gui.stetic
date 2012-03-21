@@ -398,7 +398,7 @@
                   </packing>
                 </child>
                 <child>
-                  <widget class="KeyKeeper.KeyKeeperWidget" id="keykeeperwidgetPutItem">
+                  <widget class="KeyKeeper.KeyKeeperWidget" id="keykeeperwidgetGetItem">
                     <property name="MemberName" />
                     <property name="Events">ButtonPressMask</property>
                   </widget>

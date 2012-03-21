@@ -21,27 +21,55 @@ namespace KeyKeeper
 			labelName.Text = worker.getFIO();
 			getWorkerOnWorkNow();
 			
-			for(int i = 0; i<4;i++)
-				keykeeperwidgetBackItem.addButton("41"+i);
+			keykeeperwidgetGetItem.clickEvent += onClickGetButton;
+			keykeeperwidgetBackItem.clickEvent += onClickPutButton;
 			
-			searchentry2.changed += delegate(object sender, EventArgs e) 
-			{
-				keykeeperwidgetPutItem.removeButton();
+			updateKey();
 				
-				Console.WriteLine("update()");
+			searchentry2.changed += changedEvent;
+			
+		}
+		
+		private void updateKey()
+		{
+			keykeeperwidgetBackItem.removeButton();
+			foreach(Item item in Journal.getWorkerItems(worker.id()))
+				keykeeperwidgetBackItem.addButton(item.getName(), item);
+		}
+		
+		private void onClickPutButton(object sender, Item item)
+		{
+			onAction(this, new PutItem(worker,Const.HAND_OPERATION,
+			                           item,Const.HAND_OPERATION));
+			updateKey();
+		}
+		
+		private void onClickGetButton(object sender, Item item)
+		{
+			onAction(this, new GetItem(worker,Const.HAND_OPERATION,
+			                           item,Const.HAND_OPERATION));
+			updateKey();
+		}
+		
+		
+		
+		private void changedEvent(object sender, EventArgs e)
+		{
+				keykeeperwidgetGetItem.removeButton();
 				
 				if(string.IsNullOrEmpty(searchentry2.Text))
-					keykeeperwidgetPutItem.removeButton();	
+					keykeeperwidgetGetItem.removeButton();	
 				
 				foreach(Item item in Journal.getItems())
 				{
 					if(item.getName().IndexOf (searchentry2.Text) > -1 && 
-					   !string.IsNullOrEmpty(searchentry2.Text) && searchentry2.Text.Length >= 2)
-					{				
-						keykeeperwidgetPutItem.addButton(item.getName());
+					   !string.IsNullOrEmpty(searchentry2.Text) && 
+				   		searchentry2.Text.Length >= 2 &&
+				   		item.isFree(worker.id())==0)
+					{	
+						keykeeperwidgetGetItem.addButton(item.getName(), item);
 					}
 				}
-			};
 		}
 		
 		private void getWorkerOnWorkNow()

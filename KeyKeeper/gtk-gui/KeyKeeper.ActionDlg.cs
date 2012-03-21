@@ -23,7 +23,7 @@ namespace KeyKeeper
 		private global::Gtk.HSeparator hseparator3;
 		private global::Gtk.Label label8;
 		private global::KeyKeeper.SearchEntry searchentry2;
-		private global::KeyKeeper.KeyKeeperWidget keykeeperwidgetPutItem;
+		private global::KeyKeeper.KeyKeeperWidget keykeeperwidgetGetItem;
 		private global::Gtk.Button button3;
 		
 		protected virtual void Build ()
@@ -194,11 +194,11 @@ namespace KeyKeeper
 			w18.Expand = false;
 			w18.Fill = false;
 			// Container child vbox3.Gtk.Box+BoxChild
-			this.keykeeperwidgetPutItem = new global::KeyKeeper.KeyKeeperWidget ();
-			this.keykeeperwidgetPutItem.Events = ((global::Gdk.EventMask)(256));
-			this.keykeeperwidgetPutItem.Name = "keykeeperwidgetPutItem";
-			this.vbox3.Add (this.keykeeperwidgetPutItem);
-			global::Gtk.Box.BoxChild w19 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.keykeeperwidgetPutItem]));
+			this.keykeeperwidgetGetItem = new global::KeyKeeper.KeyKeeperWidget ();
+			this.keykeeperwidgetGetItem.Events = ((global::Gdk.EventMask)(256));
+			this.keykeeperwidgetGetItem.Name = "keykeeperwidgetGetItem";
+			this.vbox3.Add (this.keykeeperwidgetGetItem);
+			global::Gtk.Box.BoxChild w19 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.keykeeperwidgetGetItem]));
 			w19.Position = 7;
 			w19.Expand = false;
 			w19.Fill = false;

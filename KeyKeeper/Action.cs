@@ -7,6 +7,9 @@ namespace KeyKeeper
 		public Worker worker;
 		public uint worker_reg_type;
 		
+		public Item item;
+		public uint item_reg_type;
+		
 		public Action(Worker worker, uint workerRegType)
 		{}
 		

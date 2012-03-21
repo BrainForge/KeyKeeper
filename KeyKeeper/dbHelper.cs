@@ -183,8 +183,68 @@ namespace KeyKeeper
 	
 			return list;	
 		}
-		#endregion
 		
+		public static List<Item> getAllItemByWorker(uint id)
+		{
+			var list = new List<Item>();
+			
+			IDataReader reader = dbConnector.getdbAcces().readbd(
+				string.Format(@"SELECT i.* FROM items i 
+								join journal j on i.id = j.item_id
+         						where isnull(j.stamp_end) and j.operation_id = {0} and j.worker_id = {1};",
+			              		Const.OPERATION_ITEM_GET,id));
+			try
+			{
+				while(reader.Read())
+					list.Add(new Item((uint)reader["id"], 
+										(string)reader["name"],
+				                        (uint)reader["type"],
+										(uint)reader["code"]));
+			}
+			catch(MySqlException ex)
+			{
+				Utils.showMessageError(ex.ToString());
+			}
+		
+			reader.Close();
+       		reader = null;
+	
+			return list;	
+		}
+		
+		public static uint getJournalID(uint workerID, uint itemId)
+		{
+			uint id = 0;
+			IDataReader reader = dbConnector.getdbAcces().readbd(
+			string.Format(@"select id from journal 
+							where worker_id = {0} and isnull(stamp_end) and operation_id={1} and item_id = {2};",
+							workerID,
+							Const.OPERATION_ITEM_GET,itemId));
+			try
+			{
+				if(reader.Read())
+				{
+					if(reader.FieldCount==1)
+						id = (uint)reader["id"];
+					else
+					{
+						Utils.showMessageError("Что-то пошло не так...");
+					}
+				}
+			}
+			catch(MySqlException ex)
+			{
+				Utils.showMessageError(ex.ToString());
+			}
+		
+			reader.Close();
+       		reader = null;
+			Console.WriteLine("id in journal - "+id);
+			return id;
+		}
+		
+		#endregion
+
 		
 	}
 }

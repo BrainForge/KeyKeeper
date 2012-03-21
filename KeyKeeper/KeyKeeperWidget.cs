@@ -4,9 +4,13 @@ using System.Collections.Generic;
 
 namespace KeyKeeper
 {
+	
 	[System.ComponentModel.ToolboxItem(true)]
 	public partial class KeyKeeperWidget : Gtk.Bin
 	{
+		public delegate void ClickEventHeader(object sender, Item ca);
+		public event ClickEventHeader clickEvent;
+		
 		int x = 0;
 		int y = 0;
 		
@@ -17,24 +21,26 @@ namespace KeyKeeper
 			this.Build ();
 		}
 
-		public void addButton(string text)
+		public void addButton(string text, Item item)
 		{
 			if(x>250)
 			{
 				y += 35;
 				x = 0;
 			}
+			WidgetButton btn = new WidgetButton(text, item,fixed2, x, y);
+			btn.clickEvent += onClickEvent;
 			
-			Button btn = new Button(text);
-			btn.Show();
-			fixed2.Add(btn);
-
-			global::Gtk.Fixed.FixedChild w1 = ((global::Gtk.Fixed.FixedChild)(this.fixed2 [btn]));
-			w1.X = x;
-			w1.Y = y;
+			fixed2.Add(btn);	
 			x += 50;
 			fixed2.ShowAll();
 			buttonList.Add(btn);
+		}
+		
+		public void onClickEvent(object sender, Item ca)
+		{
+			if(clickEvent!=null)
+				clickEvent(this, ca);
 		}
 		
 		public void removeButton()
