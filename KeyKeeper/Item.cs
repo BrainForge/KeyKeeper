@@ -55,9 +55,9 @@ namespace KeyKeeper
 			return code;
 		}
 		
-		public uint isFree(uint workeID)
+		public uint isFree()
 		{
-			return dbHelper.getJournalID(workeID,id());
+			return dbHelper.getJournalID(id());
 		}
 		
 	}

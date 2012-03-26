@@ -17,7 +17,7 @@ namespace KeyKeeper
 		
 		public override void Do (IActionRegistrator registrator)
 		{
-			registrator.updateAction(item.isFree(worker.id()));
+			registrator.updateAction(item.isFree());
 			registrator.registerAction("now()",
 			                           Const.OPERATION_ITEM_PUT.ToString(),
 			                           worker.id().ToString(),

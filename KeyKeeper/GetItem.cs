@@ -16,6 +16,7 @@ namespace KeyKeeper
 		
 		public override void Do (IActionRegistrator registrator)
 		{
+			
 			registrator.registerAction("null",
 			                           Const.OPERATION_ITEM_GET.ToString(),
 			                           worker.id().ToString(),

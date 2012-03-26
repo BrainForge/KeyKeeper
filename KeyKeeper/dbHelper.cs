@@ -212,14 +212,14 @@ namespace KeyKeeper
 			return list;	
 		}
 		
-		public static uint getJournalID(uint workerID, uint itemId)
+		public static uint getJournalID(uint itemId)
 		{
 			uint id = 0;
 			IDataReader reader = dbConnector.getdbAcces().readbd(
-			string.Format(@"select id from journal 
-							where worker_id = {0} and isnull(stamp_end) and operation_id={1} and item_id = {2};",
-							workerID,
-							Const.OPERATION_ITEM_GET,itemId));
+			string.Format(@"SELECT id FROM journal
+        	 				where isnull(stamp_end) and operation_id = {0} and item_id = {1};",
+							Const.OPERATION_ITEM_GET
+							,itemId));
 			try
 			{
 				if(reader.Read())

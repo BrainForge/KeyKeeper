@@ -23,32 +23,48 @@ namespace KeyKeeper
 			
 			keykeeperwidgetGetItem.clickEvent += onClickGetButton;
 			keykeeperwidgetBackItem.clickEvent += onClickPutButton;
-			
-			updateKey();
-				
 			searchentry2.changed += changedEvent;
 			
+			updateKeyBack();	
 		}
 		
-		private void updateKey()
+		private void updateKeyBack()
 		{
 			keykeeperwidgetBackItem.removeButton();
+			keykeeperwidgetGetItem.removeButton();
+			
 			foreach(Item item in Journal.getWorkerItems(worker.id()))
 				keykeeperwidgetBackItem.addButton(item.getName(), item);
+		}
+		
+		private void updateKeyGet()
+		{
+			foreach(Item item in Journal.getItems())
+			{
+				if(item.getName().IndexOf (searchentry2.Text) > -1 && 
+				   !string.IsNullOrEmpty(searchentry2.Text) && 
+						searchentry2.Text.Length >= 2 &&
+				  		item.isFree()==0)
+				{	
+					keykeeperwidgetGetItem.addButton(item.getName(), item);
+				}
+			}
 		}
 		
 		private void onClickPutButton(object sender, Item item)
 		{
 			onAction(this, new PutItem(worker,Const.HAND_OPERATION,
 			                           item,Const.HAND_OPERATION));
-			updateKey();
+			updateKeyBack();
+			updateKeyGet();
 		}
 		
 		private void onClickGetButton(object sender, Item item)
 		{
 			onAction(this, new GetItem(worker,Const.HAND_OPERATION,
 			                           item,Const.HAND_OPERATION));
-			updateKey();
+			updateKeyBack();
+			updateKeyGet();
 		}
 		
 		
@@ -60,16 +76,7 @@ namespace KeyKeeper
 				if(string.IsNullOrEmpty(searchentry2.Text))
 					keykeeperwidgetGetItem.removeButton();	
 				
-				foreach(Item item in Journal.getItems())
-				{
-					if(item.getName().IndexOf (searchentry2.Text) > -1 && 
-					   !string.IsNullOrEmpty(searchentry2.Text) && 
-				   		searchentry2.Text.Length >= 2 &&
-				   		item.isFree(worker.id())==0)
-					{	
-						keykeeperwidgetGetItem.addButton(item.getName(), item);
-					}
-				}
+				updateKeyGet();
 		}
 		
 		private void getWorkerOnWorkNow()
@@ -86,6 +93,8 @@ namespace KeyKeeper
 
 		protected void OnButton3Clicked (object sender, System.EventArgs e)
 		{
+			keykeeperwidgetBackItem.removeButton();
+			keykeeperwidgetGetItem.removeButton();
 			this.Destroy();
 		}
 

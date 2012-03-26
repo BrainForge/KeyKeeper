@@ -10,6 +10,9 @@ namespace KeyKeeper
 			Application.Init ();
 			MainWindow win = new MainWindow ();
 			win.Show ();
+			
+			new SpecialKeys();
+			
 			Application.Run ();
 		}
 	}

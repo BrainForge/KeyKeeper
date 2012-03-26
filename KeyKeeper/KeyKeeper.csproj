@@ -96,6 +96,7 @@
     <Compile Include="KeyKeeperWidget.cs" />
     <Compile Include="gtk-gui\KeyKeeper.KeyKeeperWidget.cs" />
     <Compile Include="WidgetButton.cs" />
+    <Compile Include="SpecialKey.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
