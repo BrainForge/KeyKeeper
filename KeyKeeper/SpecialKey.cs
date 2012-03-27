@@ -42,7 +42,7 @@ namespace KeyKeeper
             UnitializeKeys();
         }
         
-        public void RegisterHandler(SpecialKeyPressedHandler handler, params SpecialKey [] specialKeys)
+        private void RegisterHandler(SpecialKeyPressedHandler handler, params SpecialKey [] specialKeys)
         {
             foreach(SpecialKey specialKey in specialKeys) {
                 if(key_map.Contains(specialKey)) {
@@ -52,7 +52,7 @@ namespace KeyKeeper
             }
         }
         
-        public void UnregisterHandler(SpecialKeyPressedHandler handler, params SpecialKey [] specialKeys)
+        private void UnregisterHandler(SpecialKeyPressedHandler handler, params SpecialKey [] specialKeys)
         {
             foreach(SpecialKey specialKey in specialKeys) {
                 if(key_map.Contains(specialKey)) {
@@ -81,7 +81,7 @@ namespace KeyKeeper
             return kc_list;
         }
 
-        private void InitializeKeys()
+        public void InitializeKeys()
         {
             for(int i = 0; i < Gdk.Display.Default.NScreens; i++) {
                 Gdk.Screen screen = Gdk.Display.Default.GetScreen(i);
@@ -95,7 +95,7 @@ namespace KeyKeeper
 			
         }
         
-        private void UnitializeKeys() 
+        public void UnitializeKeys() 
         {
             for(int i = 0; i < Gdk.Display.Default.NScreens; i++) {
                 Gdk.Screen screen = Gdk.Display.Default.GetScreen(i);

@@ -29,6 +29,8 @@ public partial class MainWindow: Gtk.Window
 	private void initGui()
 	{
 		workerOnWork.AppendColumn("Сейчас на работе", new CellRendererText(), "text", 1);
+		workerOnWork.AppendColumn("Аудитории", new CellRendererText(), "text", 2);
+		
 		workerOnWork.Model = new ListStore(typeof(string));
 		
 		helperTreeview.AppendColumn("Сотрудники", new CellRendererText(), "text", 1);
@@ -42,11 +44,15 @@ public partial class MainWindow: Gtk.Window
 	#region создание модели для триивью
 	private Gtk.TreeModelFilter getWorkerOnWork()
 	{
-		Gtk.ListStore worker = new Gtk.ListStore (typeof (Worker),typeof (string));
-		
+		Gtk.ListStore worker = new Gtk.ListStore (typeof (Worker),typeof (string), typeof (string));
+		String listWorkerKey = "";
 		foreach(Worker work in Journal.getWorkerOnWork())
 		{
-			worker.AppendValues(work,work.ToString());
+			listWorkerKey = "";
+			foreach(KeyKeeper.Item item in Journal.getWorkerItems(work.id()))
+				listWorkerKey+="["+item.getName()+"] ";
+				
+			worker.AppendValues(work,work.ToString(),listWorkerKey);
 		}
 		filterWorkersOnWork = new Gtk.TreeModelFilter (worker, null);
 		filterWorkersOnWork.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree);

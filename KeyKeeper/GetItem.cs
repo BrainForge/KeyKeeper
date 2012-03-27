@@ -17,6 +17,9 @@ namespace KeyKeeper
 		public override void Do (IActionRegistrator registrator)
 		{
 			
+			if(worker.isOnWork() == 0)
+				new StartWork(worker,Const.HAND_OPERATION).Do(registrator);
+				
 			registrator.registerAction("null",
 			                           Const.OPERATION_ITEM_GET.ToString(),
 			                           worker.id().ToString(),

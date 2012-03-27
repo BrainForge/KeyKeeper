@@ -25,7 +25,7 @@ namespace KeyKeeper
 		{
 			dlg = new ActionDlg(worker);
 			dlg.actionSelectedIvent += dlgActionSelectedIvent;
-			dlg.clickEndStartWork += delegate(object sender, object o) 
+			dlg.updateTreeView += delegate(object sender, EventArgs e)
 			{
 				if(updateTree!=null)
 					updateTree(this,this);

@@ -11,8 +11,13 @@ namespace KeyKeeper
 		
 		public override void Do(IActionRegistrator registrator)
 		{
-						registrator.updateAction(worker.isOnWork());
-						registrator.registerAction("now()", 
+			
+			foreach(KeyKeeper.Item item in Journal.getWorkerItems(worker.id()))
+				new PutItem(worker,Const.HAND_OPERATION,
+			                           item,Const.HAND_OPERATION).Do(registrator);
+				
+			registrator.updateAction(worker.isOnWork());
+			registrator.registerAction("now()", 
 			                           Const.OPERATION_WORK_OUT.ToString(),
 			                           base.worker.id().ToString(),
 			                           base.worker_reg_type.ToString(),

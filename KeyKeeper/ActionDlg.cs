@@ -8,8 +8,7 @@ namespace KeyKeeper
 		public delegate void dlgActionSelectedIventHedler (object sender, Action ca);
 		public event dlgActionSelectedIventHedler actionSelectedIvent;
 		
-		public delegate void clickHeader(object sender, object o);
-		public event clickHeader clickEndStartWork;
+		public event EventHandler updateTreeView;
 		
 		private Worker worker;
 		
@@ -57,6 +56,7 @@ namespace KeyKeeper
 			                           item,Const.HAND_OPERATION));
 			updateKeyBack();
 			updateKeyGet();
+			updateTreeView(this, null);
 		}
 		
 		private void onClickGetButton(object sender, Item item)
@@ -65,6 +65,8 @@ namespace KeyKeeper
 			                           item,Const.HAND_OPERATION));
 			updateKeyBack();
 			updateKeyGet();
+			getWorkerOnWorkNow();
+			updateTreeView(this, null);
 		}
 		
 		
@@ -102,14 +104,15 @@ namespace KeyKeeper
 		{
 			onAction(this, new EndWork(worker,Const.HAND_OPERATION));
 			getWorkerOnWorkNow();
-			clickEndStartWork(this,this);
+			updateKeyBack();
+			updateTreeView(this,e);
 		}
 
 		protected void OnBtnStartWorkClicked (object sender, System.EventArgs e)
 		{
 			onAction(this, new StartWork(worker,Const.HAND_OPERATION));
 			getWorkerOnWorkNow();
-			clickEndStartWork(this,this);
+			updateTreeView(this,e);
 		}
 	}
 }

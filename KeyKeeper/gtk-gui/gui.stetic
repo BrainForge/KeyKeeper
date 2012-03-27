@@ -475,6 +475,8 @@
             <property name="IsEditable">True</property>
             <property name="InvisibleChar">•</property>
             <signal name="Changed" handler="OnEntry1Changed" />
+            <signal name="FocusOutEvent" handler="OnEntry1FocusOutEvent" />
+            <signal name="FocusInEvent" handler="OnEntry1FocusInEvent" />
           </widget>
           <packing>
             <property name="Position">1</property>

@@ -69,6 +69,8 @@ namespace KeyKeeper
 			}
 			this.Hide ();
 			this.entry1.Changed += new global::System.EventHandler (this.OnEntry1Changed);
+			this.entry1.FocusOutEvent += new global::Gtk.FocusOutEventHandler (this.OnEntry1FocusOutEvent);
+			this.entry1.FocusInEvent += new global::Gtk.FocusInEventHandler (this.OnEntry1FocusInEvent);
 			this.button27.Clicked += new global::System.EventHandler (this.OnClearEntry);
 		}
 	}
