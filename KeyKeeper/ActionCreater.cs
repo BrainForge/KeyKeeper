@@ -33,9 +33,6 @@ namespace KeyKeeper
 			dlg.Show();
 		}
 		
-		
-		
-		
 		public void byItem(Item item, uint regType)
 		{
 			

@@ -27,6 +27,13 @@ namespace KeyKeeper
 			updateKeyBack();	
 		}
 		
+		private void getWorkerOnWorkNow()
+		{
+			btnStartWork.Sensitive = worker.isOnWork() == 0;
+			btnEndWork.Sensitive = !btnStartWork.Sensitive;
+		}
+		
+		#region обновление ключей
 		private void updateKeyBack()
 		{
 			keykeeperwidgetBackItem.removeButton();
@@ -49,7 +56,9 @@ namespace KeyKeeper
 				}
 			}
 		}
+		#endregion
 		
+		#region нажатие на кнопки взять/вернуть ключи
 		private void onClickPutButton(object sender, Item item)
 		{
 			onAction(this, new PutItem(worker,Const.HAND_OPERATION,
@@ -68,7 +77,7 @@ namespace KeyKeeper
 			getWorkerOnWorkNow();
 			updateTreeView(this, null);
 		}
-		
+		#endregion
 		
 		
 		private void changedEvent(object sender, EventArgs e)
@@ -81,25 +90,21 @@ namespace KeyKeeper
 				updateKeyGet();
 		}
 		
-		private void getWorkerOnWorkNow()
-		{
-			btnStartWork.Sensitive = worker.isOnWork() == 0;
-			btnEndWork.Sensitive = !btnStartWork.Sensitive;
-		}
-		
 		protected void onAction(object sender, Action ca)
 		{
 			if(actionSelectedIvent!=null)
 				actionSelectedIvent(this, ca);
 		}
-
-		protected void OnButton3Clicked (object sender, System.EventArgs e)
+		
+		
+		protected void OnCancelClicked (object sender, System.EventArgs e)
 		{
 			keykeeperwidgetBackItem.removeButton();
 			keykeeperwidgetGetItem.removeButton();
 			this.Destroy();
 		}
-
+		
+		#region нажатие на кнопки придти/уйти с работы
 		protected void OnBtnEndWorkClicked (object sender, System.EventArgs e)
 		{
 			onAction(this, new EndWork(worker,Const.HAND_OPERATION));
@@ -114,6 +119,7 @@ namespace KeyKeeper
 			getWorkerOnWorkNow();
 			updateTreeView(this,e);
 		}
+		#endregion
 	}
 }
 

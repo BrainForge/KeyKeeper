@@ -18,7 +18,7 @@
       <widget class="Gtk.Notebook" id="notebook1">
         <property name="MemberName" />
         <property name="CanFocus">True</property>
-        <property name="CurrentPage">0</property>
+        <property name="CurrentPage">3</property>
         <signal name="SwitchPage" handler="OnNotebook1SwitchPage" after="yes" />
         <child>
           <widget class="Gtk.VBox" id="vbox1">
@@ -104,39 +104,9 @@
             <property name="MemberName" />
             <property name="Spacing">6</property>
             <child>
-              <widget class="Gtk.HBox" id="hbox3">
+              <widget class="KeyKeeper.SearchEntry" id="searchentry2">
                 <property name="MemberName" />
-                <property name="Spacing">6</property>
-                <child>
-                  <widget class="Gtk.Entry" id="entrySearch">
-                    <property name="MemberName" />
-                    <property name="CanFocus">True</property>
-                    <property name="IsEditable">True</property>
-                    <property name="InvisibleChar">•</property>
-                    <signal name="Changed" handler="OnEntrySearchChanged" />
-                  </widget>
-                  <packing>
-                    <property name="Position">0</property>
-                    <property name="AutoSize">True</property>
-                  </packing>
-                </child>
-                <child>
-                  <widget class="Gtk.Button" id="cleerEntryHelper">
-                    <property name="MemberName" />
-                    <property name="CanFocus">True</property>
-                    <property name="Type">TextAndIcon</property>
-                    <property name="Icon">stock:gtk-remove Button</property>
-                    <property name="Label" translatable="yes">Отчистить</property>
-                    <property name="UseUnderline">True</property>
-                    <signal name="Clicked" handler="OnCleerEntryHelperClicked" />
-                  </widget>
-                  <packing>
-                    <property name="Position">1</property>
-                    <property name="AutoSize">True</property>
-                    <property name="Expand">False</property>
-                    <property name="Fill">False</property>
-                  </packing>
-                </child>
+                <property name="Events">ButtonPressMask</property>
               </widget>
               <packing>
                 <property name="Position">0</property>
@@ -180,7 +150,7 @@
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Dialog" id="KeyKeeper.ActionDlg" design-size="291 267">
+  <widget class="Gtk.Dialog" id="KeyKeeper.ActionDlg" design-size="291 268">
     <property name="MemberName" />
     <property name="Title" translatable="yes">Действия</property>
     <property name="Icon">stock:gtk-about Menu</property>
@@ -432,14 +402,14 @@
         <property name="MemberName" />
         <property name="Size">1</property>
         <child>
-          <widget class="Gtk.Button" id="button3">
+          <widget class="Gtk.Button" id="cancel">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
             <property name="Type">TextOnly</property>
             <property name="Label" translatable="yes">0 - Отмена</property>
             <property name="UseUnderline">True</property>
             <property name="ResponseId">0</property>
-            <signal name="Clicked" handler="OnButton3Clicked" />
+            <signal name="Clicked" handler="OnCancelClicked" />
           </widget>
           <packing>
             <property name="Expand">False</property>

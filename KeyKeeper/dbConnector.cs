@@ -42,12 +42,6 @@ namespace KeyKeeper
 		private bool getConnectionState()
 		{
 			return (dbcon.State == ConnectionState.Open);
-			/*
-			if(dbcon.State == ConnectionState.Open)
-				return true;
-			else
-				return false;
-			*/
 		}
 		
 		public void querydb(string com)

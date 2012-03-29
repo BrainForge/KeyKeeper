@@ -39,9 +39,11 @@ public partial class MainWindow: Gtk.Window
 		notebook1.CurrentPage = 0;
 		
 		searchentry1.changed += OnFilterEntryChanged;
+		searchentry2.changed += OnEntrySearchChanged;
+		
 	}
 	
-	#region создание модели для триивью
+	#region всяко для работы с treeview
 	private Gtk.TreeModelFilter getWorkerOnWork()
 	{
 		Gtk.ListStore worker = new Gtk.ListStore (typeof (Worker),typeof (string), typeof (string));
@@ -71,7 +73,7 @@ public partial class MainWindow: Gtk.Window
 		return filterAllWorkers;
 		
 	}
-	#endregion
+	
 	
 	protected void OnNotebook1SwitchPage (object o, Gtk.SwitchPageArgs args)
 	{
@@ -86,6 +88,7 @@ public partial class MainWindow: Gtk.Window
 			break;
 		}
 	}
+	#endregion
 	
 	#region реализация поиска
 	protected void OnFilterEntryChanged (object sender, System.EventArgs e)
@@ -115,26 +118,15 @@ public partial class MainWindow: Gtk.Window
 	{
 		string workerFIO = model.GetValue (iter, 0).ToString ().ToLower();
  
-		if (string.IsNullOrEmpty(entrySearch.Text))
+		if (string.IsNullOrEmpty(searchentry2.Text))
 			return true;
  
-		if (workerFIO.IndexOf (entrySearch.Text.ToLower()) > -1)
+		if (workerFIO.IndexOf (searchentry2.Text.ToLower()) > -1)
 			return true;
 		else
 			return false;
 	}
 	#endregion
-	
-	private void showActionDialog(Worker work)
-	{
-		ActionCreater act = new ActionCreater(new dbHelper());
-		act.updateTree += delegate(object sender, object sender2) 
-		{
-			if(CurrentPage == 0)
-				workerOnWork.Model = getWorkerOnWork();	
-		};
-		act.byWorker(work,Const.HAND_OPERATION);
-	}
 	
 	#region обработка нажатий по триивью
 	protected void OnHelperTreeviewRowActivated (object o, Gtk.RowActivatedArgs args)
@@ -154,12 +146,16 @@ public partial class MainWindow: Gtk.Window
 		select.GetSelected(out model, out iter);
 		showActionDialog((Worker)model.GetValue (iter, 0));
 	}
-	#endregion
 	
-	#region кнопочки отчистки
-	protected void OnCleerEntryHelperClicked (object sender, System.EventArgs e)
+	private void showActionDialog(Worker work)
 	{
-		entrySearch.Text="";
+		ActionCreater act = new ActionCreater(new dbHelper());
+		act.updateTree += delegate(object sender, object sender2) 
+		{
+			if(CurrentPage == 0)
+				workerOnWork.Model = getWorkerOnWork();	
+		};
+		act.byWorker(work,Const.HAND_OPERATION);
 	}
 	#endregion
 	

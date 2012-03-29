@@ -24,7 +24,7 @@ namespace KeyKeeper
 		private global::Gtk.Label label8;
 		private global::KeyKeeper.SearchEntry searchentry2;
 		private global::KeyKeeper.KeyKeeperWidget keykeeperwidgetGetItem;
-		private global::Gtk.Button button3;
+		private global::Gtk.Button cancel;
 		
 		protected virtual void Build ()
 		{
@@ -216,24 +216,24 @@ namespace KeyKeeper
 			global::Gtk.HButtonBox w22 = this.ActionArea;
 			w22.Name = "__gtksharp_70_Stetic_TopLevelDialog_ActionArea";
 			// Container child __gtksharp_70_Stetic_TopLevelDialog_ActionArea.Gtk.ButtonBox+ButtonBoxChild
-			this.button3 = new global::Gtk.Button ();
-			this.button3.CanFocus = true;
-			this.button3.Name = "button3";
-			this.button3.UseUnderline = true;
-			this.button3.Label = global::Mono.Unix.Catalog.GetString ("0 - Отмена");
-			this.AddActionWidget (this.button3, 0);
-			global::Gtk.ButtonBox.ButtonBoxChild w23 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w22 [this.button3]));
+			this.cancel = new global::Gtk.Button ();
+			this.cancel.CanFocus = true;
+			this.cancel.Name = "cancel";
+			this.cancel.UseUnderline = true;
+			this.cancel.Label = global::Mono.Unix.Catalog.GetString ("0 - Отмена");
+			this.AddActionWidget (this.cancel, 0);
+			global::Gtk.ButtonBox.ButtonBoxChild w23 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w22 [this.cancel]));
 			w23.Expand = false;
 			w23.Fill = false;
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
 			this.DefaultWidth = 291;
-			this.DefaultHeight = 267;
+			this.DefaultHeight = 268;
 			this.Show ();
 			this.btnStartWork.Clicked += new global::System.EventHandler (this.OnBtnStartWorkClicked);
 			this.btnEndWork.Clicked += new global::System.EventHandler (this.OnBtnEndWorkClicked);
-			this.button3.Clicked += new global::System.EventHandler (this.OnButton3Clicked);
+			this.cancel.Clicked += new global::System.EventHandler (this.OnCancelClicked);
 		}
 	}
 }
