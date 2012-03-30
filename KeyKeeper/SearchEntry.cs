@@ -33,20 +33,6 @@ namespace KeyKeeper
 		{
 			ClearText();
 		}
-
-		protected void OnEntry1FocusOutEvent (object o, Gtk.FocusOutEventArgs args)
-		{
-			MainClass.specKey.InitializeKeys();
-			Console.WriteLine("фокус уехал");
-		}
-		
-		
-		protected void OnEntry1FocusInEvent (object o, Gtk.FocusInEventArgs args)
-		{
-			Console.WriteLine("фокус приехал");
-			MainClass.specKey.UnitializeKeys();
-		
-		}
 	}
 }
 	

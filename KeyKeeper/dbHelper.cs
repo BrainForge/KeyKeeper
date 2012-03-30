@@ -158,6 +158,31 @@ namespace KeyKeeper
 		#endregion
 		
 		#region всякие манипуляции с итемами
+		
+		public static Item getItemData(uint workerid)
+		{
+			Item tmpItem = null;
+			IDataReader reader = dbConnector.getdbAcces().readbd(
+				
+				string.Format(@"select * 
+								from items
+								where id='{0}'",workerid));
+			try
+			{
+				reader.Read();
+				tmpItem= new Item((uint)reader["id"], (string)reader["name"],
+					(uint)reader["type"], (uint)reader["code"]);	 
+			}
+			catch(MySqlException ex)
+			{
+				Utils.showMessageError(ex.ToString());
+			}
+		
+			reader.Close();
+       		reader = null;
+			return tmpItem;
+		}
+		
 		public static List<Item> getAllItem()
 		{
 			var list = new List<Item>();

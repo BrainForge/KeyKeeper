@@ -16,8 +16,8 @@ namespace KeyKeeper
 		six = Gdk.Key.asciicircum,
 		seven = Gdk.Key.ampersand,
 		eight = Gdk.Key.asterisk,
-		nine = Gdk.Key.parenleft,
-		nul = Gdk.Key.parenright,
+		nine = 57,
+		nul = 48,
 		retu = Gdk.Key.Return
 		
     };

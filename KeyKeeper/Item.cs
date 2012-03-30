@@ -24,9 +24,11 @@ namespace KeyKeeper
 		
 		private void getItem()
 		{
-			this.name = getName();
-			this.type = getType();
-			this.code = getCode();
+			var tempItem = dbHelper.getItemData(item_id);
+			
+			this.name = tempItem.getName();
+			this.type = tempItem.getType();
+			this.code = tempItem.getCode();
 		}
 		
 		public uint id()
