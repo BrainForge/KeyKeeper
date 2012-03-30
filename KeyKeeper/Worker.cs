@@ -30,7 +30,6 @@ namespace KeyKeeper
 		{
 			var tmpWorker = dbHelper.getWorkerData(mid);
 			
-			//this.mid = tmpWorker.id();
 			this.FIO = tmpWorker.getFIO();
 			this.shortFIO = tmpWorker.getShortFIO();
 			this.phone = tmpWorker.getPhone();
@@ -69,9 +68,6 @@ namespace KeyKeeper
 		{
 			return dbHelper.getWorkerOnWorkJournalID(mid);
 		}
-		
-		public List<Item> getItems()
-		{return null;}
 			
 		public uint id()
 		{

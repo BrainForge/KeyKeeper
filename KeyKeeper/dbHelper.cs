@@ -8,7 +8,6 @@ namespace KeyKeeper
 {
 	public class dbHelper : IActionRegistrator
 	{
-		//update journal set stamp_end=now(), operation_id = 2 where id = 1;
 		
 		public struct DateOrWorker
 		{
@@ -170,14 +169,14 @@ namespace KeyKeeper
 		
 		#region всякие манипуляции с итемами
 		
-		public static Item getItemData(uint workerid)
+		public static Item getItemData(uint id)
 		{
 			Item tmpItem = null;
 			IDataReader reader = dbConnector.getdbAcces().readbd(
 				
 				string.Format(@"select * 
 								from items
-								where id='{0}'",workerid));
+								where id='{0}'",id));
 			try
 			{
 				reader.Read();
@@ -358,7 +357,8 @@ namespace KeyKeeper
 			IDataReader reader = dbConnector.getdbAcces().readbd(
 				string.Format(@"select j.item_id, j.stamp, j.operation_id , concat(f,' ',left(i,1),'. ',left(o,1),'.') as shortfio from journal j
 								join workers w on j.worker_id = w.id
-								where date(j.stamp) = '{0}';",
+								where date(j.stamp) = '{0}'
+								order by stamp;",
 			              		dateTime)
 								);
 			try

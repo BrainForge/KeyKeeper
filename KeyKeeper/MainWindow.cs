@@ -30,10 +30,10 @@ public partial class MainWindow: Gtk.Window
 	{
 		workerOnWork.AppendColumn("Сейчас на работе", new CellRendererText(), "text", 1);
 		workerOnWork.AppendColumn("Аудитории", new CellRendererText(), "text", 2);
-		
 		workerOnWork.Model = new ListStore(typeof(string));
 		
 		helperTreeview.AppendColumn("Сотрудники", new CellRendererText(), "text", 1);
+		helperTreeview.AppendColumn("Аудитории", new CellRendererText(), "text", 2);
 		helperTreeview.Model = new ListStore(typeof(string));
 		
 		generalKeyTreeview.AppendColumn("Ключ", new CellRendererText(), "text", 1);
@@ -52,10 +52,13 @@ public partial class MainWindow: Gtk.Window
 		JournalTreeView.Model = new ListStore(typeof(string));
 		
 		
-		notebook1.CurrentPage = 0;
+		//notebook1.CurrentPage = 0;
+		workerOnWork.Model = getWorkerOnWork();	
 		
 		searchentry1.changed += OnFilterEntryChanged;
 		searchentry2.changed += OnEntrySearchChanged;
+		
+		
 		
 	}
 	
@@ -80,10 +83,14 @@ public partial class MainWindow: Gtk.Window
 	
 	private Gtk.TreeModelFilter getAllWorkers()
 	{
-		Gtk.ListStore worker = new Gtk.ListStore (typeof (Worker), typeof (string));
+		Gtk.ListStore worker = new Gtk.ListStore (typeof (Worker), typeof (string), typeof (string));
+		String listWorkerKey = "";
 		foreach(Worker work in journal.getAllWorkers())
 		{
-			worker.AppendValues(work, work.getShortFIO());
+			listWorkerKey = "";
+			foreach(KeyKeeper.Item item in Journal.getWorkerItems(work.id()))
+				listWorkerKey+="["+item.getName()+"] ";
+			worker.AppendValues(work, work.getShortFIO(), listWorkerKey);
 		}
 		filterAllWorkers = new Gtk.TreeModelFilter (worker, null);
 		filterAllWorkers.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree2);
@@ -147,8 +154,27 @@ public partial class MainWindow: Gtk.Window
 		
 		foreach(Journal.journaStructur journal in dbHelper.getActionsByDate(date))
 		{
-			Console.WriteLine(journal.FIO+" "+journal.operationID+" "+journal.stamp.ToString());
-			worker.AppendValues(journal.stamp.TimeOfDay.ToString(), journal.operationID.ToString(), journal.FIO);
+			string textOperation = "";
+			switch(journal.operationID)
+			{
+				case Const.OPERATION_WORK_IN:
+					textOperation = "Приход на работу";
+				break;
+				
+				case Const.OPERATION_WORK_OUT:
+					textOperation = "Уход с работы";
+				break;
+				
+				case Const.OPERATION_ITEM_GET:
+					textOperation = "Взятие ключа: ["+ dbHelper.getItemData(journal.itemID).getName()+"]";
+				break;
+				
+				case Const.OPERATION_ITEM_PUT:
+					textOperation = "Возврат ключа: ["+ dbHelper.getItemData(journal.itemID).getName()+"]";
+				break;
+				
+			}
+			worker.AppendValues(journal.stamp.TimeOfDay.ToString(), textOperation, journal.FIO);
 		}
 		
 		filterWorkersOnWork = new Gtk.TreeModelFilter (worker, null);
