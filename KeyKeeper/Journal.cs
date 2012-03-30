@@ -5,6 +5,13 @@ namespace KeyKeeper
 {
 	public class Journal
 	{
+		public struct journaStructur
+		{
+			public string FIO;
+			public DateTime stamp;
+			public uint operationID;
+			public uint itemID;
+		}
 		
 		public List<Worker> getAllWorkers()
 		{
@@ -35,9 +42,11 @@ namespace KeyKeeper
 		}
 		
 		
-		public List<Worker> getActionsByDate(DateTime date)
-		{ 
-			return null; 
+		public List<journaStructur> getActionsByDate(string date)
+		{
+			var listAction = new List<journaStructur>();
+			listAction = dbHelper.getActionsByDate(date);
+			return listAction; 
 		}
 	}
 }

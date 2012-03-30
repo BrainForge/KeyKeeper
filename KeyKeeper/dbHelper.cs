@@ -135,6 +135,7 @@ namespace KeyKeeper
 		#endregion
 		
 		#region экшены
+		
 		public int registerAction( 
 		                   string stamp_end, 
 		                   string operation_id, 
@@ -164,6 +165,7 @@ namespace KeyKeeper
 															where id = {0}", journalID));
 			return 0;
 		}
+		
 		#endregion
 		
 		#region всякие манипуляции с итемами
@@ -345,7 +347,51 @@ namespace KeyKeeper
 		}
 		
 		#endregion
+		
+		#region журнальные манипуляции
+		
+		public static List<Journal.journaStructur> getActionsByDate(string dateTime)
+		{
+			List<Journal.journaStructur> journal = new List<Journal.journaStructur>();
 
+			
+			IDataReader reader = dbConnector.getdbAcces().readbd(
+				string.Format(@"select j.item_id, j.stamp, j.operation_id , concat(f,' ',left(i,1),'. ',left(o,1),'.') as shortfio from journal j
+								join workers w on j.worker_id = w.id
+								where date(j.stamp) = '{0}';",
+			              		dateTime)
+								);
+			try
+			{
+				while(reader.Read())
+				{
+					Journal.journaStructur journalStruct = new Journal.journaStructur();
+					journalStruct.FIO = (string)reader["shortfio"];
+					journalStruct.stamp = (DateTime)reader["stamp"];
+					journalStruct.operationID = (uint)reader["operation_id"];
+					
+					if(reader["item_id"] != DBNull.Value)
+						journalStruct.itemID = (uint)reader["item_id"];
+					else
+						journalStruct.itemID = 0;
+					
+					journal.Add(journalStruct);
+				}
+				
+
+			}
+			catch(MySqlException ex)
+			{
+				Utils.showMessageError(ex.ToString());
+			}
+		
+			reader.Close();
+       		reader = null;
+
+			return journal;	
+		}
+		
+		#endregion
 		
 	}
 }

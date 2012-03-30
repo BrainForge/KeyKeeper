@@ -46,6 +46,10 @@ public partial class MainWindow: Gtk.Window
 		officialTreeview.AppendColumn("Время", new CellRendererText(), "text", 3);
 		officialTreeview.Model = new ListStore(typeof(string));
 		
+		JournalTreeView.AppendColumn("Время", new CellRendererText(), "text", 0);
+		JournalTreeView.AppendColumn("Действие", new CellRendererText(), "text", 1);
+		JournalTreeView.AppendColumn("Сотрудник", new CellRendererText(), "text", 2);
+		JournalTreeView.Model = new ListStore(typeof(string));
 		
 		
 		notebook1.CurrentPage = 0;
@@ -56,6 +60,7 @@ public partial class MainWindow: Gtk.Window
 	}
 	
 	#region всяко для работы с treeview
+	
 	private Gtk.TreeModelFilter getWorkerOnWork()
 	{
 		Gtk.ListStore worker = new Gtk.ListStore (typeof (Worker),typeof (string), typeof (string));
@@ -134,6 +139,22 @@ public partial class MainWindow: Gtk.Window
 		return filterWorkersOnWork;
 	}
 	
+	private Gtk.TreeModelFilter getAction(string date)
+	{
+		Gtk.ListStore worker = new Gtk.ListStore (typeof (string),typeof (string), typeof (string));
+		
+		Console.WriteLine(calendar1.GetDate ().ToString ("yyyy.MM.dd"));
+		
+		foreach(Journal.journaStructur journal in dbHelper.getActionsByDate(date))
+		{
+			Console.WriteLine(journal.FIO+" "+journal.operationID+" "+journal.stamp.ToString());
+			worker.AppendValues(journal.stamp.TimeOfDay.ToString(), journal.operationID.ToString(), journal.FIO);
+		}
+		
+		filterWorkersOnWork = new Gtk.TreeModelFilter (worker, null);
+		filterWorkersOnWork.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree);
+		return filterWorkersOnWork;
+	}
 	
 	protected void OnNotebook1SwitchPage (object o, Gtk.SwitchPageArgs args)
 	{
@@ -147,14 +168,19 @@ public partial class MainWindow: Gtk.Window
 			generalKeyTreeview.Model = getGeneralKey();
 			officialTreeview.Model = getOfficialKey();
 			break;
+		case 2:
+			JournalTreeView.Model = getAction(calendar1.GetDate ().ToString ("yyyy.MM.dd"));
+			break;
 		case 3:
 			helperTreeview.Model = getAllWorkers();	
 			break;
 		}
 	}
+	
 	#endregion
 	
 	#region реализация поиска
+	
 	protected void OnFilterEntryChanged (object sender, System.EventArgs e)
 	{
 		filterWorkersOnWork.Refilter();
@@ -186,9 +212,11 @@ public partial class MainWindow: Gtk.Window
 		return workerFIO.IndexOf (searchentry2.Text.ToLower()) > -1;
 
 	}
+	
 	#endregion
 	
 	#region обработка нажатий по триивью
+	
 	protected void OnHelperTreeviewRowActivated (object o, Gtk.RowActivatedArgs args)
 	{
 		TreeSelection select = helperTreeview.Selection;
@@ -217,8 +245,13 @@ public partial class MainWindow: Gtk.Window
 		};
 		act.byWorker(work,Const.HAND_OPERATION);
 	}
+	
 	#endregion
 	
+	protected void OnCalendar1DaySelected (object sender, System.EventArgs e)
+	{
+    	JournalTreeView.Model = getAction(calendar1.GetDate ().ToString ("yyyy.MM.dd"));
+	}
 
 	
 }
