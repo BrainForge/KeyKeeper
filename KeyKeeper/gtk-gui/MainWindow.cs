@@ -10,6 +10,13 @@ public partial class MainWindow
 	private global::Gtk.ScrolledWindow GtkScrolledWindow;
 	private global::Gtk.TreeView workerOnWork;
 	private global::Gtk.Label label1;
+	private global::Gtk.HBox hbox4;
+	private global::Gtk.VBox vbox2;
+	private global::Gtk.ScrolledWindow GtkScrolledWindow2;
+	private global::Gtk.TreeView generalKeyTreeview;
+	private global::Gtk.VBox vbox4;
+	private global::Gtk.ScrolledWindow GtkScrolledWindow3;
+	private global::Gtk.TreeView officialTreeview;
 	private global::Gtk.Label label3;
 	private global::Gtk.Label label4;
 	private global::Gtk.VBox vbox3;
@@ -30,7 +37,7 @@ public partial class MainWindow
 		this.notebook1 = new global::Gtk.Notebook ();
 		this.notebook1.CanFocus = true;
 		this.notebook1.Name = "notebook1";
-		this.notebook1.CurrentPage = 3;
+		this.notebook1.CurrentPage = 1;
 		// Container child notebook1.Gtk.Notebook+NotebookChild
 		this.vbox1 = new global::Gtk.VBox ();
 		this.vbox1.Name = "vbox1";
@@ -70,23 +77,65 @@ public partial class MainWindow
 		this.label1.LabelProp = global::Mono.Unix.Catalog.GetString ("На работе");
 		this.notebook1.SetTabLabel (this.vbox1, this.label1);
 		this.label1.ShowAll ();
+		// Container child notebook1.Gtk.Notebook+NotebookChild
+		this.hbox4 = new global::Gtk.HBox ();
+		this.hbox4.Name = "hbox4";
+		this.hbox4.Spacing = 6;
+		// Container child hbox4.Gtk.Box+BoxChild
+		this.vbox2 = new global::Gtk.VBox ();
+		this.vbox2.Name = "vbox2";
+		this.vbox2.Spacing = 6;
+		// Container child vbox2.Gtk.Box+BoxChild
+		this.GtkScrolledWindow2 = new global::Gtk.ScrolledWindow ();
+		this.GtkScrolledWindow2.Name = "GtkScrolledWindow2";
+		this.GtkScrolledWindow2.ShadowType = ((global::Gtk.ShadowType)(1));
+		// Container child GtkScrolledWindow2.Gtk.Container+ContainerChild
+		this.generalKeyTreeview = new global::Gtk.TreeView ();
+		this.generalKeyTreeview.CanFocus = true;
+		this.generalKeyTreeview.Name = "generalKeyTreeview";
+		this.GtkScrolledWindow2.Add (this.generalKeyTreeview);
+		this.vbox2.Add (this.GtkScrolledWindow2);
+		global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.GtkScrolledWindow2]));
+		w7.Position = 0;
+		this.hbox4.Add (this.vbox2);
+		global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.hbox4 [this.vbox2]));
+		w8.Position = 0;
+		// Container child hbox4.Gtk.Box+BoxChild
+		this.vbox4 = new global::Gtk.VBox ();
+		this.vbox4.Name = "vbox4";
+		this.vbox4.Spacing = 6;
+		// Container child vbox4.Gtk.Box+BoxChild
+		this.GtkScrolledWindow3 = new global::Gtk.ScrolledWindow ();
+		this.GtkScrolledWindow3.Name = "GtkScrolledWindow3";
+		this.GtkScrolledWindow3.ShadowType = ((global::Gtk.ShadowType)(1));
+		// Container child GtkScrolledWindow3.Gtk.Container+ContainerChild
+		this.officialTreeview = new global::Gtk.TreeView ();
+		this.officialTreeview.CanFocus = true;
+		this.officialTreeview.Name = "officialTreeview";
+		this.GtkScrolledWindow3.Add (this.officialTreeview);
+		this.vbox4.Add (this.GtkScrolledWindow3);
+		global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.GtkScrolledWindow3]));
+		w10.Position = 0;
+		this.hbox4.Add (this.vbox4);
+		global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.hbox4 [this.vbox4]));
+		w11.Position = 1;
+		this.notebook1.Add (this.hbox4);
+		global::Gtk.Notebook.NotebookChild w12 = ((global::Gtk.Notebook.NotebookChild)(this.notebook1 [this.hbox4]));
+		w12.Position = 1;
 		// Notebook tab
-		global::Gtk.Label w6 = new global::Gtk.Label ();
-		w6.Visible = true;
-		this.notebook1.Add (w6);
 		this.label3 = new global::Gtk.Label ();
 		this.label3.Name = "label3";
 		this.label3.LabelProp = global::Mono.Unix.Catalog.GetString ("Ключи");
-		this.notebook1.SetTabLabel (w6, this.label3);
+		this.notebook1.SetTabLabel (this.hbox4, this.label3);
 		this.label3.ShowAll ();
 		// Notebook tab
-		global::Gtk.Label w7 = new global::Gtk.Label ();
-		w7.Visible = true;
-		this.notebook1.Add (w7);
+		global::Gtk.Label w13 = new global::Gtk.Label ();
+		w13.Visible = true;
+		this.notebook1.Add (w13);
 		this.label4 = new global::Gtk.Label ();
 		this.label4.Name = "label4";
 		this.label4.LabelProp = global::Mono.Unix.Catalog.GetString ("Журнал");
-		this.notebook1.SetTabLabel (w7, this.label4);
+		this.notebook1.SetTabLabel (w13, this.label4);
 		this.label4.ShowAll ();
 		// Container child notebook1.Gtk.Notebook+NotebookChild
 		this.vbox3 = new global::Gtk.VBox ();
@@ -97,10 +146,10 @@ public partial class MainWindow
 		this.searchentry2.Events = ((global::Gdk.EventMask)(256));
 		this.searchentry2.Name = "searchentry2";
 		this.vbox3.Add (this.searchentry2);
-		global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.searchentry2]));
-		w8.Position = 0;
-		w8.Expand = false;
-		w8.Fill = false;
+		global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.searchentry2]));
+		w14.Position = 0;
+		w14.Expand = false;
+		w14.Fill = false;
 		// Container child vbox3.Gtk.Box+BoxChild
 		this.GtkScrolledWindow1 = new global::Gtk.ScrolledWindow ();
 		this.GtkScrolledWindow1.Name = "GtkScrolledWindow1";
@@ -111,11 +160,11 @@ public partial class MainWindow
 		this.helperTreeview.Name = "helperTreeview";
 		this.GtkScrolledWindow1.Add (this.helperTreeview);
 		this.vbox3.Add (this.GtkScrolledWindow1);
-		global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.GtkScrolledWindow1]));
-		w10.Position = 1;
+		global::Gtk.Box.BoxChild w16 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.GtkScrolledWindow1]));
+		w16.Position = 1;
 		this.notebook1.Add (this.vbox3);
-		global::Gtk.Notebook.NotebookChild w11 = ((global::Gtk.Notebook.NotebookChild)(this.notebook1 [this.vbox3]));
-		w11.Position = 3;
+		global::Gtk.Notebook.NotebookChild w17 = ((global::Gtk.Notebook.NotebookChild)(this.notebook1 [this.vbox3]));
+		w17.Position = 3;
 		// Notebook tab
 		this.label5 = new global::Gtk.Label ();
 		this.label5.Name = "label5";
@@ -126,8 +175,8 @@ public partial class MainWindow
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
 		}
-		this.DefaultWidth = 401;
-		this.DefaultHeight = 300;
+		this.DefaultWidth = 469;
+		this.DefaultHeight = 483;
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
 		this.notebook1.SwitchPage += new global::Gtk.SwitchPageHandler (this.OnNotebook1SwitchPage);

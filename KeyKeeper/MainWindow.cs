@@ -36,6 +36,18 @@ public partial class MainWindow: Gtk.Window
 		helperTreeview.AppendColumn("Сотрудники", new CellRendererText(), "text", 1);
 		helperTreeview.Model = new ListStore(typeof(string));
 		
+		generalKeyTreeview.AppendColumn("Ключ", new CellRendererText(), "text", 1);
+		generalKeyTreeview.AppendColumn("Сотрудник", new CellRendererText(), "text", 2);
+		generalKeyTreeview.AppendColumn("Время", new CellRendererText(), "text", 3);
+		generalKeyTreeview.Model = new ListStore(typeof(string));
+		
+		officialTreeview.AppendColumn("Ключ", new CellRendererText(), "text", 1);
+		officialTreeview.AppendColumn("Сотрудник", new CellRendererText(), "text", 2);
+		officialTreeview.AppendColumn("Время", new CellRendererText(), "text", 3);
+		officialTreeview.Model = new ListStore(typeof(string));
+		
+		
+		
 		notebook1.CurrentPage = 0;
 		
 		searchentry1.changed += OnFilterEntryChanged;
@@ -74,6 +86,54 @@ public partial class MainWindow: Gtk.Window
 		
 	}
 	
+	private Gtk.TreeModelFilter getGeneralKey()
+	{
+		Gtk.ListStore worker = new Gtk.ListStore (typeof (string),typeof (string), typeof (string), typeof (string));
+		
+		dbHelper.DateOrWorker dateOrWorker;
+		
+		foreach(KeyKeeper.Item item in dbHelper.getItemByType(Const.GENERAL_KEY))
+		{
+			if(item.isFree() != 0)
+			{
+				dateOrWorker = dbHelper.getWorkerOrStamp(item.id());
+				worker.AppendValues(dateOrWorker.worker, "["+item.getName()+"]", dateOrWorker.worker.getShortFIO(), dateOrWorker.dateTime.TimeOfDay.ToString());
+			}
+			else
+				worker.AppendValues("", "["+item.getName()+"]", "", "");
+		}
+		
+		
+		
+		filterWorkersOnWork = new Gtk.TreeModelFilter (worker, null);
+		filterWorkersOnWork.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree);
+		return filterWorkersOnWork;
+	}
+	
+	private Gtk.TreeModelFilter getOfficialKey()
+	{
+		Gtk.ListStore worker = new Gtk.ListStore (typeof (string),typeof (string), typeof (string), typeof (string));
+		
+		dbHelper.DateOrWorker dateOrWorker;
+		
+		foreach(KeyKeeper.Item item in dbHelper.getItemByType(Const.OFFICIAL_KEY))
+		{
+			if(item.isFree() != 0)
+			{
+				dateOrWorker = dbHelper.getWorkerOrStamp(item.id());
+				worker.AppendValues(dateOrWorker.worker, "["+item.getName()+"]", dateOrWorker.worker.getShortFIO(), dateOrWorker.dateTime.TimeOfDay.ToString());
+			}
+			else
+				worker.AppendValues("", "["+item.getName()+"]", "", "");
+		}
+		
+		
+		
+		filterWorkersOnWork = new Gtk.TreeModelFilter (worker, null);
+		filterWorkersOnWork.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree);
+		return filterWorkersOnWork;
+	}
+	
 	
 	protected void OnNotebook1SwitchPage (object o, Gtk.SwitchPageArgs args)
 	{
@@ -82,6 +142,10 @@ public partial class MainWindow: Gtk.Window
 		switch (CurrentPage) {
 		case 0:
 			workerOnWork.Model = getWorkerOnWork();	
+			break;
+		case 1:
+			generalKeyTreeview.Model = getGeneralKey();
+			officialTreeview.Model = getOfficialKey();
 			break;
 		case 3:
 			helperTreeview.Model = getAllWorkers();	
@@ -107,11 +171,9 @@ public partial class MainWindow: Gtk.Window
  
 		if (string.IsNullOrEmpty(searchentry1.Text))
 			return true;
- 
-		if (workerFIO.IndexOf (searchentry1.Text.ToLower()) > -1)
-			return true;
-		else
-			return false;
+
+		return workerFIO.IndexOf (searchentry1.Text.ToLower()) > -1;
+
 	}
 	
 	private bool FilterTree2 (Gtk.TreeModel model, Gtk.TreeIter iter)
@@ -121,10 +183,8 @@ public partial class MainWindow: Gtk.Window
 		if (string.IsNullOrEmpty(searchentry2.Text))
 			return true;
  
-		if (workerFIO.IndexOf (searchentry2.Text.ToLower()) > -1)
-			return true;
-		else
-			return false;
+		return workerFIO.IndexOf (searchentry2.Text.ToLower()) > -1;
+
 	}
 	#endregion
 	

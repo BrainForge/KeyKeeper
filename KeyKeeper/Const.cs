@@ -10,6 +10,9 @@ namespace KeyKeeper
 		public const uint OPERATION_ITEM_PUT = 4;
 		
 		public const uint HAND_OPERATION = 1;
+		
+		public const uint GENERAL_KEY = 1;
+		public const uint OFFICIAL_KEY = 2;
 
 	}
 }

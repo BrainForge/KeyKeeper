@@ -10,10 +10,18 @@ namespace KeyKeeper
 	{
 		//update journal set stamp_end=now(), operation_id = 2 where id = 1;
 		
+		public struct DateOrWorker
+		{
+			public DateTime dateTime;
+			public Worker worker;
+		}
+			
+		
 		public dbHelper ()
 		{}
 		
 		#region всякие операции с сотрудниками
+		
 		public static Worker getWorkerData(uint workerid)
 		{
 			Worker tmpWorker = null;
@@ -123,6 +131,7 @@ namespace KeyKeeper
 			return list;
 			
 		}
+		
 		#endregion
 		
 		#region экшены
@@ -237,6 +246,33 @@ namespace KeyKeeper
 			return list;	
 		}
 		
+		public static List<Item> getItemByType(uint type)
+		{
+			var list = new List<Item>();
+			
+			IDataReader reader = dbConnector.getdbAcces().readbd(
+				string.Format(@"SELECT * FROM items i 
+         						where type = {0}",
+			              		type));
+			try
+			{
+				while(reader.Read())
+					list.Add(new Item((uint)reader["id"], 
+										(string)reader["name"],
+				                        (uint)reader["type"],
+										(uint)reader["code"]));
+			}
+			catch(MySqlException ex)
+			{
+				Utils.showMessageError(ex.ToString());
+			}
+		
+			reader.Close();
+       		reader = null;
+	
+			return list;	
+		}
+		
 		public static uint getJournalID(uint itemId)
 		{
 			uint id = 0;
@@ -266,6 +302,46 @@ namespace KeyKeeper
        		reader = null;
 			Console.WriteLine("id in journal - "+id);
 			return id;
+		}
+		
+		public static DateOrWorker getWorkerOrStamp(uint itemID)
+		{
+			Worker worker;
+			DateTime dateOrWorker;
+			DateOrWorker dateTimeOrWorker = new DateOrWorker();
+			
+			IDataReader reader = dbConnector.getdbAcces().readbd(
+				string.Format(@"select j.stamp, w.*, concat_ws(' ',f,i,o) as fio, concat(f,' ',left(i,1),'. ',left(o,1),'.') as shortfio from journal j
+								join workers w on j.worker_id = w.id
+								where isnull(stamp_end) and operation_id = {0} and item_id = {1};",
+			              		Const.OPERATION_ITEM_GET, itemID)
+								);
+			try
+			{
+				reader.Read();
+				
+				worker = new Worker((uint)reader["id"], 
+										(string)reader["fio"],
+				                        (string)reader["shortfio"],
+										(string)reader["phone"],
+										(uint)reader["code"]);
+				
+				
+				
+				dateOrWorker = (DateTime)reader["stamp"];	
+				
+				dateTimeOrWorker.worker = worker;
+				dateTimeOrWorker.dateTime = dateOrWorker;
+			}
+			catch(MySqlException ex)
+			{
+				Utils.showMessageError(ex.ToString());
+			}
+		
+			reader.Close();
+       		reader = null;
+
+			return dateTimeOrWorker;	
 		}
 		
 		#endregion
