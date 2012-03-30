@@ -9,7 +9,6 @@ public partial class MainWindow
 	private global::KeyKeeper.SearchEntry searchentry1;
 	private global::Gtk.ScrolledWindow GtkScrolledWindow;
 	private global::Gtk.TreeView workerOnWork;
-	private global::Gtk.Label label1;
 	private global::Gtk.HBox hbox4;
 	private global::Gtk.VBox vbox2;
 	private global::Gtk.ScrolledWindow GtkScrolledWindow2;
@@ -17,12 +16,10 @@ public partial class MainWindow
 	private global::Gtk.VBox vbox4;
 	private global::Gtk.ScrolledWindow GtkScrolledWindow3;
 	private global::Gtk.TreeView officialTreeview;
-	private global::Gtk.Label label3;
 	private global::Gtk.VBox vbox5;
 	private global::Gtk.Calendar calendar1;
 	private global::Gtk.ScrolledWindow GtkScrolledWindow4;
 	private global::Gtk.TreeView JournalTreeView;
-	private global::Gtk.Label label4;
 	private global::Gtk.VBox vbox3;
 	private global::KeyKeeper.SearchEntry searchentry2;
 	private global::Gtk.ScrolledWindow GtkScrolledWindow1;
@@ -75,12 +72,6 @@ public partial class MainWindow
 		global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.GtkScrolledWindow]));
 		w4.Position = 1;
 		this.notebook1.Add (this.vbox1);
-		// Notebook tab
-		this.label1 = new global::Gtk.Label ();
-		this.label1.Name = "label1";
-		this.label1.LabelProp = global::Mono.Unix.Catalog.GetString ("На работе");
-		this.notebook1.SetTabLabel (this.vbox1, this.label1);
-		this.label1.ShowAll ();
 		// Container child notebook1.Gtk.Notebook+NotebookChild
 		this.hbox4 = new global::Gtk.HBox ();
 		this.hbox4.Name = "hbox4";
@@ -126,12 +117,6 @@ public partial class MainWindow
 		this.notebook1.Add (this.hbox4);
 		global::Gtk.Notebook.NotebookChild w12 = ((global::Gtk.Notebook.NotebookChild)(this.notebook1 [this.hbox4]));
 		w12.Position = 1;
-		// Notebook tab
-		this.label3 = new global::Gtk.Label ();
-		this.label3.Name = "label3";
-		this.label3.LabelProp = global::Mono.Unix.Catalog.GetString ("Ключи");
-		this.notebook1.SetTabLabel (this.hbox4, this.label3);
-		this.label3.ShowAll ();
 		// Container child notebook1.Gtk.Notebook+NotebookChild
 		this.vbox5 = new global::Gtk.VBox ();
 		this.vbox5.Name = "vbox5";
@@ -161,12 +146,6 @@ public partial class MainWindow
 		this.notebook1.Add (this.vbox5);
 		global::Gtk.Notebook.NotebookChild w16 = ((global::Gtk.Notebook.NotebookChild)(this.notebook1 [this.vbox5]));
 		w16.Position = 2;
-		// Notebook tab
-		this.label4 = new global::Gtk.Label ();
-		this.label4.Name = "label4";
-		this.label4.LabelProp = global::Mono.Unix.Catalog.GetString ("Журнал");
-		this.notebook1.SetTabLabel (this.vbox5, this.label4);
-		this.label4.ShowAll ();
 		// Container child notebook1.Gtk.Notebook+NotebookChild
 		this.vbox3 = new global::Gtk.VBox ();
 		this.vbox3.Name = "vbox3";
@@ -196,10 +175,13 @@ public partial class MainWindow
 		global::Gtk.Notebook.NotebookChild w20 = ((global::Gtk.Notebook.NotebookChild)(this.notebook1 [this.vbox3]));
 		w20.Position = 3;
 		// Notebook tab
+		global::Gtk.Label w21 = new global::Gtk.Label ();
+		w21.Visible = true;
+		this.notebook1.Add (w21);
 		this.label5 = new global::Gtk.Label ();
 		this.label5.Name = "label5";
 		this.label5.LabelProp = global::Mono.Unix.Catalog.GetString ("Справочник");
-		this.notebook1.SetTabLabel (this.vbox3, this.label5);
+		this.notebook1.SetTabLabel (w21, this.label5);
 		this.label5.ShowAll ();
 		this.Add (this.notebook1);
 		if ((this.Child != null)) {

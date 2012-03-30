@@ -67,6 +67,15 @@
           </widget>
         </child>
         <child>
+          <widget class="Gtk.Label" id="label1">
+            <property name="MemberName" />
+            <property name="LabelProp" translatable="yes">На работе</property>
+          </widget>
+          <packing>
+            <property name="type">tab</property>
+          </packing>
+        </child>
+        <child>
           <widget class="Gtk.HBox" id="hbox4">
             <property name="MemberName" />
             <property name="Spacing">6</property>
@@ -130,6 +139,15 @@
           </packing>
         </child>
         <child>
+          <widget class="Gtk.Label" id="label3">
+            <property name="MemberName" />
+            <property name="LabelProp" translatable="yes">Ключи</property>
+          </widget>
+          <packing>
+            <property name="type">tab</property>
+          </packing>
+        </child>
+        <child>
           <widget class="Gtk.VBox" id="vbox5">
             <property name="MemberName" />
             <property name="Spacing">6</property>
@@ -170,6 +188,15 @@
           </packing>
         </child>
         <child>
+          <widget class="Gtk.Label" id="label4">
+            <property name="MemberName" />
+            <property name="LabelProp" translatable="yes">Журнал</property>
+          </widget>
+          <packing>
+            <property name="type">tab</property>
+          </packing>
+        </child>
+        <child>
           <widget class="Gtk.VBox" id="vbox3">
             <property name="MemberName" />
             <property name="Spacing">6</property>
@@ -207,9 +234,6 @@
           <packing>
             <property name="Position">3</property>
           </packing>
-        </child>
-        <child>
-          <placeholder />
         </child>
         <child>
           <widget class="Gtk.Label" id="label5">
