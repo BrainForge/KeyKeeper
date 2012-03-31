@@ -24,7 +24,15 @@ namespace KeyKeeper
 			keykeeperwidgetBackItem.clickEvent += onClickPutButton;
 			searchentry2.changed += changedEvent;
 			
-			updateKeyBack();	
+			updateKeyBack();
+			displayPopKey();
+			
+		}
+		
+		private void displayPopKey()
+		{
+			foreach(Item item in dbHelper.getPopItem(worker.id()))
+				keykeeperwidgetGetItem.addButton(item.getName(), item);
 		}
 		
 		private void getWorkerOnWorkNow()
@@ -34,6 +42,7 @@ namespace KeyKeeper
 		}
 		
 		#region обновление ключей
+		
 		private void updateKeyBack()
 		{
 			keykeeperwidgetBackItem.removeButton();
@@ -45,20 +54,25 @@ namespace KeyKeeper
 		
 		private void updateKeyGet()
 		{
-			foreach(Item item in Journal.getItems())
-			{
-				if(item.getName().IndexOf (searchentry2.Text) > -1 && 
-				   !string.IsNullOrEmpty(searchentry2.Text) && 
-						searchentry2.Text.Length >= 2 &&
-				  		item.isFree()==0)
-				{	
-					keykeeperwidgetGetItem.addButton(item.getName(), item);
+			if(!string.IsNullOrEmpty(searchentry2.Text))
+				foreach(Item item in Journal.getItems())
+				{
+					if(item.getName().IndexOf (searchentry2.Text) > -1 && 
+					   !string.IsNullOrEmpty(searchentry2.Text) && 
+							searchentry2.Text.Length >= 2 &&
+					  		item.isFree()==0)
+					{	
+						keykeeperwidgetGetItem.addButton(item.getName(), item);
+					}
 				}
-			}
+			else
+				displayPopKey();
 		}
+		
 		#endregion
 		
 		#region нажатие на кнопки взять/вернуть ключи
+		
 		private void onClickPutButton(object sender, Item item)
 		{
 			onAction(this, new PutItem(worker,Const.HAND_OPERATION,

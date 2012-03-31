@@ -361,6 +361,52 @@ namespace KeyKeeper
 			return list;	
 		}
 		
+		
+		public static List<Item> getPopItem(uint id)
+		{
+			List<Item> list = new List<Item>();
+			
+			IDataReader reader = dbConnector.getdbAcces().readbd(
+				string.Format(@"select i.*, x.cnt from
+								(
+								SELECT item_id, count(*) cnt
+								FROM journal
+								WHERE stamp > now() - INTERVAL 1 MONTH 
+								and operation_id={0} 
+								and worker_id={1} 
+								and item_id not in (
+								select item_id 
+								from journal 
+								where operation_id={0} and isnull(stamp_end)
+								)
+								GROUP BY item_id
+								ORDER BY count(*) desc
+								limit 0,5
+								) x
+								JOIN items i on x.item_id=i.id
+								ORDER BY i.name;",Const.OPERATION_ITEM_GET, id)
+				);
+			
+			try
+			{
+				while(reader.Read())
+				{	
+					list.Add(new Item((uint)reader["id"],(string)reader["name"],(uint)reader["type"],(uint)reader["code"]));
+				}
+				
+
+			}
+			catch(MySqlException ex)
+			{
+				Utils.showMessageError(ex.ToString());
+			}
+		
+			reader.Close();
+       		reader = null;
+			
+			return list;
+		}
+		
 		#endregion
 		
 		#region журнальные манипуляции
