@@ -5,6 +5,8 @@ namespace KeyKeeper
 {
 	public class Journal
 	{
+		#region структуры для удобства
+		
 		public struct journaStructur
 		{
 			public string FIO;
@@ -14,16 +16,24 @@ namespace KeyKeeper
 			public uint itemID;
 		}
 		
-		public List<Worker> getAllWorkers()
+		public struct workerStruct
 		{
-			var listWorker = new List<Worker>();
+			public Worker worker;
+			public string key;
+		}
+		
+		#endregion
+		
+		public List<workerStruct> getAllWorkers()
+		{
+			var listWorker = new List<workerStruct>();
 			listWorker = dbHelper.getAllWorkers();	
 			return listWorker;
 		}
 		
-		public static List<Worker> getWorkerOnWork()
+		public List<workerStruct> getWorkerOnWork()
 		{
-			var listWorker = new List<Worker>();
+			var listWorker = new List<workerStruct>();
 			listWorker = dbHelper.getWorkersOnWork();	
 			return listWorker;
 		}

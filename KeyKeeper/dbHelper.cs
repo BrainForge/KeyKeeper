@@ -80,22 +80,35 @@ namespace KeyKeeper
 			return id;
 		}
 		
-		public static List<Worker> getAllWorkers()
+		public static List<Journal.workerStruct> getAllWorkers()
 		{
-			var list = new List<Worker>();
+			var list = new List<Journal.workerStruct>();
 			
 			IDataReader reader = dbConnector.getdbAcces().readbd(
-				@"select *,concat_ws(' ',f,i,o) as fio, concat(f,' ',left(i,1),'. ',left(o,1),'.') as shortfio 
-					from workers;");
+				@"SELECT w.*, concat_ws(' ',w.f,w.i,w.o) as fio, concat(w.f,' ',left(w.i,1),'. ',left(w.o,1),'.') as shortfio,
+					GROUP_CONCAT('[',i.name,']' SEPARATOR ' ') items FROM workers w
+					left join journal j on w.id=j.worker_id and j.operation_id=3 and isnull(j.stamp_end)
+					left join items i on j.item_id = i.id
+					GROUP BY w.id
+					order by f;");
 			try
 			{
 				while(reader.Read())
-					list.Add(new Worker((uint)reader["id"], 
+				{
+					Journal.workerStruct workerStruct = new Journal.workerStruct();
+					workerStruct.worker = new Worker((uint)reader["id"], 
 										(string)reader["fio"],
 				                        (string)reader["shortfio"],
 										(string)reader["phone"],
-										(uint)reader["code"])
-										);
+										(uint)reader["code"]);
+					if(reader["items"] != DBNull.Value)
+						workerStruct.key = (string) reader["items"];
+					else
+						workerStruct.key = "";
+					list.Add(workerStruct);
+				}
+
+										
 			}
 			catch(MySqlException ex)
 			{
@@ -108,19 +121,39 @@ namespace KeyKeeper
 			return list;	
 		}
 		
-		public static List<Worker> getWorkersOnWork()
+		public static List<Journal.workerStruct> getWorkersOnWork()
 		{
-			var list = new List<Worker>();
+			var list = new List<Journal.workerStruct>();
 			
 			IDataReader reader = dbConnector.getdbAcces().readbd(
 				string.Format(@"select w.*,concat_ws(' ',f,i,o) as fio, concat(f,' ',left(i,1),'. ',left(o,1),'.') as shortfio
-				from journal j join workers w on j.worker_id=w.id
-				where isnull(j.stamp_end) and j.operation_id={0}",Const.OPERATION_WORK_IN));
+								,GROUP_CONCAT('[',i.name,']' SEPARATOR ' ') items
+								from journal j 
+								join workers w on j.worker_id=w.id
+								left join journal jj on w.id=jj.worker_id and jj.operation_id={1} and isnull(jj.stamp_end)
+								left join items i on jj.item_id = i.id 
+								where isnull(j.stamp_end) and j.operation_id={0}
+								GROUP BY w.id
+								ORDER BY f;",Const.OPERATION_WORK_IN, Const.OPERATION_ITEM_GET));
 			try
 			{
 				while(reader.Read())
-					list.Add(new Worker((uint)reader["id"], (string)reader["fio"],
-				                          (string)reader["shortfio"],(string)reader["phone"],(uint)reader["code"]));
+				{
+					Journal.workerStruct workerStruct = new Journal.workerStruct();
+					workerStruct.worker = new Worker((uint)reader["id"], 
+										(string)reader["fio"],
+				                        (string)reader["shortfio"],
+										(string)reader["phone"],
+										(uint)reader["code"]);
+					
+					if(reader["items"] != DBNull.Value)
+					{
+						workerStruct.key = (string) reader["items"];
+					}
+					else
+						workerStruct.key = "";
+					list.Add(workerStruct);
+				}
 			}
 			catch(MySqlException ex)
 			{

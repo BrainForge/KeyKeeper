@@ -71,16 +71,12 @@ public partial class MainWindow: Gtk.Window
 	private Gtk.TreeModelFilter getWorkerOnWork()
 	{
 		Gtk.ListStore worker = new Gtk.ListStore (typeof (Worker),typeof (string), typeof (string));
-		String listWorkerKey = "";
 		
-		foreach(Worker work in Journal.getWorkerOnWork())
-		{
-			listWorkerKey = "";
-			foreach(KeyKeeper.Item item in Journal.getWorkerItems(work.id()))
-				listWorkerKey+="["+item.getName()+"] ";
-				
-			worker.AppendValues(work,work.ToString(),listWorkerKey);
+		foreach(Journal.workerStruct work in journal.getWorkerOnWork())
+		{	
+			worker.AppendValues(work.worker, work.worker.getShortFIO(), work.key);
 		}
+		
 		filterWorkersOnWork = new Gtk.TreeModelFilter (worker, null);
 		filterWorkersOnWork.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree);
 		return filterWorkersOnWork;
@@ -89,13 +85,10 @@ public partial class MainWindow: Gtk.Window
 	private Gtk.TreeModelFilter getAllWorkers()
 	{
 		Gtk.ListStore worker = new Gtk.ListStore (typeof (Worker), typeof (string), typeof (string));
-		String listWorkerKey = "";
-		foreach(Worker work in journal.getAllWorkers())
-		{
-			listWorkerKey = "";
-			foreach(KeyKeeper.Item item in Journal.getWorkerItems(work.id()))
-				listWorkerKey+="["+item.getName()+"] ";
-			worker.AppendValues(work, work.getShortFIO(), listWorkerKey);
+
+		foreach(Journal.workerStruct work in journal.getAllWorkers())
+		{	
+			worker.AppendValues(work.worker, work.worker.getShortFIO(), work.key);
 		}
 		filterAllWorkers = new Gtk.TreeModelFilter (worker, null);
 		filterAllWorkers.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree2);
