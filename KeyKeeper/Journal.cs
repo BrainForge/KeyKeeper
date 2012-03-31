@@ -8,6 +8,7 @@ namespace KeyKeeper
 		public struct journaStructur
 		{
 			public string FIO;
+			public string item_name;
 			public DateTime stamp;
 			public uint operationID;
 			public uint itemID;

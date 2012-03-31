@@ -143,11 +143,11 @@ public partial class MainWindow: Gtk.Window
 				break;
 				
 				case Const.OPERATION_ITEM_GET:
-					textOperation = "Взятие ключа: ["+ dbHelper.getItemData(journal.itemID).getName()+"]";
+					textOperation = "Взятие ключа: ["+ journal.item_name +"]";
 				break;
 				
 				case Const.OPERATION_ITEM_PUT:
-					textOperation = "Возврат ключа: ["+ dbHelper.getItemData(journal.itemID).getName()+"]";
+					textOperation = "Возврат ключа: ["+ journal.item_name +"]";
 				break;
 				
 			}

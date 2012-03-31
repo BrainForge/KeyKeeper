@@ -361,7 +361,6 @@ namespace KeyKeeper
 			return list;	
 		}
 		
-		
 		public static List<Item> getPopItem(uint id)
 		{
 			List<Item> list = new List<Item>();
@@ -417,8 +416,9 @@ namespace KeyKeeper
 
 			
 			IDataReader reader = dbConnector.getdbAcces().readbd(
-				string.Format(@"select j.item_id, j.stamp, j.operation_id , concat(f,' ',left(i,1),'. ',left(o,1),'.') as shortfio from journal j
-								join workers w on j.worker_id = w.id
+				string.Format(@"select i.name, j.item_id, j.stamp, j.operation_id , concat(f,' ',left(i,1),'. ',left(o,1),'.') as shortfio from journal j
+								left join workers w on j.worker_id = w.id 
+								left join items i on j.item_id = i.id
 								where date(j.stamp) = '{0}'
 								order by stamp;",
 			              		dateTime)
@@ -430,12 +430,18 @@ namespace KeyKeeper
 					Journal.journaStructur journalStruct = new Journal.journaStructur();
 					journalStruct.FIO = (string)reader["shortfio"];
 					journalStruct.stamp = (DateTime)reader["stamp"];
-					journalStruct.operationID = (uint)reader["operation_id"];
+					journalStruct.operationID = (uint)reader["operation_id"];				
 					
 					if(reader["item_id"] != DBNull.Value)
+					{
 						journalStruct.itemID = (uint)reader["item_id"];
+						journalStruct.item_name = (string)reader["name"];
+					}
 					else
+					{
 						journalStruct.itemID = 0;
+						journalStruct.item_name = "";
+					}
 					
 					journal.Add(journalStruct);
 				}
