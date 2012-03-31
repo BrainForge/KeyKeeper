@@ -9,6 +9,10 @@ public partial class MainWindow: Gtk.Window
 	private Gtk.TreeModelFilter filterWorkersOnWork;
 	private Gtk.TreeModelFilter filterAllWorkers;
 	
+	private Gtk.TreeModelFilter filterOfficialKey;
+	private Gtk.TreeModelFilter filterBasicKey;
+	
+	
 	uint CurrentPage;
 	
 	public MainWindow (): base (Gtk.WindowType.Toplevel)
@@ -36,14 +40,14 @@ public partial class MainWindow: Gtk.Window
 		helperTreeview.AppendColumn("Аудитории", new CellRendererText(), "text", 2);
 		helperTreeview.Model = new ListStore(typeof(string));
 		
-		generalKeyTreeview.AppendColumn("Ключ", new CellRendererText(), "text", 1);
-		generalKeyTreeview.AppendColumn("Сотрудник", new CellRendererText(), "text", 2);
-		generalKeyTreeview.AppendColumn("Время", new CellRendererText(), "text", 3);
+		generalKeyTreeview.AppendColumn("Ключ", new CellRendererText(), "text", 0);
+		generalKeyTreeview.AppendColumn("Сотрудник", new CellRendererText(), "text", 1);
+		generalKeyTreeview.AppendColumn("Время", new CellRendererText(), "text", 2);
 		generalKeyTreeview.Model = new ListStore(typeof(string));
 		
-		officialTreeview.AppendColumn("Ключ", new CellRendererText(), "text", 1);
-		officialTreeview.AppendColumn("Сотрудник", new CellRendererText(), "text", 2);
-		officialTreeview.AppendColumn("Время", new CellRendererText(), "text", 3);
+		officialTreeview.AppendColumn("Ключ", new CellRendererText(), "text", 0);
+		officialTreeview.AppendColumn("Сотрудник", new CellRendererText(), "text", 1);
+		officialTreeview.AppendColumn("Время", new CellRendererText(), "text", 2);
 		officialTreeview.Model = new ListStore(typeof(string));
 		
 		JournalTreeView.AppendColumn("Время", new CellRendererText(), "text", 0);
@@ -68,6 +72,7 @@ public partial class MainWindow: Gtk.Window
 	{
 		Gtk.ListStore worker = new Gtk.ListStore (typeof (Worker),typeof (string), typeof (string));
 		String listWorkerKey = "";
+		
 		foreach(Worker work in Journal.getWorkerOnWork())
 		{
 			listWorkerKey = "";
@@ -98,52 +103,24 @@ public partial class MainWindow: Gtk.Window
 		
 	}
 	
-	private Gtk.TreeModelFilter getGeneralKey()
+	private void getKey()
 	{
-		Gtk.ListStore worker = new Gtk.ListStore (typeof (string),typeof (string), typeof (string), typeof (string));
+		Gtk.ListStore officialKey = new Gtk.ListStore (typeof (string), typeof (string), typeof (string));
+		Gtk.ListStore basicKeys = new Gtk.ListStore (typeof (string), typeof (string), typeof (string));
 		
-		dbHelper.DateOrWorker dateOrWorker;
-		
-		foreach(KeyKeeper.Item item in dbHelper.getItemByType(Const.GENERAL_KEY))
+		foreach(dbHelper.DateOrWorker itemWorkerDate in dbHelper.getWorkerOrStamp())
 		{
-			if(item.isFree() != 0)
-			{
-				dateOrWorker = dbHelper.getWorkerOrStamp(item.id());
-				worker.AppendValues(dateOrWorker.worker, "["+item.getName()+"]", dateOrWorker.worker.getShortFIO(), dateOrWorker.dateTime.TimeOfDay.ToString());
-			}
+			if(itemWorkerDate.item_tupe == Const.GENERAL_KEY)
+				basicKeys.AppendValues("["+itemWorkerDate.name+"]",itemWorkerDate.FIO, itemWorkerDate.time);
 			else
-				worker.AppendValues("", "["+item.getName()+"]", "", "");
+				officialKey.AppendValues("["+itemWorkerDate.name+"]",itemWorkerDate.FIO, itemWorkerDate.time);
 		}
 		
+		filterBasicKey = new Gtk.TreeModelFilter (basicKeys, null);
+		filterBasicKey.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree);
 		
-		
-		filterWorkersOnWork = new Gtk.TreeModelFilter (worker, null);
-		filterWorkersOnWork.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree);
-		return filterWorkersOnWork;
-	}
-	
-	private Gtk.TreeModelFilter getOfficialKey()
-	{
-		Gtk.ListStore worker = new Gtk.ListStore (typeof (string),typeof (string), typeof (string), typeof (string));
-		
-		dbHelper.DateOrWorker dateOrWorker;
-		
-		foreach(KeyKeeper.Item item in dbHelper.getItemByType(Const.OFFICIAL_KEY))
-		{
-			if(item.isFree() != 0)
-			{
-				dateOrWorker = dbHelper.getWorkerOrStamp(item.id());
-				worker.AppendValues(dateOrWorker.worker, "["+item.getName()+"]", dateOrWorker.worker.getShortFIO(), dateOrWorker.dateTime.TimeOfDay.ToString());
-			}
-			else
-				worker.AppendValues("", "["+item.getName()+"]", "", "");
-		}
-		
-		
-		
-		filterWorkersOnWork = new Gtk.TreeModelFilter (worker, null);
-		filterWorkersOnWork.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree);
-		return filterWorkersOnWork;
+		filterOfficialKey = new Gtk.TreeModelFilter (officialKey, null);
+		filterOfficialKey.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree);
 	}
 	
 	private Gtk.TreeModelFilter getAction(string date)
@@ -191,8 +168,9 @@ public partial class MainWindow: Gtk.Window
 			workerOnWork.Model = getWorkerOnWork();	
 			break;
 		case 1:
-			generalKeyTreeview.Model = getGeneralKey();
-			officialTreeview.Model = getOfficialKey();
+			getKey();
+			generalKeyTreeview.Model = filterBasicKey;
+			officialTreeview.Model = filterOfficialKey;
 			break;
 		case 2:
 			JournalTreeView.Model = getAction(calendar1.GetDate ().ToString ("yyyy.MM.dd"));

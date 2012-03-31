@@ -11,8 +11,12 @@ namespace KeyKeeper
 		
 		public struct DateOrWorker
 		{
-			public DateTime dateTime;
-			public Worker worker;
+			public uint item_id;
+			public uint worker_id;
+			public string name;
+			public uint item_tupe;
+			public string FIO;
+			public string time;
 		}
 			
 		
@@ -305,34 +309,46 @@ namespace KeyKeeper
 			return id;
 		}
 		
-		public static DateOrWorker getWorkerOrStamp(uint itemID)
+		public static List<DateOrWorker> getWorkerOrStamp()
 		{
-			Worker worker;
-			DateTime dateOrWorker;
-			DateOrWorker dateTimeOrWorker = new DateOrWorker();
-			
+			List<DateOrWorker> list = new List<DateOrWorker>();
+
 			IDataReader reader = dbConnector.getdbAcces().readbd(
-				string.Format(@"select j.stamp, w.*, concat_ws(' ',f,i,o) as fio, concat(f,' ',left(i,1),'. ',left(o,1),'.') as shortfio from journal j
-								join workers w on j.worker_id = w.id
-								where isnull(stamp_end) and operation_id = {0} and item_id = {1};",
-			              		Const.OPERATION_ITEM_GET, itemID)
+				string.Format(@"SELECT i.id item_id, w.id worker_id, i.name item_name, i.type item_type, 
+								concat(f,' ',left(i,1),'. ',left(o,1),'.') as shortfio,
+								stamp `time`
+								FROM items i 
+								left join journal j on i.id=j.item_id and j.operation_id={0} and isnull(j.stamp_end)
+								left join workers w on w.id=j.worker_id
+								ORDER BY i.name;",
+			              		Const.OPERATION_ITEM_GET)
 								);
 			try
 			{
-				reader.Read();
-				
-				worker = new Worker((uint)reader["id"], 
-										(string)reader["fio"],
-				                        (string)reader["shortfio"],
-										(string)reader["phone"],
-										(uint)reader["code"]);
-				
-				
-				
-				dateOrWorker = (DateTime)reader["stamp"];	
-				
-				dateTimeOrWorker.worker = worker;
-				dateTimeOrWorker.dateTime = dateOrWorker;
+				while(reader.Read())
+				{
+					DateOrWorker dateTimeOrWorker = new DateOrWorker();
+					
+					dateTimeOrWorker.item_id = (uint)reader["item_id"];
+					dateTimeOrWorker.name = (string)reader["item_name"];
+					dateTimeOrWorker.item_tupe = (uint)reader["item_type"];
+					
+					if(reader["worker_id"] != DBNull.Value)
+					{
+						dateTimeOrWorker.worker_id = (uint)reader["worker_id"];
+						dateTimeOrWorker.FIO = (string)reader["shortfio"];
+						dateTimeOrWorker.time = ((DateTime)reader["time"]).TimeOfDay.ToString();
+					}
+					else
+					{
+						dateTimeOrWorker.worker_id = 0;
+						dateTimeOrWorker.FIO = "";
+						dateTimeOrWorker.time = "";
+					}
+
+					list.Add(dateTimeOrWorker);
+					
+				}
 			}
 			catch(MySqlException ex)
 			{
@@ -342,7 +358,7 @@ namespace KeyKeeper
 			reader.Close();
        		reader = null;
 
-			return dateTimeOrWorker;	
+			return list;	
 		}
 		
 		#endregion
