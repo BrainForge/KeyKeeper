@@ -20,6 +20,7 @@ public partial class MainWindow
 	private global::Gtk.Label label3;
 	private global::Gtk.VBox vbox5;
 	private global::Gtk.Calendar calendar1;
+	private global::KeyKeeper.SearchEntry journalSearchEntry;
 	private global::Gtk.ScrolledWindow GtkScrolledWindow4;
 	private global::Gtk.TreeView JournalTreeView;
 	private global::Gtk.Label label4;
@@ -41,7 +42,7 @@ public partial class MainWindow
 		this.notebook1 = new global::Gtk.Notebook ();
 		this.notebook1.CanFocus = true;
 		this.notebook1.Name = "notebook1";
-		this.notebook1.CurrentPage = 0;
+		this.notebook1.CurrentPage = 2;
 		// Container child notebook1.Gtk.Notebook+NotebookChild
 		this.vbox1 = new global::Gtk.VBox ();
 		this.vbox1.Name = "vbox1";
@@ -147,6 +148,15 @@ public partial class MainWindow
 		w13.Expand = false;
 		w13.Fill = false;
 		// Container child vbox5.Gtk.Box+BoxChild
+		this.journalSearchEntry = new global::KeyKeeper.SearchEntry ();
+		this.journalSearchEntry.Events = ((global::Gdk.EventMask)(256));
+		this.journalSearchEntry.Name = "journalSearchEntry";
+		this.vbox5.Add (this.journalSearchEntry);
+		global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.vbox5 [this.journalSearchEntry]));
+		w14.Position = 1;
+		w14.Expand = false;
+		w14.Fill = false;
+		// Container child vbox5.Gtk.Box+BoxChild
 		this.GtkScrolledWindow4 = new global::Gtk.ScrolledWindow ();
 		this.GtkScrolledWindow4.Name = "GtkScrolledWindow4";
 		this.GtkScrolledWindow4.ShadowType = ((global::Gtk.ShadowType)(1));
@@ -156,11 +166,11 @@ public partial class MainWindow
 		this.JournalTreeView.Name = "JournalTreeView";
 		this.GtkScrolledWindow4.Add (this.JournalTreeView);
 		this.vbox5.Add (this.GtkScrolledWindow4);
-		global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.vbox5 [this.GtkScrolledWindow4]));
-		w15.Position = 1;
-		this.notebook1.Add (this.vbox5);
-		global::Gtk.Notebook.NotebookChild w16 = ((global::Gtk.Notebook.NotebookChild)(this.notebook1 [this.vbox5]));
+		global::Gtk.Box.BoxChild w16 = ((global::Gtk.Box.BoxChild)(this.vbox5 [this.GtkScrolledWindow4]));
 		w16.Position = 2;
+		this.notebook1.Add (this.vbox5);
+		global::Gtk.Notebook.NotebookChild w17 = ((global::Gtk.Notebook.NotebookChild)(this.notebook1 [this.vbox5]));
+		w17.Position = 2;
 		// Notebook tab
 		this.label4 = new global::Gtk.Label ();
 		this.label4.Name = "label4";
@@ -176,10 +186,10 @@ public partial class MainWindow
 		this.searchentry2.Events = ((global::Gdk.EventMask)(256));
 		this.searchentry2.Name = "searchentry2";
 		this.vbox3.Add (this.searchentry2);
-		global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.searchentry2]));
-		w17.Position = 0;
-		w17.Expand = false;
-		w17.Fill = false;
+		global::Gtk.Box.BoxChild w18 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.searchentry2]));
+		w18.Position = 0;
+		w18.Expand = false;
+		w18.Fill = false;
 		// Container child vbox3.Gtk.Box+BoxChild
 		this.GtkScrolledWindow1 = new global::Gtk.ScrolledWindow ();
 		this.GtkScrolledWindow1.Name = "GtkScrolledWindow1";
@@ -190,11 +200,11 @@ public partial class MainWindow
 		this.helperTreeview.Name = "helperTreeview";
 		this.GtkScrolledWindow1.Add (this.helperTreeview);
 		this.vbox3.Add (this.GtkScrolledWindow1);
-		global::Gtk.Box.BoxChild w19 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.GtkScrolledWindow1]));
-		w19.Position = 1;
+		global::Gtk.Box.BoxChild w20 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.GtkScrolledWindow1]));
+		w20.Position = 1;
 		this.notebook1.Add (this.vbox3);
-		global::Gtk.Notebook.NotebookChild w20 = ((global::Gtk.Notebook.NotebookChild)(this.notebook1 [this.vbox3]));
-		w20.Position = 3;
+		global::Gtk.Notebook.NotebookChild w21 = ((global::Gtk.Notebook.NotebookChild)(this.notebook1 [this.vbox3]));
+		w21.Position = 3;
 		// Notebook tab
 		this.label5 = new global::Gtk.Label ();
 		this.label5.Name = "label5";

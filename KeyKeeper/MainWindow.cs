@@ -8,6 +8,7 @@ public partial class MainWindow: Gtk.Window
 	private Journal journal = new Journal();
 	private Gtk.TreeModelFilter filterWorkersOnWork;
 	private Gtk.TreeModelFilter filterAllWorkers;
+	private Gtk.TreeModelFilter filterJournal;
 	
 	private Gtk.TreeModelFilter filterOfficialKey;
 	private Gtk.TreeModelFilter filterBasicKey;
@@ -61,7 +62,7 @@ public partial class MainWindow: Gtk.Window
 		
 		searchentry1.changed += OnFilterEntryChanged;
 		searchentry2.changed += OnEntrySearchChanged;
-		
+		journalSearchEntry.changed += OnEntryJournal;
 		
 		
 	}
@@ -147,9 +148,9 @@ public partial class MainWindow: Gtk.Window
 			worker.AppendValues(journal.stamp.TimeOfDay.ToString(), textOperation, journal.FIO);
 		}
 		
-		filterWorkersOnWork = new Gtk.TreeModelFilter (worker, null);
-		filterWorkersOnWork.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree);
-		return filterWorkersOnWork;
+		filterJournal = new Gtk.TreeModelFilter (worker, null);
+		filterJournal.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTreeJournal);
+		return filterJournal;
 	}
 	
 	protected void OnNotebook1SwitchPage (object o, Gtk.SwitchPageArgs args)
@@ -188,6 +189,11 @@ public partial class MainWindow: Gtk.Window
 		filterAllWorkers.Refilter();
 	}
 	
+	protected void OnEntryJournal (object sender, System.EventArgs e)
+	{
+		filterJournal.Refilter();
+	}
+	
 	private bool FilterTree (Gtk.TreeModel model, Gtk.TreeIter iter)
 	{
 		string workerFIO = model.GetValue (iter, 1).ToString ().ToLower();
@@ -207,7 +213,16 @@ public partial class MainWindow: Gtk.Window
 			return true;
  
 		return workerFIO.IndexOf (searchentry2.Text.ToLower()) > -1;
-
+	}
+	
+	private bool FilterTreeJournal (Gtk.TreeModel model, Gtk.TreeIter iter)
+	{
+		string workerFIO = model.GetValue (iter, 2).ToString ().ToLower();
+ 
+		if (string.IsNullOrEmpty(journalSearchEntry.Text))
+			return true;
+ 
+		return workerFIO.IndexOf (journalSearchEntry.Text.ToLower()) > -1;
 	}
 	
 	#endregion

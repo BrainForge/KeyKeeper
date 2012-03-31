@@ -17,7 +17,7 @@ namespace KeyKeeper
 			this.Build();
 			
 			worker = mworker;
-			labelName.Text = worker.getFIO();
+			labelName.Text = worker.getFIO() +"\nтелефон: "+ worker.getPhone() +"";
 			getWorkerOnWorkNow();
 			
 			keykeeperwidgetGetItem.clickEvent += onClickGetButton;
@@ -119,6 +119,7 @@ namespace KeyKeeper
 		}
 		
 		#region нажатие на кнопки придти/уйти с работы
+		
 		protected void OnBtnEndWorkClicked (object sender, System.EventArgs e)
 		{
 			onAction(this, new EndWork(worker,Const.HAND_OPERATION));
@@ -133,6 +134,7 @@ namespace KeyKeeper
 			getWorkerOnWorkNow();
 			updateTreeView(this,e);
 		}
+		
 		#endregion
 	}
 }

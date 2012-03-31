@@ -42,6 +42,7 @@ namespace KeyKeeper
 			this.labelName = new global::Gtk.Label ();
 			this.labelName.Name = "labelName";
 			this.labelName.LabelProp = global::Mono.Unix.Catalog.GetString ("label1");
+			this.labelName.Justify = ((global::Gtk.Justification)(2));
 			w1.Add (this.labelName);
 			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(w1 [this.labelName]));
 			w2.Position = 0;
