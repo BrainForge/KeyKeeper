@@ -11,7 +11,7 @@ namespace KeyKeeper
 		
 		public override void Do(IActionRegistrator registrator)
 		{
-			
+			Console.WriteLine("{0} ушел с работы", worker.getShortFIO());
 			foreach(KeyKeeper.Item item in Journal.getWorkerItems(worker.id()))
 				new PutItem(worker,Const.HAND_OPERATION,
 			                           item,Const.HAND_OPERATION).Do(registrator);

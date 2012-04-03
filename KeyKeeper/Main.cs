@@ -15,8 +15,11 @@ namespace KeyKeeper
 			win.Show ();
 			
 			specKey = new SpecialKeys();
-			
+			new KeyRecivier(specKey, win);
+
 			Application.Run ();
 		}
+		
+
 	}
 }

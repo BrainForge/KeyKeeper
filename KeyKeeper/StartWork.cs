@@ -11,6 +11,8 @@ namespace KeyKeeper
 
 		public override void Do (IActionRegistrator registrator)
 		{
+			Console.WriteLine("{0} Пришел на работу", worker.getShortFIO());
+			
 						registrator.registerAction("null", 
 			                           Const.OPERATION_WORK_IN.ToString(),
 			                           base.worker.id().ToString(),

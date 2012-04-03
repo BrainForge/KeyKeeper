@@ -18,12 +18,14 @@ namespace KeyKeeper
 		
 		public void dlgActionSelectedIvent(object o, Action a) 
 		{
+			Console.WriteLine("reg action");
 			a.Do(registrator);
 		}
 		
 		public void byWorker(Worker worker, uint regType)
 		{
-			dlg = new ActionDlg(worker);
+			Console.WriteLine("action by worker");
+			dlg = new ActionDlg(worker, regType);
 			dlg.actionSelectedIvent += dlgActionSelectedIvent;
 			dlg.updateTreeView += delegate(object sender, EventArgs e)
 			{

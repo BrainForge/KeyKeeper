@@ -1,4 +1,5 @@
 using System;
+using System.Timers;
 
 namespace KeyKeeper
 {
@@ -10,14 +11,31 @@ namespace KeyKeeper
 		
 		public event EventHandler updateTreeView;
 		
+		private const int timeLeft = 5;
+		private int time = timeLeft;
+		
+		System.Timers.Timer timer;
+		
 		private Worker worker;
 		
-		public ActionDlg (Worker mworker)
+		public ActionDlg (Worker mworker, uint regType)
 		{
 			this.Build();
 			
 			worker = mworker;
-			labelName.Text = worker.getFIO() +"\nтелефон: "+ worker.getPhone() +"";
+			labelName.Text = worker.getFIO() +"\nтелефон: "+ worker.getPhone();
+
+			if(regType == Const.AUTO_OPERATION)
+				if(worker.isOnWork() == 0)
+				{
+					autoStartWork();
+				}
+				else
+				{
+					autoEndWork();
+				}
+			
+			
 			getWorkerOnWorkNow();
 			
 			keykeeperwidgetGetItem.clickEvent += onClickGetButton;
@@ -27,6 +45,57 @@ namespace KeyKeeper
 			updateKeyBack();
 			displayPopKey();
 			
+		}
+		
+		private void autoStartWork()
+		{
+			closeAllTimer();
+				
+			timer = new System.Timers.Timer(1000);
+			timer.AutoReset = true;
+			timer.Elapsed += delegate(object sender, ElapsedEventArgs e)
+			{	
+				label4.Text = string.Format("Придти на\nработу\n{0}",time);
+				time--;
+				if(time<=0)
+				{
+					label4.Text = "Придти на\nработу}";
+					time = timeLeft;
+					timer.Close();
+					onAction(this, new StartWork(worker,Const.AUTO_OPERATION));
+					if(updateTreeView != null)
+						updateTreeView(this, null);
+							//getWorkerOnWorkNow();
+							//this.Destroy();
+				}
+			};
+			timer.Start();
+		}
+		
+		private void autoEndWork()
+		{
+			closeAllTimer();
+				
+			timer = new System.Timers.Timer(1000);
+			timer.AutoReset = true;
+			timer.Elapsed += delegate(object sender, ElapsedEventArgs e)
+			{
+				time--;
+				label6.Text = string.Format("     Уйти с      \nработы\n{0}",time);
+						
+				if(time<=0)
+				{
+					time = timeLeft;
+					label6.Text = "     Уйти с      \nработы";
+					timer.Close();
+					onAction(this, new EndWork(worker,Const.AUTO_OPERATION));
+					if(updateTreeView != null)
+						updateTreeView(this, null);
+							//this.Destroy();
+				}
+						
+			};
+			timer.Start();
 		}
 		
 		private void displayPopKey()
@@ -75,7 +144,7 @@ namespace KeyKeeper
 		
 		private void onClickPutButton(object sender, Item item)
 		{
-			onAction(this, new PutItem(worker,Const.HAND_OPERATION,
+			onAction(sender, new PutItem(worker,Const.HAND_OPERATION,
 			                           item,Const.HAND_OPERATION));
 			updateKeyBack();
 			updateKeyGet();
@@ -106,8 +175,12 @@ namespace KeyKeeper
 		
 		protected void onAction(object sender, Action ca)
 		{
+			Console.WriteLine("пиу1");
 			if(actionSelectedIvent!=null)
-				actionSelectedIvent(this, ca);
+			{
+				Console.WriteLine("пиу2");
+				actionSelectedIvent(sender, ca);
+			}
 		}
 		
 		
@@ -115,6 +188,7 @@ namespace KeyKeeper
 		{
 			keykeeperwidgetBackItem.removeButton();
 			keykeeperwidgetGetItem.removeButton();
+			closeAllTimer();
 			this.Destroy();
 		}
 		
@@ -136,6 +210,22 @@ namespace KeyKeeper
 		}
 		
 		#endregion
+		
+		protected void OnClose (object sender, System.EventArgs e)
+		{
+			closeAllTimer();
+		}
+		
+		private void closeAllTimer()
+		{
+			if(timer != null)
+				timer.Close();
+		}
+		
+		protected void OnKeysChanged (object sender, System.EventArgs e)
+		{
+			
+		}
 	}
 }
 

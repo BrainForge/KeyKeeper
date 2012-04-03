@@ -4,7 +4,10 @@ using System.Runtime.InteropServices;
 
 namespace KeyKeeper
 {
- public delegate void SpecialKeyPressedHandler(object o, SpecialKey key);
+	
+ 	public delegate void SpecialKeyPressedHandler(object o, SpecialKey key);
+	
+	
 	
     public enum SpecialKey 
 	{
@@ -24,11 +27,16 @@ namespace KeyKeeper
 
     public class SpecialKeys
     {
+		public delegate void pressSpecKeyHadler(object o, string keyString);
+		public event pressSpecKeyHadler keyStringEnter;
+		
         private Hashtable key_map = new Hashtable();
         private Hashtable key_registrations = new Hashtable();
         private IEnumerable keycode_list;
         private TimeSpan raise_delay = new TimeSpan(0);
         private DateTime last_raise = DateTime.MinValue;
+		
+		private string keyString = "";
         
         public SpecialKeys()
         {
@@ -171,7 +179,7 @@ namespace KeyKeeper
             int keycode = (int)xevent.keycode;
             object x = key_map[keycode];
 			
-            Console.WriteLine("filter "+ keycode);
+            
 			
             if(x == null) {
                 return Gdk.FilterReturn.Continue;
@@ -186,7 +194,62 @@ namespace KeyKeeper
                 }
                 return Gdk.FilterReturn.Remove;
             }
-            
+			
+			switch(key)
+			{
+				case SpecialKey.one:
+					keyStringEnter(this,"21200014");
+					//keyString+=1;
+				break;
+				
+				case SpecialKey.two:
+					keyString+=2;
+				break;
+				
+				case SpecialKey.tree:
+					keyString+=3;
+				break;
+				
+				case SpecialKey.four:
+					keyString+=4;
+				break;
+				
+				case SpecialKey.five:
+					keyString+=5;
+				break;
+				
+				case SpecialKey.six:
+					keyString+=6;
+				break;
+				
+				case SpecialKey.seven:
+					keyString+=7;
+				break;
+				
+				case SpecialKey.eight:
+					keyString+=8;
+				break;
+					
+				case SpecialKey.nine:
+					keyString+=9;
+				break;
+					
+				case SpecialKey.nul:
+					keyString+=0;
+				break;
+					
+				case SpecialKey.retu:
+					if(!string.IsNullOrEmpty(keyString))
+					{
+						if(keyStringEnter != null)
+							keyStringEnter(this,keyString);
+					}
+					else
+						Console.WriteLine("Не верный формат кода! {0}", keyString);
+					keyString = "";
+				break;
+			}
+          
             return Gdk.FilterReturn.Continue;
         }
         

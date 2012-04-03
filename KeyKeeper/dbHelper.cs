@@ -168,6 +168,33 @@ namespace KeyKeeper
 			
 		}
 		
+		public static Worker getWorkerByCode(string code)
+		{
+			Worker tmpWorker = null;
+			IDataReader reader = dbConnector.getdbAcces().readbd(
+				
+				string.Format(@"SELECT w.*, 
+								concat_ws(' ',f,i,o) as fio, 
+								concat(f,' ',left(i,1),'. ',left(o,1),'.') as shortfio, cw.description
+								FROM code2worker cw
+								join workers w on w.id = cw.worker_id
+								where cw.code = '{0}'",code));
+			try
+			{
+				reader.Read();
+				tmpWorker= new Worker((uint)reader["id"], (string)reader["fio"],
+				                          (string)reader["shortfio"],(string)reader["phone"],(uint)reader["code"]);
+			}
+			catch(MySqlException ex)
+			{
+				Utils.showMessageError(ex.ToString());
+			}
+		
+			reader.Close();
+       		reader = null;
+			return tmpWorker;
+		}
+
 		#endregion
 		
 		#region экшены
