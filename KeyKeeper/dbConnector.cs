@@ -12,7 +12,11 @@ namespace KeyKeeper
 		
 		private dbConnector ()
 		{
-			conf = Configuration.Deserialize("config.xml");
+		
+		System.Reflection.Assembly a = System.Reflection.Assembly.GetEntryAssembly();
+		string baseDir = System.IO.Path.GetDirectoryName(a.Location);
+		conf = Configuration.Deserialize(baseDir+"/config.xml");
+			
 			string connectionString = string.Format(@"Server={0}; Database={1}; User ID={2}; Password={3}; 
 									charset=utf8; Pooling=false",conf.server,conf.db,conf.user,conf.password);
 			

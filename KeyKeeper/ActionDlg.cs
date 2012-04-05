@@ -55,18 +55,29 @@ namespace KeyKeeper
 			timer.AutoReset = true;
 			timer.Elapsed += delegate(object sender, ElapsedEventArgs e)
 			{	
-				label4.Text = string.Format("Придти на\nработу\n{0}",time);
 				time--;
+				Gtk.Application.Invoke(delegate {label4.Text = string.Format("Придти на\nработу\n{0}",time);});
+				
 				if(time<=0)
 				{
-					label4.Text = "Придти на\nработу}";
+					closeAllTimer();
+					
+					Gtk.Application.Invoke(delegate {label4.Text = "Придти на\nработу";});
+					
 					time = timeLeft;
-					timer.Close();
+					
 					onAction(this, new StartWork(worker,Const.AUTO_OPERATION));
+					
 					if(updateTreeView != null)
 						updateTreeView(this, null);
 							//getWorkerOnWorkNow();
-							//this.Destroy();
+					
+					Gtk.Application.Invoke(delegate {keykeeperwidgetBackItem.removeButton();});
+					Gtk.Application.Invoke(delegate {keykeeperwidgetGetItem.removeButton();});
+					
+					closeAllTimer();
+					Gtk.Application.Invoke(delegate {this.Destroy();});
+					
 				}
 			};
 			timer.Start();
@@ -81,17 +92,29 @@ namespace KeyKeeper
 			timer.Elapsed += delegate(object sender, ElapsedEventArgs e)
 			{
 				time--;
-				label6.Text = string.Format("     Уйти с      \nработы\n{0}",time);
+				Gtk.Application.Invoke(delegate {label6.Text = string.Format("     Уйти с      \nработы\n{0}",time);});
+				
 						
 				if(time<=0)
 				{
+					closeAllTimer();
+					
 					time = timeLeft;
-					label6.Text = "     Уйти с      \nработы";
-					timer.Close();
+					Gtk.Application.Invoke(delegate {label6.Text = "     Уйти с      \nработы";});
+					
 					onAction(this, new EndWork(worker,Const.AUTO_OPERATION));
+					
+					
+					
 					if(updateTreeView != null)
 						updateTreeView(this, null);
-							//this.Destroy();
+					
+					
+					Gtk.Application.Invoke(delegate {keykeeperwidgetBackItem.removeButton();});
+					Gtk.Application.Invoke(delegate {keykeeperwidgetGetItem.removeButton();});
+					
+					closeAllTimer();
+					Gtk.Application.Invoke(delegate {this.Destroy();});
 				}
 						
 			};
@@ -219,7 +242,7 @@ namespace KeyKeeper
 		private void closeAllTimer()
 		{
 			if(timer != null)
-				timer.Close();
+				timer.Stop();
 		}
 		
 		protected void OnKeysChanged (object sender, System.EventArgs e)

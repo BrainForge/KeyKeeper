@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Runtime.InteropServices;
+using System.Timers;
 
 namespace KeyKeeper
 {
@@ -27,6 +28,9 @@ namespace KeyKeeper
 
     public class SpecialKeys
     {
+    
+    	private Timer timer;
+    	    
 		public delegate void pressSpecKeyHadler(object o, string keyString);
 		public event pressSpecKeyHadler keyStringEnter;
 		
@@ -198,8 +202,10 @@ namespace KeyKeeper
 			switch(key)
 			{
 				case SpecialKey.one:
+				
 					keyStringEnter(this,"21200014");
-					//keyString+=1;
+					keyString+=1;
+				
 				break;
 				
 				case SpecialKey.two:
@@ -239,7 +245,7 @@ namespace KeyKeeper
 				break;
 					
 				case SpecialKey.retu:
-					if(!string.IsNullOrEmpty(keyString))
+					if(!string.IsNullOrEmpty(keyString) && keyString.Length==8)
 					{
 						if(keyStringEnter != null)
 							keyStringEnter(this,keyString);
