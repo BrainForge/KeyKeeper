@@ -4,7 +4,9 @@ namespace KeyKeeper
 {
 	public partial class KeyKeeperWidget
 	{
-		private global::Gtk.Fixed fixed2;
+		private global::Gtk.VBox vbox2;
+		private global::Gtk.HButtonBox hbuttonbox2;
+		private global::Gtk.HButtonBox hbuttonbox3;
 		
 		protected virtual void Build ()
 		{
@@ -13,10 +15,28 @@ namespace KeyKeeper
 			global::Stetic.BinContainer.Attach (this);
 			this.Name = "KeyKeeper.KeyKeeperWidget";
 			// Container child KeyKeeper.KeyKeeperWidget.Gtk.Container+ContainerChild
-			this.fixed2 = new global::Gtk.Fixed ();
-			this.fixed2.Name = "fixed2";
-			this.fixed2.HasWindow = false;
-			this.Add (this.fixed2);
+			this.vbox2 = new global::Gtk.VBox ();
+			this.vbox2.Name = "vbox2";
+			this.vbox2.Spacing = 6;
+			// Container child vbox2.Gtk.Box+BoxChild
+			this.hbuttonbox2 = new global::Gtk.HButtonBox ();
+			this.hbuttonbox2.Name = "hbuttonbox2";
+			this.hbuttonbox2.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(3));
+			this.vbox2.Add (this.hbuttonbox2);
+			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.hbuttonbox2]));
+			w1.Position = 0;
+			w1.Expand = false;
+			w1.Fill = false;
+			// Container child vbox2.Gtk.Box+BoxChild
+			this.hbuttonbox3 = new global::Gtk.HButtonBox ();
+			this.hbuttonbox3.Name = "hbuttonbox3";
+			this.hbuttonbox3.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(3));
+			this.vbox2.Add (this.hbuttonbox3);
+			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.hbuttonbox3]));
+			w2.Position = 1;
+			w2.Expand = false;
+			w2.Fill = false;
+			this.Add (this.vbox2);
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}

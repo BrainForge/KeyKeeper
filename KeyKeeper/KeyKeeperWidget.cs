@@ -11,30 +11,43 @@ namespace KeyKeeper
 		public delegate void ClickEventHeader(object sender, Item ca);
 		public event ClickEventHeader clickEvent;
 		
-		int x = 0;
-		int y = 0;
-		
 		List<Button> buttonList = new List<Button>();
+		List<Button> buttonList2stroka = new List<Button>();
 		
-		public KeyKeeperWidget ()
+		public KeyKeeperWidget()
 		{
 			this.Build ();
+			
 		}
 
 		public void addButton(string text, Item item)
 		{
-			if(x>250)
-			{
-				y += 35;
-				x = 0;
-			}
-			WidgetButton btn = new WidgetButton(text, item,fixed2, x, y);
+			WidgetButton btn = new WidgetButton(text, item);
 			btn.clickEvent += onClickEvent;
 			
-			fixed2.Add(btn);	
-			x += 50;
-			fixed2.ShowAll();
-			buttonList.Add(btn);
+			if(buttonList.Count < 5)
+				buttonList.Add(btn);
+			else
+				buttonList2stroka.Add(btn);
+		}
+		
+		public void showAllButtons()
+		{
+
+			foreach(WidgetButton button in buttonList)
+			{
+				hbuttonbox2.Add(button);
+				button.Show();
+			}
+			
+			foreach(WidgetButton button in buttonList2stroka)
+			{
+				hbuttonbox3.Add(button);
+				button.Show();
+			}
+			
+			hbuttonbox2.Show();
+			hbuttonbox3.Show();
 		}
 		
 		public void onClickEvent(object sender, Item ca)
@@ -47,13 +60,18 @@ namespace KeyKeeper
 		{
 			foreach(Button but in buttonList)
 			{
+				hbuttonbox2.Remove(but);
+				but.Destroy();
+			}
+			
+			foreach(Button but in buttonList2stroka)
+			{
+				hbuttonbox2.Remove(but);
 				but.Destroy();
 			}
 			
 			buttonList.Clear();
-			
-			x = 0;
-			y = 0;
+			buttonList2stroka.Clear();
 		}
 	}
 }

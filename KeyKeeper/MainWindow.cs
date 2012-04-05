@@ -38,6 +38,7 @@ public partial class MainWindow: Gtk.Window
 		
 		helperTreeview.AppendColumn("Сотрудники", new CellRendererText(), "text", 1);
 		helperTreeview.AppendColumn("Аудитории", new CellRendererText(), "text", 2);
+		helperTreeview.AppendColumn("Телефон", new CellRendererText(), "text", 3);
 		helperTreeview.Model = new ListStore(typeof(string));
 		
 		generalKeyTreeview.AppendColumn("Ключ", new CellRendererText(), "text", 0);
@@ -84,16 +85,16 @@ public partial class MainWindow: Gtk.Window
 	
 	private Gtk.TreeModelFilter getAllWorkers()
 	{
-		Gtk.ListStore worker = new Gtk.ListStore (typeof (Worker), typeof (string), typeof (string));
+		Gtk.ListStore worker = new Gtk.ListStore (typeof (Worker), typeof (string), typeof (string), typeof (string));
 
 		foreach(Journal.workerStruct work in journal.getAllWorkers())
 		{	
-			worker.AppendValues(work.worker, work.worker.getShortFIO(), work.key);
+			worker.AppendValues(work.worker, work.worker.getShortFIO(), work.key, work.worker.getPhone());
 		}
+		
 		filterAllWorkers = new Gtk.TreeModelFilter (worker, null);
 		filterAllWorkers.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree2);
-		return filterAllWorkers;
-		
+		return filterAllWorkers;		
 	}
 	
 	private void getKey()

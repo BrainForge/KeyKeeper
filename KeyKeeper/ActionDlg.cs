@@ -23,8 +23,9 @@ namespace KeyKeeper
 			this.Build();
 			
 			worker = mworker;
-			labelName.Text = worker.getFIO() +"\nтелефон: "+ worker.getPhone();
-
+			
+			labelName.Text = worker.getFIO();
+			
 			if(regType == Const.AUTO_OPERATION)
 				if(worker.isOnWork() == 0)
 				{
@@ -125,6 +126,8 @@ namespace KeyKeeper
 		{
 			foreach(Item item in dbHelper.getPopItem(worker.id()))
 				keykeeperwidgetGetItem.addButton(item.getName(), item);
+			
+			keykeeperwidgetGetItem.showAllButtons();
 		}
 		
 		private void getWorkerOnWorkNow()
@@ -142,11 +145,14 @@ namespace KeyKeeper
 			
 			foreach(Item item in Journal.getWorkerItems(worker.id()))
 				keykeeperwidgetBackItem.addButton(item.getName(), item);
+				
+			keykeeperwidgetBackItem.showAllButtons();
 		}
 		
 		private void updateKeyGet()
 		{
 			if(!string.IsNullOrEmpty(searchentry2.Text))
+			{
 				foreach(Item item in Journal.getItems())
 				{
 					if(item.getName().IndexOf (searchentry2.Text) > -1 && 
@@ -157,6 +163,9 @@ namespace KeyKeeper
 						keykeeperwidgetGetItem.addButton(item.getName(), item);
 					}
 				}
+				
+				keykeeperwidgetGetItem.showAllButtons();
+			}
 			else
 				displayPopKey();
 		}
@@ -198,10 +207,8 @@ namespace KeyKeeper
 		
 		protected void onAction(object sender, Action ca)
 		{
-			Console.WriteLine("пиу1");
 			if(actionSelectedIvent!=null)
 			{
-				Console.WriteLine("пиу2");
 				actionSelectedIvent(sender, ca);
 			}
 		}

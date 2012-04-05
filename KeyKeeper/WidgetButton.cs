@@ -10,15 +10,10 @@ namespace KeyKeeper
 		public delegate void ClickEventHeader(object sender, Item ca);
 		public event ClickEventHeader clickEvent;
 		
-		public WidgetButton (string text, Item item, Fixed fix, int x, int y) : base(text)
+		public WidgetButton (string text, Item item) : base(text)
 		{
 			this.item = item;
 			this.Show();
-			fix.Add(this);
-			global::Gtk.Fixed.FixedChild w1 = ((global::Gtk.Fixed.FixedChild)(fix [this]));
-			w1.X = x;
-			w1.Y = y;
-			fix.ShowAll();
 		}
 		
 		protected override void OnClicked ()
