@@ -27,7 +27,7 @@ namespace KeyKeeper
 			}
 			catch
 			{
-				Utils.showMessageError("что-то пошло не так=(");
+				Utils.showMessageError("что-то пошло не так(");
 			}
 		}
 		

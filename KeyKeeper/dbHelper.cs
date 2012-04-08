@@ -181,9 +181,16 @@ namespace KeyKeeper
 								where cw.code = '{0}'",code));
 			try
 			{
-				reader.Read();
-				tmpWorker= new Worker((uint)reader["id"], (string)reader["fio"],
+				if(reader.Read())
+				{
+					if(reader["id"] != DBNull.Value)
+						tmpWorker= new Worker((uint)reader["id"], (string)reader["fio"],
 				                          (string)reader["shortfio"],(string)reader["phone"],(uint)reader["code"]);
+					else
+						Console.WriteLine("нету такого сотрудника!!1");
+				}
+				else
+					Console.WriteLine("wtf: null answer");
 			}
 			catch(MySqlException ex)
 			{
@@ -232,6 +239,33 @@ namespace KeyKeeper
 		#endregion
 		
 		#region всякие манипуляции с итемами
+		
+		public static Item getItemByCode(string code)
+		{
+			Item tmpItem = null;
+			IDataReader reader = dbConnector.getdbAcces().readbd(
+				
+				string.Format(@"SELECT i.* 
+								FROM items i
+								join code2item c2i on c2i.item_id = i.id and c2i.code = '{0}'",
+			              		code));
+			try
+			{
+				if(reader.Read())
+					tmpItem= new Item((uint)reader["id"], (string)reader["name"],
+						(uint)reader["type"], (uint)reader["code"]);
+				else
+					Console.WriteLine("wtf: null answer");
+			}
+			catch(MySqlException ex)
+			{
+				Utils.showMessageError(ex.ToString());
+			}
+		
+			reader.Close();
+       		reader = null;
+			return tmpItem;
+		}
 		
 		public static Item getItemData(uint id)
 		{
@@ -464,6 +498,30 @@ namespace KeyKeeper
        		reader = null;
 			
 			return list;
+		}
+		
+		public static bool isItemByWorker(Worker worker, Item item)
+		{
+			bool answer = false;
+			IDataReader reader = dbConnector.getdbAcces().readbd(
+				
+				string.Format(@"SELECT id FROM journal
+								where worker_id = '{0}' and isnull(stamp_end) and item_id = '{1}'",
+			              		worker.id(),item.id()));
+			try
+			{
+				answer = reader.Read();
+
+			}
+			catch(MySqlException ex)
+			{
+				Utils.showMessageError(ex.ToString());
+			}
+		
+			reader.Close();
+       		reader = null;
+			
+			return answer;
 		}
 		
 		#endregion

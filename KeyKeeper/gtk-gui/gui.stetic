@@ -259,7 +259,7 @@
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Dialog" id="KeyKeeper.ActionDlg" design-size="291 268">
+  <widget class="Gtk.Dialog" id="KeyKeeper.ActionDlg" design-size="291 280">
     <property name="MemberName" />
     <property name="Title" translatable="yes">Действия</property>
     <property name="Icon">stock:gtk-about Menu</property>

@@ -230,7 +230,7 @@ namespace KeyKeeper
 				this.Child.ShowAll ();
 			}
 			this.DefaultWidth = 291;
-			this.DefaultHeight = 268;
+			this.DefaultHeight = 280;
 			this.Show ();
 			this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnClose);
 			this.KeysChanged += new global::System.EventHandler (this.OnKeysChanged);

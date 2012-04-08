@@ -247,7 +247,7 @@ public partial class MainWindow: Gtk.Window
 		showActionDialog((Worker)model.GetValue (iter, 0),Const.HAND_OPERATION);
 	}
 	
-	public void showActionDialog(Worker work, uint operationId)
+	public ActionDlg showActionDialog(Worker work, uint operationId)
 	{
 		ActionCreater act = new ActionCreater(new dbHelper());
 		act.updateTree += delegate(object sender, object sender2) 
@@ -255,7 +255,8 @@ public partial class MainWindow: Gtk.Window
 			if(CurrentPage == 0)
 				workerOnWork.Model = getWorkerOnWork();	
 		};
-		act.byWorker(work,operationId);
+		 
+		return act.byWorker(work,operationId);
 	}
 	
 	#endregion

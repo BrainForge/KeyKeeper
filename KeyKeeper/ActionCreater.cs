@@ -22,7 +22,7 @@ namespace KeyKeeper
 			a.Do(registrator);
 		}
 		
-		public void byWorker(Worker worker, uint regType)
+		public ActionDlg byWorker(Worker worker, uint regType)
 		{
 			Console.WriteLine("action by worker");
 			dlg = new ActionDlg(worker, regType);
@@ -33,6 +33,8 @@ namespace KeyKeeper
 					updateTree(this,this);
 			};
 			dlg.Show();
+			
+			return dlg;
 		}
 		
 		public void byItem(Item item, uint regType)

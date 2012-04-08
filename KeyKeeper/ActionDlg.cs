@@ -10,6 +10,7 @@ namespace KeyKeeper
 		public event dlgActionSelectedIventHedler actionSelectedIvent;
 		
 		public event EventHandler updateTreeView;
+		public event EventHandler onClose;
 		
 		private const int timeLeft = 5;
 		private int time = timeLeft;
@@ -136,6 +137,27 @@ namespace KeyKeeper
 			btnEndWork.Sensitive = !btnStartWork.Sensitive;
 		}
 		
+		public void workAutoItem(Item item)
+		{
+			closeAllTimer();
+			if(item.isFree() == 0)
+			{
+				onAction(this, new GetItem(worker,Const.AUTO_OPERATION,
+			             	item,Const.AUTO_OPERATION));
+			}
+			else
+			{
+				if(dbHelper.isItemByWorker(worker,item))
+					onAction(this, new PutItem(worker,Const.AUTO_OPERATION,
+			                item,Const.AUTO_OPERATION));
+			}
+			
+			updateKeyBack();
+			updateKeyGet();
+			updateTreeView(this, null);
+			this.Destroy();
+		}
+		
 		#region обновление ключей
 		
 		private void updateKeyBack()
@@ -250,6 +272,9 @@ namespace KeyKeeper
 		{
 			if(timer != null)
 				timer.Stop();
+			
+			if(onClose != null)
+				onClose(this,null);
 		}
 		
 		protected void OnKeysChanged (object sender, System.EventArgs e)

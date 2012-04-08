@@ -13,12 +13,15 @@ namespace KeyKeeper
 		{
 			Console.WriteLine("{0} Пришел на работу", worker.getShortFIO());
 			
-						registrator.registerAction("null", 
-			                           Const.OPERATION_WORK_IN.ToString(),
+			if(worker.isOnWork() == 0)
+				   registrator.registerAction("null", 
+			                      	   Const.OPERATION_WORK_IN.ToString(),
 			                           base.worker.id().ToString(),
 			                           base.worker_reg_type.ToString(),
 			                           "null",
 			                           "null");
+			else
+				Console.WriteLine("Уже на работе!!!1");
 		}
 		
 		

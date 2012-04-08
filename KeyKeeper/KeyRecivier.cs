@@ -5,6 +5,11 @@ namespace KeyKeeper
 	public class KeyRecivier
 	{
 		MainWindow window;
+		
+		private string keyCode = "";
+		
+		ActionDlg dlg = null;
+			
 		public KeyRecivier (SpecialKeys specKey, MainWindow win)
 		{
 			window = win;
@@ -13,34 +18,50 @@ namespace KeyKeeper
 		
 		private void keyStringAccepted(object o, string keyString)
 		{
-			Console.WriteLine("получен код: {0}", keyString );
-			
 			string type = keyString.Substring(1,1);
-			Console.WriteLine(type);
+			
 			switch(type)
 			{
 			case "1":
-				window.showActionDialog(dbHelper.getWorkerByCode(keyString),Const.AUTO_OPERATION);
-				//showActionDialog();
+				Console.WriteLine("получен код сотрудника: {0}", keyString );
+				
+				if(!keyString.Equals(keyCode))
+				{
+					Worker work = dbHelper.getWorkerByCode(keyString);
+					if(work != null)
+					{
+						dlg = window.showActionDialog(work,Const.AUTO_OPERATION);
+						
+						keyCode = keyString;
+						
+						dlg.onClose += delegate(object sender, EventArgs e)
+						{
+							keyCode = "";
+							
+							Console.WriteLine("del()");
+							dlg = null;
+						};
+					}
+					
+					
+
+				}
+
 				break;
 				
 			case "2":
-			
+				Console.WriteLine("получен код предмета: {0}", keyString );
+				
+				Item item = dbHelper.getItemByCode(keyString);
+					if(dlg != null && item != null)
+						dlg.workAutoItem(item);
+					
 				break;
 			}
 			
 		}
-		private void showActionDialog(Worker work)
-		{
-			ActionCreater act = new ActionCreater(new dbHelper());
-			act.updateTree += delegate(object sender, object sender2) 
-			{
-				//if(CurrentPage == 0)
-				//	workerOnWork.Model = getWorkerOnWork();	
-			};
-			act.byWorker(work,Const.AUTO_OPERATION);
-			
-		}
+		
+		
 	}
 }
 

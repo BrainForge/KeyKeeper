@@ -28,8 +28,6 @@ namespace KeyKeeper
 
     public class SpecialKeys
     {
-    
-    	private Timer timer;
     	    
 		public delegate void pressSpecKeyHadler(object o, string keyString);
 		public event pressSpecKeyHadler keyStringEnter;
@@ -209,10 +207,14 @@ namespace KeyKeeper
 				break;
 				
 				case SpecialKey.two:
+					
+					keyStringEnter(this,"22200013");
 					keyString+=2;
 				break;
 				
 				case SpecialKey.tree:
+				
+					keyStringEnter(this,"21200021");
 					keyString+=3;
 				break;
 				
