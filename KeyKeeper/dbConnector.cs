@@ -4,6 +4,9 @@ using MySql.Data.MySqlClient;
 
 namespace KeyKeeper
 {
+	/// <summary>
+	/// forevel alone db connector
+	/// </summary>
 	public class dbConnector
 	{
 		private static dbConnector mdb;

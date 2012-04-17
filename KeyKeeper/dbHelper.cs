@@ -8,7 +8,9 @@ namespace KeyKeeper
 {
 	public class dbHelper : IActionRegistrator
 	{
-		
+		/// <summary>
+		/// Структура для удобства манипуляций
+		/// </summary>
 		public struct DateOrWorker
 		{
 			public uint item_id;
@@ -25,6 +27,15 @@ namespace KeyKeeper
 		
 		#region всякие операции с сотрудниками
 		
+		/// <summary>
+		/// Получает информация о сотруднике
+		/// </summary>
+		/// <returns>
+		/// Сотрудник
+		/// </returns>
+		/// <param name='workerid'>
+		/// ID сотрудника
+		/// </param>
 		public static Worker getWorkerData(uint workerid)
 		{
 			Worker tmpWorker = null;
@@ -35,8 +46,8 @@ namespace KeyKeeper
 								where id='{0}'",workerid));
 			try
 			{
-				reader.Read();
-				tmpWorker= new Worker((uint)reader["id"], (string)reader["fio"],
+				if(reader.Read())
+					tmpWorker= new Worker((uint)reader["id"], (string)reader["fio"],
 				                          (string)reader["shortfio"],(string)reader["phone"],(uint)reader["code"]);
 			}
 			catch(MySqlException ex)
@@ -49,6 +60,15 @@ namespace KeyKeeper
 			return tmpWorker;
 		}
 		
+		/// <summary>
+		/// Получает ID из журнала по ID сотрудника
+		/// </summary>
+		/// <returns>
+		/// ID записи в журнале
+		/// </returns>
+		/// <param name='workerID'>
+		/// ID сотрудника
+		/// </param>
 		public static uint getWorkerOnWorkJournalID(uint workerID)
 		{
 			uint id = 0;
@@ -80,6 +100,50 @@ namespace KeyKeeper
 			return id;
 		}
 		
+		/// <summary>
+		/// Получает сотрудника у которого находится предмет
+		/// </summary>
+		/// <returns>
+		/// Сотрудник
+		/// </returns>
+		/// <param name='itemId'>
+		/// ID предмета
+		/// </param>
+		public static Worker getWorkerByItem(uint itemId)
+		{
+			Worker tmpWorker = null;
+			
+			IDataReader reader = dbConnector.getdbAcces().readbd(
+			string.Format(@"select w.*, concat_ws(' ',w.f,w.i,w.o) as fio, concat(w.f,' ',left(w.i,1),'. ',left(w.o,1),'.') as shortfio
+							from journal j
+							join workers w on w.id = j.worker_id
+							where j.operation_id=3 and isnull(j.stamp_end) and j.item_id = '{0}'",
+							itemId,
+							Const.OPERATION_WORK_IN));
+			try
+			{
+				if(reader.Read())
+				{
+					tmpWorker= new Worker((uint)reader["id"], (string)reader["fio"],
+				                          (string)reader["shortfio"],(string)reader["phone"],(uint)reader["code"]);
+				}
+			}
+			catch(MySqlException ex)
+			{
+				Utils.showMessageError(ex.ToString());
+			}
+		
+			reader.Close();
+       		reader = null;
+			return tmpWorker;
+		}
+		
+		/// <summary>
+		/// Получает список всех сотрудников
+		/// </summary>
+		/// <returns>
+		/// Список всех сотрудников
+		/// </returns>
 		public static List<Journal.workerStruct> getAllWorkers()
 		{
 			var list = new List<Journal.workerStruct>();
@@ -121,6 +185,12 @@ namespace KeyKeeper
 			return list;	
 		}
 		
+		/// <summary>
+		/// Получает список сотрудников на работе
+		/// </summary>
+		/// <returns>
+		/// Список сотрудников на работе
+		/// </returns>
 		public static List<Journal.workerStruct> getWorkersOnWork()
 		{
 			var list = new List<Journal.workerStruct>();
@@ -168,6 +238,15 @@ namespace KeyKeeper
 			
 		}
 		
+		/// <summary>
+		/// Получает сотрудника по штрих-коду
+		/// </summary>
+		/// <returns>
+		/// Сотрудник
+		/// </returns>
+		/// <param name='code'>
+		/// Штрих-код
+		/// </param>
 		public static Worker getWorkerByCode(string code)
 		{
 			Worker tmpWorker = null;
@@ -206,6 +285,30 @@ namespace KeyKeeper
 		
 		#region экшены
 		
+		/// <summary>
+		/// Регистрирует активность(событие)
+		/// </summary>
+		/// <returns>
+		/// Код выполнения
+		/// </returns>
+		/// <param name='stamp_end'>
+		/// Дата/время ухода
+		/// </param>
+		/// <param name='operation_id'>
+		/// Код операции
+		/// </param>
+		/// <param name='worker_id'>
+		/// ID сотрудника
+		/// </param>
+		/// <param name='worker_reg_type'>
+		/// Тип активность сотрудника
+		/// </param>
+		/// <param name='item_id'>
+		/// ID предмета
+		/// </param>
+		/// <param name='item_reg_type'>
+		/// Тип активность предмета
+		/// </param>
 		public int registerAction( 
 		                   string stamp_end, 
 		                   string operation_id, 
@@ -228,6 +331,15 @@ namespace KeyKeeper
 			return 0; 
 		}
 		
+		/// <summary>
+		/// Обновляет запись в журнале
+		/// </summary>
+		/// <returns>
+		/// Код выполнения
+		/// </returns>
+		/// <param name='journalID'>
+		/// ID записи в журнале
+		/// </param>
 		public int updateAction(uint journalID)
 		{
 			dbConnector.getdbAcces().querydb(string.Format(@"update journal
@@ -240,6 +352,15 @@ namespace KeyKeeper
 		
 		#region всякие манипуляции с итемами
 		
+		/// <summary>
+		/// Получает предмет по штрих-коду
+		/// </summary>
+		/// <returns>
+		/// Предмет
+		/// </returns>
+		/// <param name='code'>
+		/// Штрих код
+		/// </param>
 		public static Item getItemByCode(string code)
 		{
 			Item tmpItem = null;
@@ -267,6 +388,15 @@ namespace KeyKeeper
 			return tmpItem;
 		}
 		
+		/// <summary>
+		/// Получает предмет по ID
+		/// </summary>
+		/// <returns>
+		/// Предмет
+		/// </returns>
+		/// <param name='id'>
+		/// Identifier.
+		/// </param>
 		public static Item getItemData(uint id)
 		{
 			Item tmpItem = null;
@@ -277,9 +407,9 @@ namespace KeyKeeper
 								where id='{0}'",id));
 			try
 			{
-				reader.Read();
-				tmpItem= new Item((uint)reader["id"], (string)reader["name"],
-					(uint)reader["type"], (uint)reader["code"]);	 
+				if(reader.Read())
+					tmpItem= new Item((uint)reader["id"], (string)reader["name"],
+						(uint)reader["type"], (uint)reader["code"]);	 
 			}
 			catch(MySqlException ex)
 			{
@@ -291,6 +421,12 @@ namespace KeyKeeper
 			return tmpItem;
 		}
 		
+		/// <summary>
+		/// Получает список всех предметов
+		/// </summary>
+		/// <returns>
+		/// Список всех предметов
+		/// </returns>
 		public static List<Item> getAllItem()
 		{
 			var list = new List<Item>();
@@ -317,6 +453,15 @@ namespace KeyKeeper
 			return list;	
 		}
 		
+		/// <summary>
+		/// Получает все предметы взятые сотрудником
+		/// </summary>
+		/// <returns>
+		/// список предметов
+		/// </returns>
+		/// <param name='id'>
+		/// ID сотрудника
+		/// </param>
 		public static List<Item> getAllItemByWorker(uint id)
 		{
 			var list = new List<Item>();
@@ -345,6 +490,15 @@ namespace KeyKeeper
 			return list;	
 		}
 		
+		/// <summary>
+		/// Получает спиок предметов определенного типа
+		/// </summary>
+		/// <returns>
+		/// Список предметов
+		/// </returns>
+		/// <param name='type'>
+		/// Тип предмета
+		/// </param>
 		public static List<Item> getItemByType(uint type)
 		{
 			var list = new List<Item>();
@@ -372,6 +526,15 @@ namespace KeyKeeper
 			return list;	
 		}
 		
+		/// <summary>
+		/// Получает ID записи в журнале по предмету
+		/// </summary>
+		/// <returns>
+		/// ID в журнале
+		/// </returns>
+		/// <param name='itemId'>
+		/// ID предмета
+		/// </param>
 		public static uint getJournalID(uint itemId)
 		{
 			uint id = 0;
@@ -403,6 +566,12 @@ namespace KeyKeeper
 			return id;
 		}
 		
+		/// <summary>
+		/// Получает сотрудника и время прихода
+		/// </summary>
+		/// <returns>
+		/// Структура сотрудник+время
+		/// </returns>
 		public static List<DateOrWorker> getWorkerOrStamp()
 		{
 			List<DateOrWorker> list = new List<DateOrWorker>();
@@ -455,6 +624,15 @@ namespace KeyKeeper
 			return list;	
 		}
 		
+		/// <summary>
+		/// Получает попсовые ключи
+		/// </summary>
+		/// <returns>
+		/// Список популярных ключей
+		/// </returns>
+		/// <param name='id'>
+		/// ID сотрудника
+		/// </param>
 		public static List<Item> getPopItem(uint id)
 		{
 			List<Item> list = new List<Item>();
@@ -500,6 +678,18 @@ namespace KeyKeeper
 			return list;
 		}
 		
+		/// <summary>
+		/// Определяет принадлежит ли придмет сотруднику
+		/// </summary>
+		/// <returns>
+		/// принадлежность предмета
+		/// </returns>
+		/// <param name='worker'>
+		/// Сотрудник
+		/// </param>
+		/// <param name='item'>
+		/// Предмет
+		/// </param>
 		public static bool isItemByWorker(Worker worker, Item item)
 		{
 			bool answer = false;
@@ -511,7 +701,6 @@ namespace KeyKeeper
 			try
 			{
 				answer = reader.Read();
-
 			}
 			catch(MySqlException ex)
 			{
@@ -528,6 +717,15 @@ namespace KeyKeeper
 		
 		#region журнальные манипуляции
 		
+		/// <summary>
+		/// Получает событие по дате
+		/// </summary>
+		/// <returns>
+		/// Событие
+		/// </returns>
+		/// <param name='dateTime'>
+		/// Дата
+		/// </param>
 		public static List<Journal.journaStructur> getActionsByDate(string dateTime)
 		{
 			List<Journal.journaStructur> journal = new List<Journal.journaStructur>();

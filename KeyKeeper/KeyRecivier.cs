@@ -33,7 +33,7 @@ namespace KeyKeeper
 						dlg = window.showActionDialog(work,Const.AUTO_OPERATION);
 						
 						keyCode = keyString;
-						
+		
 						dlg.onClose += delegate(object sender, EventArgs e)
 						{
 							keyCode = "";
@@ -42,9 +42,6 @@ namespace KeyKeeper
 							dlg = null;
 						};
 					}
-					
-					
-
 				}
 
 				break;
@@ -53,8 +50,24 @@ namespace KeyKeeper
 				Console.WriteLine("получен код предмета: {0}", keyString );
 				
 				Item item = dbHelper.getItemByCode(keyString);
-					if(dlg != null && item != null)
-						dlg.workAutoItem(item);
+				
+				if(dlg != null && item != null)
+					dlg.workAutoItem(item);
+				else
+				{
+					if(item.isFree() != 0)
+					{
+						Worker tmpWorker = dbHelper.getWorkerByItem(item.id ());
+						if(tmpWorker != null)
+						{
+							dlg = window.showActionDialog(tmpWorker, Const.AUTO_OPERATION);
+							dlg.workAutoItem(item);
+							dlg = null;
+						}
+						else
+							Console.WriteLine("null workera");
+					}
+				}
 					
 				break;
 			}

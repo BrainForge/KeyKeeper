@@ -63,8 +63,7 @@ public partial class MainWindow: Gtk.Window
 		searchentry1.changed += OnFilterEntryChanged;
 		searchentry2.changed += OnEntrySearchChanged;
 		journalSearchEntry.changed += OnEntryJournal;
-		
-		
+				
 	}
 	
 	#region всяко для работы с treeview
